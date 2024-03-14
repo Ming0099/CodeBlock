@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+</head>
+
+<body style="margin: 0; padding: 0; width: 100vw; height: 100vh;">
+<div id="modal_screen1">
+    <div class="header">
+        <span style="font-size: 300%;">블럭형 코딩</span>
+        <br>
+        <span>※if 및 while에 조건을 여러가지를 달고 싶다면 and 또는 or을 이용해주세요.</span>
+    </div>
+    <div class="left">
+        <ol class="script">
+            <li class="button closed" draggable="true"> 부터~까지-반복</li>
+            <li class="underbar"></li>
+            <li class="button closed" draggable="true">만약-반복</li>
+            <li class="underbar"></li>
+            <li class="button closed" draggable="true">만약</li>
+            <li class="underbar"></li>
+            <li class="button" draggable="true">do-while</li>
+            <li class="underbar"></li>
+            <li class="button" draggable="true">표시</li>
+            <li class="underbar"></li>
+            <li class="button" draggable="true">변수</li>
+            <li class="underbar"></li>
+        </ol>
+    </div>
+    <div class="middle">
+        <div class="code_screen" id="coding">
+            <div class="mouse_right" id="popMenu" style="display: none;">
+                <span style="color: white; font-weight: bold;">삭제</span>
+            </div>
+        </div>
+        <button class="enter" id="results_code">출력하기</button>
+    </div>
+    <div class="right">
+        <div style="margin: 3% 1% 1% 1%; background-color: white; width: 98%; height: 48%;">
+            문제
+        </div>
+        <div style="margin: 1% 1% 1% 1%; background-color: white; width: 98%; height: 48%; padding-top: 1%; padding-left: 0.5%;"
+             id="result">
+        </div>
+    </div>
+</div>
+
+<div id="modal_screen2">
+    <div id="input_screen">
+        <span>작성하기</span>
+        <br> <br>
+        <textarea id="input_texting" placeholder="내용"></textarea>
+        <br>
+        <button id="save_text" class="click_text">저장</button>
+        <button id="cancel_text" class="click_text">취소</button>
+    </div>
+</div>
+<script src="js/variable_name.js"></script>
+
+<script src="js/code_screen_in.js"></script>
+<script src="js/right_click.js"></script>
+<script src="js/code_list_move.js"></script>
+<script src="js/function.js"></script>
+</body>
+
+</html>

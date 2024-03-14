@@ -1,0 +1,169 @@
+div.header{
+    height: 12.5%;
+    width: 100%;
+    border-bottom: 0.5vh solid;
+    text-align: center;
+}
+div.left{
+    border-right: 0.5vw solid;
+    background-color: rgb(255, 123, 123);
+    float: left;
+    width: 10%;
+    height: 87%;
+    overflow: scroll;
+    direction:rtl;
+}
+div.left::-webkit-scrollbar{
+    width: 0.5vw;
+}
+div.middle{
+    background-color: rgb(255, 166, 166);
+    float: left;
+    width: 59%;
+    height: 87%;
+}
+div.right{
+    border-left: 0.5vw solid;
+    background-color: rgb(249, 200, 200);
+    float: left;
+    width: 30%;
+    height: 87%;
+}
+div.code_screen{
+    overflow: auto;
+    background-color: rgb(255, 255, 255);
+    width: 98%;
+    height: 92%;
+    margin : 0.5% 1% 1% 1%;
+    padding-top: 0.5%;
+    padding-left: 0.1%;
+}
+div.code_screen.dragging>* {
+    pointer-events: none; /* 드래그 중인 경우 자식 요소에 대한 이벤트를 무시 */
+}
+li.button{
+    background-image: linear-gradient(to top left, rgb(255, 166, 166), rgb(255, 255, 255));
+    text-align: center;
+    font-weight: bold;
+    font-size: 2vmin;
+    cursor: pointer;
+}
+.closed{
+    font-size: 2vmin;
+}
+.this_is_close{
+    font-size: 2vmin;
+}
+li.underbar{
+    font-weight: bold;
+    font-size: 2vmin;
+    border-bottom: 0.5vh solid;
+}
+button.enter{
+    background-color: rgb(255, 148, 148);
+    height: 4.5%;
+    width: 10%;
+    font-size: 100%;
+    font-weight: bold;
+    float: right;
+    margin-bottom: 10%;
+    margin-right: 1%;
+    border-radius: 20px;
+    cursor: pointer;
+}
+span.conding_contents{
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    width: 50%;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-bottom: 3px solid;
+    border-top: 3px solid;
+    border-left: 3px solid;
+    border-right: 3px solid;
+    border-color: blue;
+}
+span.result_conding_contents{
+    font-weight: bold;
+}
+ol.script{
+    list-style-type: none; 
+    margin: 0;
+    padding: 0;
+}
+li.button.dragging {
+    opacity: 0.5;
+}
+span.conding_contents.select{
+    opacity: 1;
+}
+
+div.mouse_right{
+    cursor: pointer;
+    background-color: black;
+    width: 100px;
+    height: 20px;
+    text-align: center;
+    border-bottom: 3px solid;
+    border-top: 3px solid;
+    border-left: 3px solid;
+    border-right: 3px solid;
+    border-radius: 10px;
+    opacity: 0.5;
+}
+
+input.code_text{
+    cursor: pointer;
+    opacity: 5;
+    margin-left: 2%;
+    width: 20%;
+}
+
+#input_screen {
+    width: 30%;
+    height: 70%;
+    margin-left: 35%;
+    margin-top: 7%;
+    position: absolute;
+    background-color: rgb(137, 130, 130);
+    font-weight: bold;
+    text-align: center;
+    font-size: 200%;
+}
+
+#modal_screen1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+#modal_screen2 {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(171, 162, 162, 0.7);
+}
+
+#input_texting{
+    width: 80%;
+    height: 70%;
+    overflow: auto;
+    font-size: 100%;
+    resize: none;
+}
+button.click_text{
+    font-weight: bold;
+    margin-right: 25%;
+    margin-top: 5%;
+    border-radius: 10px;
+    float: right;
+    width: 10%;
+    height: 6%;
+}
+section.size{
+    text-align: center;
+}
