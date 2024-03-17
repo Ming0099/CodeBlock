@@ -13,9 +13,25 @@ public class CTranslator implements CodeTranslator{
     }
 
     @Override
+    public void translateVariable(String name, String value) {
+        String type = "";
+        if (isInteger(value)) {
+            type = "int";
+        } else if (isDouble(value)) {
+            type = "double";
+        } else if (isCharacter(value)) {
+            type = "char";
+        } else {
+            type = "char *";
+        }
+        createIndent(getCodeDepth());
+        code.append(type).append(" ").append(name).append(" = ").append(value).append(";\n");
+    }
+
+    @Override
     public void translatePrint(String text) {
         createIndent(getCodeDepth());
-        code.append("printf(\"").append(text).append("\\n\");\n");
+        code.append("printf(\"").append(text).append("\");\n");
     }
 
     @Override
@@ -35,7 +51,27 @@ public class CTranslator implements CodeTranslator{
     }
 
     @Override
-    public void translateIf(String s1, String s2, String condition) {
+    public void translateIf(String s1, String condition, String s2) {
+        switch (condition){
+            case "작다":
+                condition = "<";
+                break;
+            case "크다":
+                condition = ">";
+                break;
+            case "같다":
+                condition = "==";
+                break;
+            case "작거나 같다":
+                condition = "<=";
+                break;
+            case "크거나 같다":
+                condition = ">=";
+                break;
+            case "다르다":
+                condition = "!=";
+                break;
+        }
         createIndent(getCodeDepth());
         code.append("if(").append(s1).append(" ").append(condition).append(" ").append(s2).append(") {\n");
         codeDepthStack.push(codeDepthStack.peek() + 1);
@@ -63,7 +99,7 @@ public class CTranslator implements CodeTranslator{
     @Override
     public void createIndent(int count) {
         for(int i=0; i<count; i++){
-            code.append("\t");
+            code.append("   ");
         }
     }
 
@@ -71,5 +107,30 @@ public class CTranslator implements CodeTranslator{
     public String getTranslatedCode() {
         closeAllBraces();
         return code.toString();
+    }
+
+    // 정수 확인
+    public static boolean isInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    // 소수 확인
+    public static boolean isDouble(String input) {
+        try {
+            Double.parseDouble(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    // 문자 확인
+    public static boolean isCharacter(String input) {
+        return input.length() == 1;
     }
 }

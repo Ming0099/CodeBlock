@@ -16,8 +16,8 @@ public class CodeBlock {
         return content;
     }
 
-    public Optional<String> getContentById(int id){
-        return Optional.ofNullable(content.get(id));
+    public String getContentById(int id){
+        return content.get(id);
     }
 
     public void setContent(ArrayList<String> content) {
@@ -40,8 +40,8 @@ public class CodeBlock {
         this.child = child;
     }
 
-    public Optional<String[]> getChildById(int id){
-        return Optional.ofNullable(child.get(id));
+    public String[] getChildById(int id){
+        return child.get(id);
     }
 
     public void addChild(String[] child){
