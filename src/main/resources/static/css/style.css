@@ -1,89 +1,184 @@
-div.header{
-    height: 12.5%;
-    width: 100%;
-    border-bottom: 0.5vh solid;
-    text-align: center;
+body{
+    overflow-x: hidden;
 }
-div.left{
-    border-right: 0.5vw solid;
-    background-color: rgb(255, 123, 123);
+
+div.header{
+    background-color: #855CD6;
+    display: flex;
+    height: 6%;
+    width: 100%;
+    align-items: center;
+}
+div.header_title{
+    font-weight: bold;
+    color: #fff;
+    text-align: left;
+    width: 15%;
+}
+div.header_title a{
+    display: block;
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+div.header_title a:hover{
+    background-color: #652dd4;
+}
+div.header_menu{
+    display: flex;
+    width: 60%;
+}
+div.header_menu ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+div.header_menu ul li{
+    border-right: 1px dashed #fff;
     float: left;
+}
+div.header_menu ul li[id="first_menu"]{
+    border-left: 1px dashed #fff;
+}
+div.header_menu ul li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+div.header_menu ul li a:hover{
+    background-color: #652dd4;
+}
+div.header_myinfo{
+    width: 30%;
+}
+div.header_myinfo ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    float: right;
+}
+div.header_myinfo ul li{
+    border-left: 1px dashed #fff;
+    float: left;
+}
+div.header_myinfo ul li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+div.header_myinfo a:hover{
+    background-color: #652dd4;
+}
+
+
+div.bodyBox{
+    display: flex;
+    padding-right: 5px;
+    padding-top: 3%;
+    background-color: #E5F0FF;
+    height: 90%;
+}
+
+div.sidebar{
+    width: 2%;
+    background-color: #855CD6;
+}
+
+div.left{
+    float: left;
+    background-color: white;
     width: 10%;
-    height: 87%;
     overflow: scroll;
     direction:rtl;
+    border-bottom: 1px solid #C3CCD9;
+    border-top: 1px solid #C3CCD9;
+    border-right: 1px solid #C3CCD9;
+    padding-right: 3px;
 }
 div.left::-webkit-scrollbar{
     width: 0.5vw;
 }
+
 div.middle{
-    background-color: rgb(255, 166, 166);
     float: left;
+    border-bottom: 1px solid #C3CCD9;
+    border-top: 1px solid #C3CCD9;
+    border-right: 1px solid #C3CCD9;
     width: 59%;
-    height: 87%;
 }
+
 div.right{
-    border-left: 0.5vw solid;
-    background-color: rgb(249, 200, 200);
     float: left;
+    border-bottom: 1px solid #C3CCD9;
+    border-top: 1px solid #C3CCD9;
+    border-right: 1px solid #C3CCD9;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
     width: 30%;
-    height: 87%;
 }
+
+div.right div{
+    margin: 1%; 
+    background-color: white; 
+    width: 98%; height: 48%;
+}
+div.rightboard1{
+    border-top-right-radius: 16px;
+}
+div.rightboard2{
+    border-bottom-right-radius: 16px;
+}
+
 div.code_screen{
     overflow: auto;
     background-color: rgb(255, 255, 255);
     width: 98%;
     height: 92%;
     margin : 0.5% 1% 1% 1%;
-    padding-top: 0.5%;
-    padding-left: 0.1%;
 }
 div.code_screen.dragging>* {
     pointer-events: none; /* 드래그 중인 경우 자식 요소에 대한 이벤트를 무시 */
 }
 li.button{
-    background-image: linear-gradient(to top left, rgb(255, 166, 166), rgb(255, 255, 255));
+    background-color: #855CD6;
+    color:#fff;
     text-align: center;
-    font-weight: bold;
-    font-size: 2vmin;
     cursor: pointer;
-}
-.closed{
-    font-size: 2vmin;
-}
-.this_is_close{
-    font-size: 2vmin;
-}
-li.underbar{
-    font-weight: bold;
-    font-size: 2vmin;
-    border-bottom: 0.5vh solid;
+    margin-top: 7px;
+    border-radius: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 button.enter{
-    background-color: rgb(255, 148, 148);
+    background-color: #855CD6;
+    color:white;
+    border:none;
     height: 4.5%;
     width: 10%;
     font-size: 100%;
-    font-weight: bold;
     float: right;
-    margin-bottom: 10%;
     margin-right: 1%;
-    border-radius: 20px;
-    cursor: pointer;
+    border-radius: 10px;
 }
 span.conding_contents{
     cursor: pointer;
-    font-weight: bold;
     text-align: center;
     width: 50%;
     display: block;
+    padding-left: 10px;
+    padding-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
-    border-bottom: 3px solid;
-    border-top: 3px solid;
-    border-left: 3px solid;
-    border-right: 3px solid;
-    border-color: blue;
+    border:1px solid;
+    border-radius: 16px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 span.result_conding_contents{
     font-weight: bold;
