@@ -13,40 +13,57 @@
 <body style="margin: 0; padding: 0; width: 100vw; height: 100vh;">
 <div id="modal_screen1">
     <div class="header">
-        <span style="font-size: 300%;">블럭형 코딩</span>
-        <br>
-        <span>※if 및 while에 조건을 여러가지를 달고 싶다면 and 또는 or을 이용해주세요.</span>
+        <div class="header_title">
+            <a href="#">Code Block</a>
+        </div>
+        <div class="header_menu">
+            <ul>
+                <li id="first_menu"><a href="#">Home</a></li>
+                <li><a href="#">학습하기</a></li>
+                <li><a href="#">도움말</a></li>
+            </ul>
+        </div>
+        <div class="header_myinfo">
+            <ul>
+                <li><a href="#">Sign in</a></li>
+                <li><a href="#">Sign up</a></li>
+            </ul>
+        </div>
     </div>
-    <div class="left">
-        <ol class="script">
-            <li class="button closed" draggable="true"> 부터~까지-반복</li>
-            <li class="underbar"></li>
-            <li class="button closed" draggable="true">만약-반복</li>
-            <li class="underbar"></li>
-            <li class="button closed" draggable="true">만약</li>
-            <li class="underbar"></li>
-            <li class="button" draggable="true">do-while</li>
-            <li class="underbar"></li>
-            <li class="button" draggable="true">표시</li>
-            <li class="underbar"></li>
-            <li class="button" draggable="true">변수</li>
-            <li class="underbar"></li>
-        </ol>
-    </div>
-    <div class="middle">
-        <div class="code_screen" id="coding">
-            <div class="mouse_right" id="popMenu" style="display: none;">
-                <span style="color: white; font-weight: bold;">삭제</span>
+    <div class="bodyBox">
+        <div class="sidebar">
+
+        </div>
+        <div class="left">
+            <ol class="script">
+                <li class="button closed" draggable="true"> 부터~까지-반복</li>
+                <li class="underbar"></li>
+                <li class="button closed" draggable="true">만약-반복</li>
+                <li class="underbar"></li>
+                <li class="button closed" draggable="true">만약</li>
+                <li class="underbar"></li>
+                <li class="button" draggable="true">do-while</li>
+                <li class="underbar"></li>
+                <li class="button" draggable="true">표시</li>
+                <li class="underbar"></li>
+                <li class="button" draggable="true">변수</li>
+                <li class="underbar"></li>
+            </ol>
+        </div>
+        <div class="middle">
+            <div class="code_screen" id="coding">
+                <div class="mouse_right" id="popMenu" style="display: none;">
+                    <span style="color: white; font-weight: bold;">삭제</span>
+                </div>
             </div>
+            <button class="enter" id="results_code">출력</button>
         </div>
-        <button class="enter" id="results_code">출력하기</button>
-    </div>
-    <div class="right">
-        <div style="margin: 3% 1% 1% 1%; background-color: white; width: 98%; height: 48%;">
-            문제
-        </div>
-        <div style="margin: 1% 1% 1% 1%; background-color: white; width: 98%; height: 48%; padding-top: 1%; padding-left: 0.5%; white-space: pre;"
-             id="result">
+        <div class="right">
+            <div class="rightboard1">
+                
+            </div>
+            <div class="rightboard2" id="result">
+            </div>
         </div>
     </div>
 </div>
