@@ -20,8 +20,8 @@ const observer = new MutationObserver(() => { //code div에 있는 설정 코드
             dont_up = 0;
             span.classList.remove("select");
         });
-        span.addEventListener("mousedown", function (e) {
-            if (((e.button == 2) || (e.which == 3)) && mousedown_check == 0) {
+        span.addEventListener("mousedown", function (e) { //화면에서 삭제기능
+            if (((e.button == 2) || (e.which == 3)) && mousedown_check == 0) { //code_screen에 블록을 삭제할때 쓰임
                 remove_code = span;
                 var classListArray = Array.from(span.classList);
                 classListArray.some(className => {
@@ -58,47 +58,41 @@ contain.addEventListener("dragenter", (e) => { //진입
     }
 
     if (check == 0 && in_check == 0) {
+        //const span = create_span(value, title, close_is, text_cnt)
         const span = document.createElement('span');
         span.draggable = true;
-        span.innerHTML = target_id;
-        span.id = "immediate" + cnt.toString();
-        span.classList.add("conding_contents");
-        span.classList.add("select");
-
-        var color = random_color();
+        span.innerHTML = target_id; //html에 target_id라는 내용을 화면에 표시
+        span.id = "immediate" + cnt.toString(); //마우스 다운 하고 움직이기 때문에 임시id를 줌
+        span.classList.add("conding_contents"); //code_screen에 들어가기 때문에 css로 conding_contents를 줌
+        span.classList.add("select"); //down하고 움직이기 때문에 특정 블럭을 뽑기 위해 select라는 클릭
+        var color = random_color(); //블럭 background 색깔입히기
         span.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
-
+        //리스트 블록 추가시
         if (span.textContent.includes("부터~까지") === true) {
+            //span.setAttribute('data-value', 'value값넣기')
+            //var value = document.getElementById('mySpan').getAttribute('data-value'); //value 꺼내기
             span.title = "첫 빈칸 : ~부터 / 중간 빈칸 : ~까지 / 마지막 빈칸 : ~까지가는데 건너는 크기"
-            create_text(span, 3, 0);
+            create_text(span, 3, 0); //child인 text를 가져오도록 하는 방법
         }
-        else if(span.textContent.includes("변수") === true){
+        else if (span.textContent.includes("변수") === true) {
+            //span.setAttribute('data-value', 'value값넣기')
             span.title = "첫 빈칸 : 변수명 / 두번째 빈칸 : 변수명에 들어갈 내용(ex. 1, 2, 'a', 'b')";
             create_text(span, 2, 0);
         }
-        else if(span.textContent.includes("만약") === true){
+        else if (span.textContent.includes("만약") === true) {
+            //span.setAttribute('data-value', 'value값넣기')
             create_if(span);
         }
-        else{
+        else {
+            //span.setAttribute('data-value', 'value값넣기')
             create_text(span, 1, 0);
         }
-
         if (include_close == 0) {
             contain.appendChild(span);
         }
-        else {
+        else { //close 블럭 추가
             span.classList.add("closed");
-
-            const span_close = document.createElement('span'); //span추가 및 설정 //닫는 것
-            span_close.draggable = true;
-            span_close.innerHTML = "/" + target_id;
-            span_close.id = "close_immediate" + cnt.toString();
-            span_close.classList.add("conding_contents");
-            span_close.classList.add("closed");
-            span_close.classList.add("select");
-            span_close.classList.add("this_is_close");
-            span_close.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
-
+            const span_close = add_close_block(color)
             contain.appendChild(span);
             contain.appendChild(span_close);
             span_close_setting = span_close;

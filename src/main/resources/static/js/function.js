@@ -19,16 +19,17 @@ function getDragAfterElement(container, y) { //근처위치 찾기
 
 $(document).ready(function () { //출력하기
     $("#results_code").click(function () {
-        const contents = document.querySelectorAll("span.conding_contents");
+        const contents = document.querySelectorAll("span.conding_contents"); //만약 변수 
         var all_content = init;
-        var total_arr = [];
+        var total_arr = []; //배열 만들기 위해서
         contents.forEach(content => {//데이터(코드) 모으기
-            if(content.textContent.includes("작다크다같다작거나") === true){
+            if (content.textContent.includes("작다크다같다작거나") === true) {
                 console.log(content.textContent);
                 all_content = all_content + " " + content.textContent.replace("작다크다같다작거나 같다크거나 같다다르다", "");
             }
-            else{
+            else {
                 all_content = all_content + " " + content.textContent;
+                //string
             }
             if (content.textContent.includes("/") === false) {
                 var child_arr = []
@@ -114,3 +115,40 @@ function random_color() {
     var b = parseInt(Math.random() * 255);
     return [r, g, b];
 }
+
+function add_close_block(color) {
+    const span_close = document.createElement('span'); //span추가 및 설정 //닫는 것
+    span_close.draggable = true;
+    span_close.innerHTML = "/" + target_id;
+    span_close.id = "close_immediate" + cnt.toString();
+    span_close.classList.add("conding_contents");
+    span_close.classList.add("closed");
+    span_close.classList.add("select");
+    span_close.classList.add("this_is_close");
+    span_close.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
+    return span_close
+}
+
+// function create_span(value, title, close_is, text_cnt) {
+//     const span = document.createElement('span');
+//     span.draggable = true;
+//     span.innerHTML = target_id; //html에 target_id라는 내용을 화면에 표시
+//     span.id = "immediate" + cnt.toString(); //마우스 다운 하고 움직이기 때문에 임시id를 줌
+//     span.classList.add("conding_contents"); //code_screen에 들어가기 때문에 css로 conding_contents를 줌
+//     span.classList.add("select"); //down하고 움직이기 때문에 특정 블럭을 뽑기 위해 select라는 클릭
+//     var color = random_color(); //블럭 background 색깔입히기
+//     span.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
+//     //리스트 블록 추가시
+//     create_text(span, text_cnt, 0);
+//     if (close_is == 0) {
+//         contain.appendChild(span);
+//     }
+//     else { //close 블럭 추가
+//         span.classList.add("closed");
+//         const span_close = add_close_block(color)
+//         contain.appendChild(span);
+//         contain.appendChild(span_close);
+//         span_close_setting = span_close;
+//     }
+//     return span
+// }
