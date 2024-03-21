@@ -1,0 +1,81 @@
+/* code block button */
+li.button{
+    background-color: #855CD6;
+    color:#fff;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 7px;
+    border-radius: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+ol.script{
+    list-style-type: none; 
+    margin: 0;
+    padding: 0;
+}
+
+/* code block dragged */
+li.button.dragging {
+    opacity: 0.5;
+}
+span.conding_contents.select{
+    opacity: 1;
+}
+
+/* textbox in code block */
+input.code_text{
+    cursor: pointer;
+    opacity: 5;
+    margin-left: 2%;
+    width: 20%;
+}
+
+/* 출력 button */
+button.enter{
+    background-color: #855CD6;
+    color:white;
+    border:none;
+    height: 4.5%;
+    width: 10%;
+    font-size: 100%;
+    float: right;
+    margin-right: 1%;
+    border-radius: 10px;
+}
+
+/* script screen code block */
+span.conding_contents{
+    cursor: pointer;
+    text-align: center;
+    width: 50%;
+    display: block;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border:1px solid;
+    border-radius: 16px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+/* translated screen code */
+span.result_conding_contents{
+    font-weight: bold;
+}
+
+/* 마우스 우클릭시 나오는 버튼 */
+div.mouse_right{
+    cursor: pointer;
+    background-color: black;
+    width: 100px;
+    height: 20px;
+    text-align: center;
+    border-bottom: 3px solid;
+    border-top: 3px solid;
+    border-left: 3px solid;
+    border-right: 3px solid;
+    border-radius: 10px;
+    opacity: 0.5;
+}

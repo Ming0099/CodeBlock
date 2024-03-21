@@ -1,0 +1,46 @@
+#input_screen {
+    width: 30%;
+    height: 70%;
+    margin-left: 35%;
+    margin-top: 7%;
+    position: absolute;
+    background-color: rgb(137, 130, 130);
+    font-weight: bold;
+    text-align: center;
+    font-size: 200%;
+}
+
+#modal_screen1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+#modal_screen2 {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(171, 162, 162, 0.7);
+}
+
+#input_texting{
+    width: 80%;
+    height: 70%;
+    overflow: auto;
+    font-size: 100%;
+    resize: none;
+}
+button.click_text{
+    font-weight: bold;
+    margin-right: 25%;
+    margin-top: 5%;
+    border-radius: 10px;
+    float: right;
+    width: 10%;
+    height: 6%;
+}
+section.size{
+    text-align: center;
+}
