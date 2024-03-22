@@ -25,15 +25,13 @@ div.sidebar ol li{
     text-align: center;
     background-color: #855CD6;
     cursor: pointer;
-    width: 60px;
+    width: 70px;
     padding-top: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid #C3CCD9;
 }
-div.sidebar ol li[id="first_script_menu"]{ /* 첫번째 메뉴 */
+div.sidebar ol li[id="first_side_menu"]{ /* 첫번째 메뉴 */
     border-top-left-radius: 16px;
-}
-div.sidebar ol li.script_menu_variable{ /* 선택된 메뉴 (추후 수정필요)*/
     color:#855CD6;
     background-color: #fff;
 }
@@ -42,7 +40,7 @@ div.sidebar ol li.script_menu_variable{ /* 선택된 메뉴 (추후 수정필요
 div.left{
     float: left;
     background-color: white;
-    width: 10%;
+    width: 12%;
     overflow: scroll;
     direction:rtl;
     border: 1px solid #C3CCD9;
@@ -51,6 +49,9 @@ div.left{
 }
 div.left::-webkit-scrollbar{
     width: 0.5vw;
+}
+div.left ol div{
+    display: none;
 }
 
 /* code block script area */
