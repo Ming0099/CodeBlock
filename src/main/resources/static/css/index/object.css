@@ -36,9 +36,8 @@ button.enter{
     background-color: #855CD6;
     color:white;
     border:none;
-    height: 4.5%;
-    width: 10%;
-    font-size: 100%;
+    padding: 10px;
+    font-size: 16px;
     float: right;
     margin-right: 1%;
     border-radius: 10px;
@@ -78,4 +77,13 @@ div.mouse_right{
     border-right: 3px solid;
     border-radius: 10px;
     opacity: 0.5;
+}
+
+input{
+    border-radius: 10px;
+    border-width: 1px;
+}
+select{
+    border-radius: 10px;
+    text-align: center;
 }

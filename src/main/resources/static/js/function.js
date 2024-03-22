@@ -79,10 +79,14 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
         texting.readOnly = true;
         texting.classList.add("code_text");
         texting.onclick = function (element) {
-            return function () {
+            return function (e) {
                 input_text_element = element;
                 var content_temp = $('#' + input_text_element.id).val();
                 $("#input_texting").val(content_temp);
+                $("#input_screen").css({
+                    "left" : e.x+150+"px",
+                    "top" : e.y+40+"px"
+                });
                 document.getElementById("modal_screen2").style.display = "block";
                 document.getElementById("modal_screen1").style.zIndex = "-1";
             };
