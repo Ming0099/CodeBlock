@@ -5,13 +5,13 @@ function addEventListenersToElement(element) {
             close_click = element.id;
         }
         element.classList.add("select");
-        element = span;
+        span_setting = element;
         if (first == 0 && check == 0 && in_check == 1) { //유효성검사하기전 클릭한 블럭의 위에 블럭을 찾음
             // 클릭할 때 수행할 작업
             pre_block = getSpanAboveCurrent(contain, element);
             first = 1;
         }
-    }, { once: true });
+    });
     element.addEventListener("dragend", function (e) {
         if (first == 1 && check == 0 && in_check == 1) {
             // 클릭할 때 수행할 작업
@@ -24,7 +24,7 @@ function addEventListenersToElement(element) {
         in_check = 0;
         dont_up = 0;
         element.classList.remove("select");
-    }, { once: true });
+    });
     element.addEventListener("mousedown", function (e) { //화면에서 삭제기능
         if (((e.button == 2) || (e.which == 3)) && mousedown_check == 0) { //code_screen에 블록을 삭제할때 쓰임
             remove_code = element;
@@ -59,9 +59,67 @@ function addEventListenersToElement(element) {
     });
 }
 
-// Mutation Observer 생성
+// // Mutation Observer 생성
 // const observer = new MutationObserver(() => { //code div에 있는 설정 코드들 기동하기
 //     document.querySelectorAll("span.conding_contents").forEach(span => {
+//         span.addEventListener("dragstart", function (e) {
+//             var classListArray = Array.from(span.classList);
+//             if (span.id.includes("close_")) {
+//                 close_click = span.id;
+//             }
+//             span.classList.add("select");
+//             span_setting = span;
+//             if (first == 0 && check == 0 && in_check == 1) { //유효성검사하기전 클릭한 블럭의 위에 블럭을 찾음
+//                 // 클릭할 때 수행할 작업
+//                 pre_block = getSpanAboveCurrent(contain, span);
+//                 first = 1;
+//             }
+//         }, { once: true });
+//         span.addEventListener("dragend", function (e) {
+//             if (first == 1 && check == 0 && in_check == 1) {
+//                 // 클릭할 때 수행할 작업
+//                 close_check = check_close_complete(span);
+//                 first = 0;
+//             }
+//             if (include_close == 1) {
+//                 include_close = 0;
+//             }
+//             in_check = 0;
+//             dont_up = 0;
+//             span.classList.remove("select");
+//         }, { once: true });
+//         span.addEventListener("mousedown", function (e) { //화면에서 삭제기능
+//             if (((e.button == 2) || (e.which == 3)) && mousedown_check == 0) { //code_screen에 블록을 삭제할때 쓰임
+//                 remove_code = span;
+//                 var classListArray = Array.from(span.classList);
+//                 classListArray.some(className => {
+//                     if (className === "closed") {
+//                         if (span.id.includes("close_")) {
+//                             var name = span.id.replace("close_", "");
+//                             remove_close_code = document.getElementById(name);
+//                         }
+//                         else {
+//                             var name = "close_" + span.id;
+//                             remove_close_code = document.getElementById(name);
+//                         }
+//                         return true;
+//                     }
+//                     return false;
+//                 });
+//                 mousedown_check = 1;
+//             }
+//             else{
+//                 draggableElements = [ //getDragAfterElement 함수에서 필요한데 처리속도 개선으로 인한 안타까움으로 쩔 수 없음
+//                     ...contain.querySelectorAll("span.conding_contents:not(.select)") //css가 conding_contents인 요소 전부 찾기
+//                 ];
+//                 in_check = 1;
+//             }
+//         });
+//         span.addEventListener("mouseup", function (e){
+//             if(in_check == 1){
+//                 in_check = 0;
+//             }
+//         });
 //     });
 // });
 
@@ -120,10 +178,9 @@ contain.addEventListener("dragenter", (e) => { //진입
         }
         check = 1;
         span_setting = span;
-        addEventListenersToElement(span);
         draggableElements = [ //getDragAfterElement 함수에서 필요한데 처리속도 개선으로 인한 안타까움으로 쩔 수 없음
-            ...contain.querySelectorAll("span.conding_contents:not(.select)") //css가 conding_contents인 요소 전부 찾기
-        ];
+                    ...contain.querySelectorAll("span.conding_contents:not(.select)") //css가 conding_contents인 요소 전부 찾기
+                ];
     }
 });
 
