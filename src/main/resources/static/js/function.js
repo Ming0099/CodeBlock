@@ -2,13 +2,14 @@ function getDragAfterElement(y) {
     let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
 
     draggableElements.forEach(child => {
-        const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
+        const offsetTop = child.offsetTop;
+        const boxHeight = child.offsetHeight;
+        const offset = y - offsetTop - boxHeight / 2;
+        
         if (offset < 0 && offset > closest.offset) {
             closest = { offset: offset, element: child };
         }
     });
-
     return closest.element;
 }
 
