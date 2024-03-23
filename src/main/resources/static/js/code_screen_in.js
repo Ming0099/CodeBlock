@@ -100,20 +100,38 @@ contain.addEventListener("dragenter", (e) => { //진입
         var color = random_color(); //블럭 background 색깔입히기
         span.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
         //리스트 블록 추가시
-        if (span.textContent.includes("부터~까지") === true) {
+        if (span.textContent.includes("번 반복 (for문)") === true) {
             //span.setAttribute('data-value', 'value값넣기')
             //var value = document.getElementById('mySpan').getAttribute('data-value'); //value 꺼내기
-            span.title = "첫 빈칸 : ~부터 / 중간 빈칸 : ~까지 / 마지막 빈칸 : ~까지가는데 건너는 크기"
-            create_text(span, 3, 0); //child인 text를 가져오도록 하는 방법
+            span.innerHTML = "";
+            span.title = "반복할 횟수 입력";
+            create_for(span); //child인 text를 가져오도록 하는 방법
+        }
+        else if (span.textContent.includes("번 반복 (do-while문)") === true) {
+            //span.setAttribute('data-value', 'value값넣기')
+            span.innerHTML = "";
+            span.title = "첫 빈칸 : 변수명 / 두번째 빈칸 : 변수명에 들어갈 내용(ex. 1, 2, 'a', 'b')";
+            create_while(span);
         }
         else if (span.textContent.includes("변수") === true) {
             //span.setAttribute('data-value', 'value값넣기')
+            span.innerHTML = "";
             span.title = "첫 빈칸 : 변수명 / 두번째 빈칸 : 변수명에 들어갈 내용(ex. 1, 2, 'a', 'b')";
-            create_text(span, 2, 0);
+            create_variable(span);
         }
         else if (span.textContent.includes("만약") === true) {
             //span.setAttribute('data-value', 'value값넣기')
             create_if(span);
+        }
+        else if (span.textContent.includes("연산자") === true) {
+            //span.setAttribute('data-value', 'value값넣기')
+            span.innerHTML = "";
+            create_operator(span);
+        }
+        else if (span.textContent.includes("출력") === true) {
+            //span.setAttribute('data-value', 'value값넣기')
+            span.innerHTML = "";
+            create_print(span);
         }
         else {
             //span.setAttribute('data-value', 'value값넣기')

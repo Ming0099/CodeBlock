@@ -143,11 +143,18 @@ function create_variable(element) {
 
     create_text(element, 1, 1);
 
-    explain = document.createTextNode("로 설정 ");
+    explain = document.createTextNode("로 선언");
     element.appendChild(explain);
 }
 
 function create_operator(element) {
+    create_text(element, 1, 0);
+
+    explain = document.createTextNode("는 ");
+    element.appendChild(explain);
+
+    create_text(element, 1, 1);
+
     var selecting = document.createElement('select'); //select의 기능
     selecting.classList.add("size");
     var optionValues = ['더하기', '빼기', '나누기', '곱하기'];
@@ -159,6 +166,8 @@ function create_operator(element) {
         selecting.appendChild(option);
     }
     element.appendChild(selecting);
+
+    create_text(element, 1, 2);
 }
 
 function create_if(element) { //목록에서 code_screen으로 끌어당길때 만약 조건문 생성

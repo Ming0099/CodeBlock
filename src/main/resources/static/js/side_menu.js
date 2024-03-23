@@ -16,7 +16,7 @@ $('.side_menu li').click(function(){
     
     blocks_clear();
     switch(className){
-        case '변수':
+        case '선언':
             $("#variable_blocks").show();
             break;
         case '제어문':
