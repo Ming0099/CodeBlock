@@ -212,17 +212,13 @@ function add_close_block(color) {
 function check_close_complete(span) { //close 유효성검사
     need_close_list = []
     for (var i = 0; i < spans.length; i++) {
-        var cur_check = spans[i]
-        if (cur_check.textContent.includes('만약') && !cur_check.textContent.includes('/')) {
-            need_close_list.push(cur_check.textContent)
-        }
-        else if (cur_check.textContent.includes('반복') && !cur_check.textContent.includes('/')) {
-            need_close_list.push(cur_check.textContent)
+        var cur_check = spans[i];
+        var classString = Array.from(cur_check.classList).join(' ');
+        if(classString.includes('closed') && !cur_check.textContent.includes('/')){
+            need_close_list.push(cur_check.id);
         }
         if (cur_check.textContent.includes('/')) {
-            var checking = cur_check.textContent;
-            checking = checking.replace('/','');
-            if(need_close_list.length == 0){ // "/"가 먼저올시
+            if(need_close_list.length < 0 ){ // "/"는 있는데 여는 블럭이 없을때
                 if(pre_block === undefined){
                     contain.prepend(span);
                 }
@@ -231,10 +227,11 @@ function check_close_complete(span) { //close 유효성검사
                 }
                 return false;
             }
-            if (need_close_list[need_close_list.length - 1].includes(checking)) {
-                need_close_list.pop()
+            if(cur_check.id.includes(need_close_list[need_close_list.length - 1])){
+                need_close_list.pop();
+                console.log("체킹 : " + need_close_list);
             }
-            else { // "/"와 여는 함수가 맞지않을시
+            else{ // "/"와 여는 블럭이 다를때
                 if(pre_block === undefined){
                     contain.prepend(span);
                 }
@@ -260,7 +257,11 @@ function check_close_complete(span) { //close 유효성검사
 }
 
 function insertAfter(newNode, referenceNode) { //뒤에 삽입
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    if (newNode && referenceNode && referenceNode.parentNode) {
+        referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    } else {
+        console.error("Invalid parameters passed to insertAfter function.");
+    }
 }
 
 // function create_span(value, title, close_is, text_cnt) {

@@ -2,32 +2,32 @@
 const observer = new MutationObserver(() => { //code div에 있는 설정 코드들 기동하기
     document.querySelectorAll("span.conding_contents").forEach(span => {
         span.addEventListener("dragstart", function (e) {
-            if (first == 0) {
+            var classListArray = Array.from(span.classList);
+            if (first == 0 && check == 0 && in_check == 0) {
                 // 클릭할 때 수행할 작업
-                var classListArray = Array.from(span.classList);
                 pre_block = getSpanAboveCurrent(contain, span);
-                if (span.id.includes("close_")) {
-                    close_click = span.id;
-                }
-                in_check = 1;
-                span.classList.add("select");
-                span_setting = span;
                 first = 1;
             }
-        });
+            if (span.id.includes("close_")) {
+                close_click = span.id;
+            }
+            in_check = 1;
+            span.classList.add("select");
+            span_setting = span;
+        }, { once: true });
         span.addEventListener("dragend", function (e) {
-            if (first == 1) {
+            if (first == 1 && check == 0 && in_check == 1) {
                 // 클릭할 때 수행할 작업
                 close_check = check_close_complete(span);
-                if (include_close == 1) {
-                    include_close = 0;
-                }
-                in_check = 0;
-                dont_up = 0;
-                span.classList.remove("select");
                 first = 0;
             }
-        });
+            if (include_close == 1) {
+                include_close = 0;
+            }
+            in_check = 0;
+            dont_up = 0;
+            span.classList.remove("select");
+        }, { once: true });
         span.addEventListener("mousedown", function (e) { //화면에서 삭제기능
             if (((e.button == 2) || (e.which == 3)) && mousedown_check == 0) { //code_screen에 블록을 삭제할때 쓰임
                 remove_code = span;
@@ -145,7 +145,6 @@ contain.addEventListener("drop", (e) => { //놓기
     }
     else if (check == 0 && in_check == 1) { //코드에서 들고 왔으면
         //검사
-        in_check = 0;
         close_click = null;
         if (include_close == 0) { // close가 없는 코드는
             span_setting.classList.remove("select");
@@ -180,10 +179,12 @@ contain.addEventListener("dragover", (e) => { //움직이기
             }
         }
         else {
-            contain.insertBefore(draggable, afterElement);
-            if (include_close == 1) { //close를 포함한 코드인지 아닌지
-                const draggable_close = document.getElementById("close_" + draggable.id);
-                contain.insertBefore(draggable_close, afterElement);
+            if (draggable && afterElement) {
+                contain.insertBefore(draggable, afterElement);
+                if (include_close == 1) { //close를 포함한 코드인지 아닌지
+                    const draggable_close = document.getElementById("close_" + draggable.id);
+                    contain.insertBefore(draggable_close, afterElement);
+                }
             }
             // if (afterElement.id === dontmove) { // "/if"가 "if"위로 못올라가게 하는것
             //     if (dont_up == 0) {
