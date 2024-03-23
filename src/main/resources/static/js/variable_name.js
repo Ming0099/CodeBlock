@@ -34,3 +34,5 @@ var first = 0;
 
 var draggableElements = null;
 var focus_block = null;
+
+var temp_afterElement_id = null;
