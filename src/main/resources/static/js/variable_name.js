@@ -28,3 +28,6 @@ const targetNode = document.body;
 var remove_code = null;
 var remove_close_code = null;
 var mousedown_check = 0;
+
+var pre_block = null; //여닫이 검사
+var first = 0;

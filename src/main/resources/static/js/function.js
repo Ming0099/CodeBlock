@@ -17,6 +17,29 @@ function getDragAfterElement(container, y) { //근처위치 찾기
     ).element;
 }
 
+function getSpanAboveCurrent(container, currentSpan) {
+    const draggableElements = [
+        ...container.querySelectorAll("span.conding_contents:not(.select)") // container 내의 모든 span 요소 가져오기
+    ];
+
+    // 현재 span 요소의 위치 정보 가져오기
+    const currentSpanRect = currentSpan.getBoundingClientRect();
+
+    // 현재 span 요소의 위에 있는 span 요소를 찾기
+    const spanAboveCurrent = draggableElements.reduce((closest, span) => {
+        if (span !== currentSpan) { // 현재 span 요소는 제외합니다.
+            const spanRect = span.getBoundingClientRect();
+            const offset = currentSpanRect.top - spanRect.bottom; // 현재 span 요소와의 수직 거리 계산
+            if (offset > 0 && offset < closest.offset) { // 현재 span 요소의 위에 있는 span 요소인지 확인하고 가장 가까운 것을 업데이트합니다.
+                return { offset: offset, element: span };
+            }
+        }
+        return closest;
+    }, { offset: Number.POSITIVE_INFINITY });
+
+    return spanAboveCurrent.element;
+}
+
 $(document).ready(function () { //출력하기
     $("#results_code").click(function () {
         const contents = document.querySelectorAll("span.conding_contents"); //만약 변수 
@@ -131,6 +154,60 @@ function add_close_block(color) {
     span_close.classList.add("this_is_close");
     span_close.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
     return span_close
+}
+
+function check_close_complete(span) { //close 유효성검사
+    need_close_list = []
+    for (var i = 0; i < spans.length; i++) {
+        var cur_check = spans[i]
+        if (cur_check.textContent.includes('만약') && !cur_check.textContent.includes('/')) {
+            need_close_list.push(cur_check.textContent)
+        }
+        else if (cur_check.textContent.includes('반복') && !cur_check.textContent.includes('/')) {
+            need_close_list.push(cur_check.textContent)
+        }
+        if (cur_check.textContent.includes('/')) {
+            var checking = cur_check.textContent;
+            checking = checking.replace('/','');
+            if(need_close_list.length == 0){ // "/"가 먼저올시
+                if(pre_block === undefined){
+                    contain.prepend(span);
+                }
+                else{
+                    insertAfter(span, pre_block);
+                }
+                return false;
+            }
+            if (need_close_list[need_close_list.length - 1].includes(checking)) {
+                need_close_list.pop()
+            }
+            else { // "/"와 여는 함수가 맞지않을시
+                if(pre_block === undefined){
+                    contain.prepend(span);
+                }
+                else{
+                    insertAfter(span, pre_block);
+                }
+                return false;
+            }
+        }
+    }
+    if (need_close_list.length == 0) {
+        return true;
+    }
+    else {
+        if(pre_block === undefined){
+            contain.prepend(span);
+        }
+        else{
+            insertAfter(span, pre_block);
+        }
+        return false;
+    }
+}
+
+function insertAfter(newNode, referenceNode) { //뒤에 삽입
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
 // function create_span(value, title, close_is, text_cnt) {
