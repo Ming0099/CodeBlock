@@ -118,12 +118,53 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
     }
 }
 
+function create_for(element) {
+    create_text(element, 1, 0);
+
+    explain = document.createTextNode("번 반복 (for문)");
+    element.appendChild(explain);
+}
+
+function create_while(element) {
+    create_text(element, 1, 0);
+
+    explain = document.createTextNode("번 반복 (while문)");
+    element.appendChild(explain);
+}
+
+function create_print(element) {
+    create_text(element, 1, 0);
+
+    explain = document.createTextNode(" 출력");
+    element.appendChild(explain);
+}
+
+function create_variable(element) {
+    create_text(element, 1, 0);
+
+    explain = document.createTextNode("를 ");
+    element.appendChild(explain);
+
+    create_text(element, 1, 1);
+
+    explain = document.createTextNode("로 설정 ");
+    element.appendChild(explain);
+}
+
 function create_if(element) { //목록에서 code_screen으로 끌어당길때 만약 조건문 생성
     create_text(element, 1, 0);
 
+    explain = document.createTextNode("가 ");
+    element.appendChild(explain);
+
+    create_text(element, 1, 1);
+
+    explain = document.createTextNode("보다 ");
+    element.appendChild(explain);
+
     var selecting = document.createElement('select'); //select의 기능
     selecting.classList.add("size");
-    var optionValues = ['작다', '크다', '같다', '작거나 같다', '크거나 같다', '다르다'];
+    var optionValues = ['작을때', '클때', '같을때', '작거나 같을때', '크거나 같을때', '다를때'];
     for (var i = 0; i < 6; i++) {
         var option = document.createElement('option'); //option의 기능
         option.id = 'option' + "immediate" + cnt.toString() + "-" + (i + 1).toString();
@@ -132,8 +173,6 @@ function create_if(element) { //목록에서 code_screen으로 끌어당길때 �
         selecting.appendChild(option);
     }
     element.appendChild(selecting);
-
-    create_text(element, 1, 1);
 }
 
 function random_color() {

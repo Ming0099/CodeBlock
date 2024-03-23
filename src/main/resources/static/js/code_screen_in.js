@@ -76,20 +76,33 @@ contain.addEventListener("dragenter", (e) => { //진입
         var color = random_color(); //블럭 background 색깔입히기
         span.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
         //리스트 블록 추가시
-        if (span.textContent.includes("부터~까지") === true) {
+        if (span.textContent.includes("번 반복 (for문)") === true) {
             //span.setAttribute('data-value', 'value값넣기')
             //var value = document.getElementById('mySpan').getAttribute('data-value'); //value 꺼내기
-            span.title = "첫 빈칸 : ~부터 / 중간 빈칸 : ~까지 / 마지막 빈칸 : ~까지가는데 건너는 크기"
-            create_text(span, 3, 0); //child인 text를 가져오도록 하는 방법
+            span.innerHTML = "";
+            span.title = "반복할 횟수 입력 (for문 사용)";
+            create_for(span);
+        }
+        else if (span.textContent.includes("번 반복 (while문)") === true) {
+            //span.setAttribute('data-value', 'value값넣기')
+            span.innerHTML = "";
+            span.title = "반복할 횟수 입력 (while문 사용)";
+            create_text(span, 2, 0);
         }
         else if (span.textContent.includes("변수") === true) {
             //span.setAttribute('data-value', 'value값넣기')
             span.title = "첫 빈칸 : 변수명 / 두번째 빈칸 : 변수명에 들어갈 내용(ex. 1, 2, 'a', 'b')";
-            create_text(span, 2, 0);
+            create_variable(span);
         }
         else if (span.textContent.includes("만약") === true) {
             //span.setAttribute('data-value', 'value값넣기')
             create_if(span);
+        }
+        else if (span.textContent.includes("출력") === true) {
+            //span.setAttribute('data-value', 'value값넣기')
+            span.innerHTML = "";
+            span.title = "첫 빈칸 : 변수명 / 두번째 빈칸 : 변수명에 들어갈 내용(ex. 1, 2, 'a', 'b')";
+            create_print(span);
         }
         else {
             //span.setAttribute('data-value', 'value값넣기')
