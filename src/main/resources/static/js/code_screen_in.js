@@ -1,39 +1,32 @@
 
 const observer = new MutationObserver(() => { //code div에 있는 설정 코드들 기동하기
     let focus_found = false;
-    if (check != 1) {
-        for (const span of spans) {
+    if (check != 0) {
+        document.querySelectorAll("span.conding_contents").forEach(span => {
             span.addEventListener("dragstart", function (e) {
-                if (span.id === focus_block.id) {
-                    var classListArray = Array.from(span.classList);
-                    if (span.id.includes("close_")) {
-                        close_click = span.id;
-                    }
-                    span.classList.add("select");
-                    span_setting = span;
-                    if (first == 0 && check == 0 && in_check == 1) { //유효성검사하기전 클릭한 블럭의 위에 블럭을 찾음
-                        // 클릭할 때 수행할 작업
-                        pre_block = getSpanAboveCurrent(contain, span);
-                        first = 1;
-                    }
-                    focus_found = true;
+                if (span.id.includes("close_")) {
+                    close_click = span.id;
+                }
+                span.classList.add("select");
+                span_setting = span;
+                if (first == 0 && check == 0 && in_check == 1) { //유효성검사하기전 클릭한 블럭의 위에 블럭을 찾음
+                    // 클릭할 때 수행할 작업
+                    pre_block = getSpanAboveCurrent(contain, span);
+                    first = 1;
                 }
             });
             span.addEventListener("dragend", function (e) {
-                if (span.id === focus_block.id) {
-                    if (first == 1 && check == 0 && in_check == 1) {
-                        // 클릭할 때 수행할 작업
-                        close_check = check_close_complete(span);
-                        first = 0;
-                    }
-                    if (include_close == 1) {
-                        include_close = 0;
-                    }
-                    in_check = 0;
-                    dont_up = 0;
-                    span.classList.remove("select");
-                    focus_found = true;
+                if (first == 1 && check == 0 && in_check == 1) {
+                    // 클릭할 때 수행할 작업
+                    close_check = check_close_complete(span);
+                    first = 0;
                 }
+                if (include_close == 1) {
+                    include_close = 0;
+                }
+                in_check = 0;
+                dont_up = 0;
+                span.classList.remove("select");
             });
             span.addEventListener("mousedown", function (e) { //화면에서 삭제기능
                 if (((e.button == 2) || (e.which == 3)) && mousedown_check == 0) { //code_screen에 블록을 삭제할때 쓰임
@@ -69,10 +62,7 @@ const observer = new MutationObserver(() => { //code div에 있는 설정 코드
                     in_check = 0;
                 }
             });
-            if (focus_found) {
-                break;
-            }
-        }
+        });
     }
 });
 
@@ -100,38 +90,20 @@ contain.addEventListener("dragenter", (e) => { //진입
         var color = random_color(); //블럭 background 색깔입히기
         span.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
         //리스트 블록 추가시
-        if (span.textContent.includes("번 반복 (for문)") === true) {
+        if (span.textContent.includes("부터~까지") === true) {
             //span.setAttribute('data-value', 'value값넣기')
             //var value = document.getElementById('mySpan').getAttribute('data-value'); //value 꺼내기
-            span.innerHTML = "";
-            span.title = "반복할 횟수 입력";
-            create_for(span); //child인 text를 가져오도록 하는 방법
-        }
-        else if (span.textContent.includes("번 반복 (do-while문)") === true) {
-            //span.setAttribute('data-value', 'value값넣기')
-            span.innerHTML = "";
-            span.title = "첫 빈칸 : 변수명 / 두번째 빈칸 : 변수명에 들어갈 내용(ex. 1, 2, 'a', 'b')";
-            create_while(span);
+            span.title = "첫 빈칸 : ~부터 / 중간 빈칸 : ~까지 / 마지막 빈칸 : ~까지가는데 건너는 크기"
+            create_text(span, 3, 0); //child인 text를 가져오도록 하는 방법
         }
         else if (span.textContent.includes("변수") === true) {
             //span.setAttribute('data-value', 'value값넣기')
-            span.innerHTML = "";
             span.title = "첫 빈칸 : 변수명 / 두번째 빈칸 : 변수명에 들어갈 내용(ex. 1, 2, 'a', 'b')";
-            create_variable(span);
+            create_text(span, 2, 0);
         }
         else if (span.textContent.includes("만약") === true) {
             //span.setAttribute('data-value', 'value값넣기')
             create_if(span);
-        }
-        else if (span.textContent.includes("연산자") === true) {
-            //span.setAttribute('data-value', 'value값넣기')
-            span.innerHTML = "";
-            create_operator(span);
-        }
-        else if (span.textContent.includes("출력") === true) {
-            //span.setAttribute('data-value', 'value값넣기')
-            span.innerHTML = "";
-            create_print(span);
         }
         else {
             //span.setAttribute('data-value', 'value값넣기')

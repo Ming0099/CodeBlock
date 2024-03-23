@@ -234,7 +234,6 @@ function check_close_complete(span) { //close 유효성검사
             }
             if(cur_check.id.includes(need_close_list[need_close_list.length - 1])){
                 need_close_list.pop();
-                console.log("체킹 : " + need_close_list);
             }
             else{ // "/"와 여는 블럭이 다를때
                 if(pre_block === undefined){
