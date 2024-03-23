@@ -151,6 +151,20 @@ function create_variable(element) {
     element.appendChild(explain);
 }
 
+function create_operator(element) {
+    var selecting = document.createElement('select'); //select의 기능
+    selecting.classList.add("size");
+    var optionValues = ['더하기', '빼기', '나누기', '곱하기'];
+    for (var i = 0; i < 4; i++) {
+        var option = document.createElement('option'); //option의 기능
+        option.id = 'option' + "immediate" + cnt.toString() + "-" + (i + 1).toString();
+        option.value = optionValues[i];
+        option.text = optionValues[i];
+        selecting.appendChild(option);
+    }
+    element.appendChild(selecting);
+}
+
 function create_if(element) { //목록에서 code_screen으로 끌어당길때 만약 조건문 생성
     create_text(element, 1, 0);
 

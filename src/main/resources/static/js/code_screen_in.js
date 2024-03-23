@@ -89,7 +89,7 @@ contain.addEventListener("dragenter", (e) => { //진입
             span.title = "반복할 횟수 입력 (while문 사용)";
             create_while(span);
         }
-        else if (span.textContent.includes("변수") === true) {
+        else if (span.textContent.includes("선언") === true) {
             //span.setAttribute('data-value', 'value값넣기')
             span.title = "첫 빈칸 : 변수명 / 두번째 빈칸 : 변수명에 들어갈 내용(ex. 1, 2, 'a', 'b')";
             create_variable(span);
@@ -103,6 +103,12 @@ contain.addEventListener("dragenter", (e) => { //진입
             span.innerHTML = "";
             span.title = "첫 빈칸 : 변수명 / 두번째 빈칸 : 변수명에 들어갈 내용(ex. 1, 2, 'a', 'b')";
             create_print(span);
+        }
+        else if (span.textContent.includes("연산자") === true) {
+            //span.setAttribute('data-value', 'value값넣기')
+            span.innerHTML = "";
+            span.title = "더하기, 빼기, 곱하기, 나누기 중에서 하나 선택";
+            create_operator(span);
         }
         else {
             //span.setAttribute('data-value', 'value값넣기')
