@@ -33,3 +33,4 @@ var pre_block = null; //여닫이 검사
 var first = 0;
 
 var draggableElements = null;
+var focus_block = null;
