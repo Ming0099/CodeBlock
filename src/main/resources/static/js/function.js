@@ -1,20 +1,15 @@
-function getDragAfterElement(container, y) { //근처위치 찾기
-    const draggableElements = [
-        ...container.querySelectorAll("span.conding_contents:not(.select)") //css가 conding_contents인 요소 전부 찾기
-    ];
+function getDragAfterElement(y) {
+    let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
 
-    return draggableElements.reduce(
-        (closest, child) => {
-            const box = child.getBoundingClientRect(); //현재 요소의 정보와 위치를 가져옴
-            const offset = y - box.top - box.height / 2; //box와 y의 위치 차이를 구함
-            if (offset < 0 && offset > closest.offset) { //이전의 요소 보다 더 가까우면 해당 요소에 새로운 close값으로 업뎃
-                return { offset: offset, element: child };
-            } else {
-                return closest;
-            }
-        },
-        { offset: Number.NEGATIVE_INFINITY },
-    ).element;
+    draggableElements.forEach(child => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+            closest = { offset: offset, element: child };
+        }
+    });
+
+    return closest.element;
 }
 
 function getSpanAboveCurrent(container, currentSpan) {

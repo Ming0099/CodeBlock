@@ -3,17 +3,16 @@ const observer = new MutationObserver(() => { //code div에 있는 설정 코드
     document.querySelectorAll("span.conding_contents").forEach(span => {
         span.addEventListener("dragstart", function (e) {
             var classListArray = Array.from(span.classList);
-            if (first == 0 && check == 0 && in_check == 0) {
+            if (span.id.includes("close_")) {
+                close_click = span.id;
+            }
+            span.classList.add("select");
+            span_setting = span;
+            if (first == 0 && check == 0 && in_check == 1) { //유효성검사하기전 클릭한 블럭의 위에 블럭을 찾음
                 // 클릭할 때 수행할 작업
                 pre_block = getSpanAboveCurrent(contain, span);
                 first = 1;
             }
-            if (span.id.includes("close_")) {
-                close_click = span.id;
-            }
-            in_check = 1;
-            span.classList.add("select");
-            span_setting = span;
         }, { once: true });
         span.addEventListener("dragend", function (e) {
             if (first == 1 && check == 0 && in_check == 1) {
@@ -48,6 +47,17 @@ const observer = new MutationObserver(() => { //code div에 있는 설정 코드
                 });
                 mousedown_check = 1;
             }
+            else{
+                draggableElements = [ //getDragAfterElement 함수에서 필요한데 처리속도 개선으로 인한 안타까움으로 쩔 수 없음
+                    ...contain.querySelectorAll("span.conding_contents:not(.select)") //css가 conding_contents인 요소 전부 찾기
+                ];
+                in_check = 1;
+            }
+        });
+        span.addEventListener("mouseup", function (e){
+            if(in_check == 1){
+                in_check = 0;
+            }
         });
     });
 });
@@ -76,39 +86,20 @@ contain.addEventListener("dragenter", (e) => { //진입
         var color = random_color(); //블럭 background 색깔입히기
         span.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
         //리스트 블록 추가시
-        if (span.textContent.includes("번 반복 (for문)") === true) {
+        if (span.textContent.includes("부터~까지") === true) {
             //span.setAttribute('data-value', 'value값넣기')
             //var value = document.getElementById('mySpan').getAttribute('data-value'); //value 꺼내기
-            span.innerHTML = "";
-            span.title = "반복할 횟수 입력 (for문 사용)";
-            create_for(span);
+            span.title = "첫 빈칸 : ~부터 / 중간 빈칸 : ~까지 / 마지막 빈칸 : ~까지가는데 건너는 크기"
+            create_text(span, 3, 0); //child인 text를 가져오도록 하는 방법
         }
-        else if (span.textContent.includes("번 반복 (do-while문)") === true) {
-            //span.setAttribute('data-value', 'value값넣기')
-            span.innerHTML = "";
-            span.title = "반복할 횟수 입력 (while문 사용)";
-            create_while(span);
-        }
-        else if (span.textContent.includes("선언") === true) {
+        else if (span.textContent.includes("변수") === true) {
             //span.setAttribute('data-value', 'value값넣기')
             span.title = "첫 빈칸 : 변수명 / 두번째 빈칸 : 변수명에 들어갈 내용(ex. 1, 2, 'a', 'b')";
-            create_variable(span);
+            create_text(span, 2, 0);
         }
         else if (span.textContent.includes("만약") === true) {
             //span.setAttribute('data-value', 'value값넣기')
             create_if(span);
-        }
-        else if (span.textContent.includes("출력") === true) {
-            //span.setAttribute('data-value', 'value값넣기')
-            span.innerHTML = "";
-            span.title = "첫 빈칸 : 변수명 / 두번째 빈칸 : 변수명에 들어갈 내용(ex. 1, 2, 'a', 'b')";
-            create_print(span);
-        }
-        else if (span.textContent.includes("연산자") === true) {
-            //span.setAttribute('data-value', 'value값넣기')
-            span.innerHTML = "";
-            span.title = "더하기, 빼기, 곱하기, 나누기 중에서 하나 선택";
-            create_operator(span);
         }
         else {
             //span.setAttribute('data-value', 'value값넣기')
@@ -126,6 +117,9 @@ contain.addEventListener("dragenter", (e) => { //진입
         }
         check = 1;
         span_setting = span;
+        draggableElements = [ //getDragAfterElement 함수에서 필요한데 처리속도 개선으로 인한 안타까움으로 쩔 수 없음
+                    ...contain.querySelectorAll("span.conding_contents:not(.select)") //css가 conding_contents인 요소 전부 찾기
+                ];
     }
 });
 
@@ -159,7 +153,7 @@ contain.addEventListener("drop", (e) => { //놓기
 
 contain.addEventListener("dragover", (e) => { //움직이기
     e.preventDefault();
-    const afterElement = getDragAfterElement(contain, e.clientY);
+    const afterElement = getDragAfterElement(e.clientY);
     var draggable = null;
     if (close_click != null) { // 클릭한 것이 "/if"인지 "if"인지 판별
         // "/if"라면
@@ -179,28 +173,13 @@ contain.addEventListener("dragover", (e) => { //움직이기
             }
         }
         else {
-            if (draggable && afterElement) {
+            if (draggable && afterElement) { //가능한 
                 contain.insertBefore(draggable, afterElement);
                 if (include_close == 1) { //close를 포함한 코드인지 아닌지
                     const draggable_close = document.getElementById("close_" + draggable.id);
                     contain.insertBefore(draggable_close, afterElement);
                 }
             }
-            // if (afterElement.id === dontmove) { // "/if"가 "if"위로 못올라가게 하는것
-            //     if (dont_up == 0) {
-            //         dont_up = 1;
-            //     }
-            //     else {
-            //         dont_up = 0;
-            //     }
-            // }
-            // else if (dont_up != 1) {
-            //     contain.insertBefore(draggable, afterElement);
-            //     if (include_close == 1) { //close를 포함한 코드인지 아닌지
-            //         const draggable_close = document.getElementById("close_" + draggable.id);
-            //         contain.insertBefore(draggable_close, afterElement);
-            //     }
-            // }
         }
     }
 });
