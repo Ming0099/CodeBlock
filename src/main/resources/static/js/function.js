@@ -128,7 +128,7 @@ function create_for(element) {
 function create_while(element) {
     create_text(element, 1, 0);
 
-    explain = document.createTextNode("번 반복 (while문)");
+    explain = document.createTextNode("번 반복 (do-while문)");
     element.appendChild(explain);
 }
 

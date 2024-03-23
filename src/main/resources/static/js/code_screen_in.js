@@ -83,11 +83,11 @@ contain.addEventListener("dragenter", (e) => { //진입
             span.title = "반복할 횟수 입력 (for문 사용)";
             create_for(span);
         }
-        else if (span.textContent.includes("번 반복 (while문)") === true) {
+        else if (span.textContent.includes("번 반복 (do-while문)") === true) {
             //span.setAttribute('data-value', 'value값넣기')
             span.innerHTML = "";
             span.title = "반복할 횟수 입력 (while문 사용)";
-            create_text(span, 2, 0);
+            create_while(span);
         }
         else if (span.textContent.includes("변수") === true) {
             //span.setAttribute('data-value', 'value값넣기')
