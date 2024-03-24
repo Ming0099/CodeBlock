@@ -17,7 +17,7 @@ class CTranslatorTest {
 
         c.translatePrint("5번 반복 for");
 
-        c.translateIf("a", "작다", "b");
+        c.translateIf("a", "작을때", "b");
 
         c.translatePrint("hello world!");
 

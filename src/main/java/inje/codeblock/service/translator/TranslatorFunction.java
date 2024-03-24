@@ -66,4 +66,24 @@ public class TranslatorFunction {
         }
         return condition;
     }
+
+    // 연산자 변환 (더하기) -> (+)
+    public static String translateOperatorCondition(String con){
+        String condition = "";
+        switch (con){
+            case "더하기":
+                condition = "+";
+                break;
+            case "빼기":
+                condition = "-";
+                break;
+            case "곱하기":
+                condition = "*";
+                break;
+            case "나누기":
+                condition = "/";
+                break;
+        }
+        return condition;
+    }
 }

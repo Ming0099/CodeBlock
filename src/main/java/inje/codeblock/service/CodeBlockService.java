@@ -15,7 +15,7 @@ public class CodeBlockService {
     private final String FOR = "FOR";
     private final String WHILE = "WHILE";
     private final String OPERATOR = "OPERATOR";
-    private final String SWICH = "SWICH";
+    private final String SWITCH = "SWITCH";
     private final String CASE = "CASE";
 
     public String translate(CodeBlock codeBlock){
@@ -56,6 +56,9 @@ public class CodeBlockService {
                     break;
                 case WHILE:
                     cTranslator.translateWhile(Integer.parseInt(codeBlock.getChildById(j)[0]));
+                    break;
+                case OPERATOR:
+                    cTranslator.translateOperator(codeBlock.getChildById(j)[0],codeBlock.getChildById(j)[1],codeBlock.getChildById(j)[2],codeBlock.getChildById(j)[3]);
                     break;
             }
 
