@@ -9,11 +9,17 @@ import java.util.Optional;
 
 @Service
 public class CodeBlockService {
-    private final String IF = "만약";
-    private final String PRINT = "표시";
-    private final String VARIABLE = "변수";
+    private final String IF = "IF";
+    private final String PRINT = "PRINT";
+    private final String VARIABLE = "VARIABLE";
+    private final String FOR = "FOR";
+    private final String WHILE = "WHILE";
+    private final String OPERATOR = "OPERATOR";
+    private final String SWICH = "SWICH";
+    private final String CASE = "CASE";
 
     public String translate(CodeBlock codeBlock){
+        System.out.println(codeBlock);
 
         // content 읽어오기
         for(int i=0; i< codeBlock.getContentSize();i++){
@@ -29,6 +35,7 @@ public class CodeBlockService {
             System.out.println();
         }
 
+
         // c언어로 번역
         CTranslator cTranslator = new CTranslator();
 
@@ -36,13 +43,20 @@ public class CodeBlockService {
         for(int i=0; i<codeBlock.getContentSize(); i++){
             switch (codeBlock.getContentById(i)){
                 case IF:
-                    cTranslator.translateIf(codeBlock.getChildById(j)[0],codeBlock.getChildById(j)[1],codeBlock.getChildById(j)[2]);
+                    cTranslator.translateIf(codeBlock.getChildById(j)[0],codeBlock.getChildById(j)[2],codeBlock.getChildById(j)[1]);
                     break;
                 case PRINT:
                     cTranslator.translatePrint(codeBlock.getChildById(j)[0]);
                     break;
                 case VARIABLE:
                     cTranslator.translateVariable(codeBlock.getChildById(j)[0],codeBlock.getChildById(j)[1]);
+                    break;
+                case FOR:
+                    cTranslator.translateFor(Integer.parseInt(codeBlock.getChildById(j)[0]));
+                    break;
+                case WHILE:
+                    cTranslator.translateWhile(Integer.parseInt(codeBlock.getChildById(j)[0]));
+                    break;
             }
 
             if(codeBlock.getContentById(i).contains("/")){

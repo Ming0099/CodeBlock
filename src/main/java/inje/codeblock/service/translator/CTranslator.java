@@ -44,6 +44,8 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
         createIndent(getCodeDepth());
         code.append("while(i < ").append(count).append(") {\n");
         codeDepthStack.push(codeDepthStack.peek() + 1);
+        createIndent(getCodeDepth());
+        code.append("i++;\n");
     }
 
     @Override
