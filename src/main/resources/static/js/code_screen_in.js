@@ -91,37 +91,51 @@ contain.addEventListener("dragenter", (e) => { //진입
         span.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
         //리스트 블록 추가시
         if (span.textContent.includes("번 반복 (for문)") === true) {
-            //span.setAttribute('data-value', 'value값넣기')
+            span.setAttribute('data-value', 'FOR');
             //var value = document.getElementById('mySpan').getAttribute('data-value'); //value 꺼내기
             span.innerHTML = "";
             span.title = "반복할 횟수 입력";
             create_for(span); //child인 text를 가져오도록 하는 방법
         }
-        else if (span.textContent.includes("번 반복 (do-while문)") === true) {
-            //span.setAttribute('data-value', 'value값넣기')
+        else if (span.textContent.includes("번 반복 (while문)") === true) {
+            span.setAttribute('data-value', 'WHILE');
             span.innerHTML = "";
             span.title = "첫 빈칸 : 변수명 / 두번째 빈칸 : 변수명에 들어갈 내용(ex. 1, 2, 'a', 'b')";
             create_while(span);
         }
         else if (span.textContent.includes("변수") === true) {
-            //span.setAttribute('data-value', 'value값넣기')
+            span.setAttribute('data-value', 'VARIABLE');
             span.innerHTML = "";
             span.title = "첫 빈칸 : 변수명 / 두번째 빈칸 : 변수명에 들어갈 내용(ex. 1, 2, 'a', 'b')";
             create_variable(span);
         }
         else if (span.textContent.includes("만약") === true) {
-            //span.setAttribute('data-value', 'value값넣기')
+            span.setAttribute('data-value', 'IF');
             create_if(span);
         }
         else if (span.textContent.includes("연산자") === true) {
-            //span.setAttribute('data-value', 'value값넣기')
+            span.setAttribute('data-value', 'OPERATOR');
             span.innerHTML = "";
             create_operator(span);
         }
         else if (span.textContent.includes("출력") === true) {
-            //span.setAttribute('data-value', 'value값넣기')
+            span.setAttribute('data-value', 'PRINT');
             span.innerHTML = "";
             create_print(span);
+        }
+        else if (span.textContent.includes("스위치") === true) {
+            //span.setAttribute('data-value', 'value값넣기')
+            span.innerHTML = "만약 ";
+            span.title = "버튼을 클릭하여 케이스를 추가하세요";
+            create_switch(span);
+            var plus = document.createElement('button');
+            plus.textContent = "+";
+            plus.addEventListener('click', function(){
+                const span_case = add_case_block(color);
+                contain.appendChild(span_case);
+                console.log(span.textContent);
+            })
+            span.appendChild(plus);
         }
         else {
             //span.setAttribute('data-value', 'value값넣기')
@@ -132,7 +146,7 @@ contain.addEventListener("dragenter", (e) => { //진입
         }
         else { //close 블럭 추가
             span.classList.add("closed");
-            const span_close = add_close_block(color)
+            const span_close = add_close_block(color);
             contain.appendChild(span);
             contain.appendChild(span_close);
             span_close_setting = span_close;

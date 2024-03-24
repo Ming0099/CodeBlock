@@ -42,23 +42,20 @@ $(document).ready(function () { //출력하기
         var all_content = init;
         var total_arr = []; //배열 만들기 위해서
         contents.forEach(content => {//데이터(코드) 모으기
-            if (content.textContent.includes("작다크다같다작거나") === true) {
-                console.log(content.textContent);
-                all_content = all_content + " " + content.textContent.replace("작다크다같다작거나 같다크거나 같다다르다", "");
-            }
-            else {
-                all_content = all_content + " " + content.textContent;
-                //string
-            }
+            all_content = all_content + " " + content.getAttribute('data-value');
             if (content.textContent.includes("/") === false) {
                 var child_arr = []
                 var childNodes = content.childNodes;
                 Array.from(childNodes).forEach(function (childNode) {
-                    child_arr.push(childNode.value);
+                    if(childNode.value != undefined){
+                        child_arr.push(childNode.value);
+                    }
                 });
                 total_arr.push(child_arr);
             }
         });
+        console.log(all_content);
+        console.log(total_arr);
         $.ajax({
             type: 'POST',
             url: '/send_data',
@@ -143,8 +140,28 @@ function create_variable(element) {
 
     create_text(element, 1, 1);
 
-    explain = document.createTextNode("로 선언");
+    explain = document.createTextNode("(으)로 선언");
     element.appendChild(explain);
+}
+
+function create_switch(element) {
+    create_text(element, 1, 0);
+
+    explain = document.createTextNode("가");
+    element.appendChild(explain);
+}
+
+function add_case_block(color) {
+    const span_case = document.createElement('span');
+    span_case.draggable = false;
+    span_case.innerHTML = "일때";
+    span_case.id = "case_immediate" + cnt.toString();
+    span_case.classList.add("conding_contents");
+    span_case.classList.add("closed");
+    span_case.classList.add("select");
+    span_case.classList.add("this_is_close");
+    span_case.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
+    return span_case
 }
 
 function create_operator(element) {
@@ -205,6 +222,15 @@ function add_close_block(color) {
     const span_close = document.createElement('span'); //span추가 및 설정 //닫는 것
     span_close.draggable = true;
     span_close.innerHTML = "/" + target_id;
+    if(target_id === "만약"){
+        span_close.setAttribute('data-value', '/IF');
+    }
+    else if(target_id === "번 반복 (for문)"){
+        span_close.setAttribute('data-value', "/FOR");
+    }
+    else if(target_id === "번 반복 (while문)"){
+        span_close.setAttribute('data-value', "/WHILE");
+    }
     span_close.id = "close_immediate" + cnt.toString();
     span_close.classList.add("conding_contents");
     span_close.classList.add("closed");
