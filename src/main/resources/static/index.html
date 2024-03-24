@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-
+    <link rel="stylesheet" type="text/css" href="css/index/header.css">
+    <link rel="stylesheet" type="text/css" href="css/index/body.css">
+    <link rel="stylesheet" type="text/css" href="css/index/modal.css">
+    <link rel="stylesheet" type="text/css" href="css/index/object.css">
 </head>
 
 <body style="margin: 0; padding: 0; width: 100vw; height: 100vh;">
@@ -32,22 +34,37 @@
     </div>
     <div class="bodyBox">
         <div class="sidebar">
-
+            <ol class="side_menu">
+                <li class="side_menu_button" id="first_side_menu">선언</li>
+                <li class="side_menu_button">제어문</li>
+                <li class="side_menu_button">입출력문</li>
+            </ol>
         </div>
         <div class="left">
             <ol class="script">
-                <li class="button closed" draggable="true"> 부터~까지-반복</li>
-                <li class="underbar"></li>
-                <li class="button closed" draggable="true">만약-반복</li>
-                <li class="underbar"></li>
-                <li class="button closed" draggable="true">만약</li>
-                <li class="underbar"></li>
-                <li class="button" draggable="true">do-while</li>
-                <li class="underbar"></li>
-                <li class="button" draggable="true">표시</li>
-                <li class="underbar"></li>
-                <li class="button" draggable="true">변수</li>
-                <li class="underbar"></li>
+                <!--변수 블럭들-->
+                <div class="blocks" id="variable_blocks" style="display: block;">
+                    <li class="button" draggable="true">변수</li>
+                    <li class="underbar"></li>
+                    <li class="button" draggable="true">연산자</li>
+                    <li class="underbar"></li>
+                </div>
+                <!--제어문 블럭들-->
+                <div class="blocks" id="control_blocks">
+                    <li class="button closed" draggable="true">번 반복 (for문)</li>
+                    <li class="underbar"></li>
+                    <li class="button closed" draggable="true">번 반복 (while문)</li>
+                    <li class="underbar"></li>
+                    <li class="button closed" draggable="true">만약</li>
+                    <li class="underbar"></li>
+                    <li class="button closed" draggable="true">스위치</li>
+                    <li class="underbar"></li>
+                </div>
+                <!--입출력문 블럭들-->
+                <div class="blocks" id="input_output_blocks">
+                    <li class="button" draggable="true">출력</li>
+                    <li class="underbar"></li>
+                </div>
             </ol>
         </div>
         <div class="middle">
@@ -59,10 +76,7 @@
             <button class="enter" id="results_code">출력</button>
         </div>
         <div class="right">
-            <div class="rightboard1">
-                
-            </div>
-            <div class="rightboard2" id="result" style="white-space: pre;">
+            <div class="translated_code_screen" id="result" style="white-space: pre;">
             </div>
         </div>
     </div>
@@ -71,8 +85,7 @@
 <div id="modal_screen2">
     <div id="input_screen">
         <span>작성하기</span>
-        <br> <br>
-        <textarea id="input_texting" placeholder="내용"></textarea>
+        <textarea id="input_texting" rows="1"></textarea>
         <br>
         <button id="save_text" class="click_text">저장</button>
         <button id="cancel_text" class="click_text">취소</button>
@@ -84,6 +97,7 @@
 <script src="js/right_click.js"></script>
 <script src="js/code_list_move.js"></script>
 <script src="js/function.js"></script>
+<script src="js/side_menu.js"></script>
 </body>
 
 </html>
