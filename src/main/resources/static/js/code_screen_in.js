@@ -158,7 +158,7 @@ contain.addEventListener("drop", (e) => { //놓기
 
 contain.addEventListener("dragover", (e) => { //움직이기
     e.preventDefault();
-    const afterElement = getDragAfterElement(e.clientY);
+    const afterElement = getDragAfterElement(e.clientY + contain.scrollTop);
     var draggable = null;
     if(afterElement != null){
         // 드래그 중인 블럭 위의 블럭이 이전과 달라지면
