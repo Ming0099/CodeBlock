@@ -8,6 +8,7 @@
     <title>Code Block 학습하기</title>
     <link rel="stylesheet" type="text/css" href="css/learn/header.css">
     <link rel="stylesheet" type="text/css" href="css/learn/body.css">
+    <link rel="stylesheet" type="text/css" href="css/learn/modal.css">
 </head>
 <body style="margin: 0; padding: 0; width: 100vw; height: 100vh;">
     <div class="header">
@@ -44,7 +45,7 @@
         </div>
         <div class="study_contents">
             <div class="study_content_menu">
-                <div class="study_content">
+                <div class="study_content" id="step1">
                     <div class="study_content_title">
                         STEP 1
                     </div>
@@ -54,7 +55,7 @@
                         조작법 익히기
                     </div>
                 </div>
-                <div class="study_content">
+                <div class="study_content" id="step2">
                     <div class="study_content_title">
                         STEP 2
                     </div>
@@ -63,7 +64,8 @@
                     <div class="study_content_text">
                         변수 선언
                     </div>
-                </div><div class="study_content">
+                </div>
+                <div class="study_content" id="step3">
                     <div class="study_content_title">
                         STEP 3
                     </div>
@@ -75,38 +77,39 @@
                 </div>
             </div>
             <div class="study_content_menu">
-                <div class="study_content">
+                <div class="study_content" id="step4">
                     <div class="study_content_title">
                         STEP 4
                     </div>
                     <div class="study_content_image">
                     </div>
                     <div class="study_content_text">
-                        ...
+                        제어문
                     </div>
                 </div>
-                <div class="study_content">
+                <div class="study_content" id="step5">
                     <div class="study_content_title">
                         STEP 5
                     </div>
                     <div class="study_content_image">
                     </div>
                     <div class="study_content_text">
-                        ...
+                        반복문
                     </div>
-                </div><div class="study_content">
+                </div>
+                <div class="study_content" id="step6">
                     <div class="study_content_title">
                         STEP 6
                     </div>
                     <div class="study_content_image">
                     </div>
                     <div class="study_content_text">
-                        ...
+                        스위치
                     </div>
                 </div>
             </div>
             <div class="study_content_menu">
-                <div class="study_content">
+                <div class="study_content" id="step7">
                     <div class="study_content_title">
                         STEP 7
                     </div>
@@ -116,7 +119,7 @@
                         ...
                     </div>
                 </div>
-                <div class="study_content">
+                <div class="study_content" id="step8">
                     <div class="study_content_title">
                         STEP 8
                     </div>
@@ -125,7 +128,8 @@
                     <div class="study_content_text">
                         ...
                     </div>
-                </div><div class="study_content">
+                </div>
+                <div class="study_content" id="step9">
                     <div class="study_content_title">
                         STEP 9
                     </div>
@@ -139,6 +143,26 @@
             
         </div>
     </div>
+    <div class="modalbackground">
+        <div class="window" onclick="cancel(event)">
+            <div class="popup">
+                <div class="popup_top">
+                    조작법 익히기
+                </div>
+                <div class="popup_body">
+                    <div class="slides">
+                    </div>
+                    <button class="prev-btn">&lt;</button>
+                    <button class="next-btn">&gt;</button>
+                    <button class="to_learn">학습하러 가기</button>
+                </div>
+                <div class="popup_foot">
+                    <div class="popup_foot_info"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/learn/modalController.js"></script>
 </body>
     
 </html>
