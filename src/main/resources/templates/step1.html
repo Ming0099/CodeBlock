@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/learn_step/header.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/learn_step/body.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/learn_step/modal.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/learn_step/object.css">
+</head>
+
+<body style="margin: 0; padding: 0; width: 100vw; height: 100vh;">
+<div id="modal_screen1">
+    <div class="header">
+        <div class="header_title">
+            <a href="#">Code Block</a>
+        </div>
+        <div class="header_menu">
+            <ul>
+                <li id="first_menu"><a href="#">Home</a></li>
+                <li><a href="#">학습하기</a></li>
+                <li><a href="#">도움말</a></li>
+            </ul>
+        </div>
+        <div class="header_myinfo">
+            <ul>
+                <li><a href="#">Sign in</a></li>
+                <li><a href="#">Sign up</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="bodyBox">
+        <div class="sidebar">
+            <ol class="side_menu">
+                <li class="side_menu_button" id="first_side_menu">선언</li>
+                <li class="side_menu_button">제어문</li>
+                <li class="side_menu_button">입출력문</li>
+            </ol>
+        </div>
+        <div class="left">
+            <ol class="script">
+                <!--변수 블럭들-->
+                <div class="blocks" id="variable_blocks" style="display: block;">
+                    <li class="button" draggable="true">변수</li>
+                    <li class="underbar"></li>
+                    <li class="button" draggable="true">연산자</li>
+                    <li class="underbar"></li>
+                </div>
+                <!--제어문 블럭들-->
+                <div class="blocks" id="control_blocks">
+                    <li class="button closed" draggable="true">번 반복 (for문)</li>
+                    <li class="underbar"></li>
+                    <li class="button closed" draggable="true">번 반복 (while문)</li>
+                    <li class="underbar"></li>
+                    <li class="button closed" draggable="true">만약</li>
+                    <li class="underbar"></li>
+                    <li class="button closed" draggable="true">스위치</li>
+                    <li class="underbar"></li>
+                </div>
+                <!--입출력문 블럭들-->
+                <div class="blocks" id="input_output_blocks">
+                    <li class="button" draggable="true">출력</li>
+                    <li class="underbar"></li>
+                </div>
+            </ol>
+        </div>
+        <div class="middle">
+            <div class="code_screen" id="coding">
+                <div class="mouse_right" id="popMenu" style="display: none;">
+                    <span style="color: white; font-weight: bold;">삭제</span>
+                </div>
+            </div>
+            <button class="enter" id="results_code">출력</button>
+        </div>
+        <div class="right">
+            <div class="question_screen" id="question">
+                <div class="question_title">
+                    <span>목표</span>
+                </div>
+                <div class="question_info">
+                    <ul id="question_list">
+                        <li id="current">리스트에 있는 코드 블록을 스크린으로 드래그하세요.</li>
+                        <li id="yet">코드 블록에 내용을 추가해 보세요.</li>
+                        <li id="yet">우클릭을 눌러 코드 블록을 삭제해보세요.</li>
+                        <li id="yet">코드 스크린에서 코드 블록들의 위치를 옮겨보세요.</li>
+                        <li id="yet">코드 스크린에 코드 블록을 추가하고 번역버튼을 눌러보세요.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="translated_code_screen" id="result" style="white-space: pre;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal_screen2">
+    <div id="input_screen">
+        <span>작성하기</span>
+        <textarea id="input_texting" rows="1"></textarea>
+        <br>
+        <button id="save_text" class="click_text">저장</button>
+        <button id="cancel_text" class="click_text">취소</button>
+    </div>
+</div>
+<script src="../static/js/learn_step/step1/question.js"></script>
+<script src="../static/js/learn_step/step1/variable_name.js"></script>
+
+<script src="../static/js/learn_step/step1/code_screen_in.js"></script>
+<script src="../static/js/learn_step/step1/right_click.js"></script>
+<script src="../static/js/learn_step/step1/code_list_move.js"></script>
+<script src="../static/js/learn_step/step1/function.js"></script>
+<script src="../static/js/learn_step/step1/side_menu.js"></script>
+</body>
+
+</html>
