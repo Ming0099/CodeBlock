@@ -127,19 +127,18 @@ contain.addEventListener("dragenter", (e) => { //진입
             //span.setAttribute('data-value', 'value값넣기')
             span.innerHTML = "만약 ";
             span.title = "버튼을 클릭하여 케이스를 추가하세요";
-            span.setAttribute('SwitchCount', switch_count);
-            create_switch(span);
-            var plus = document.createElement('button');
-            plus.textContent = "+";
-            plus.id = switch_count;
+            span.setAttribute('SwitchCount', cnt); // cnt 해당하는 값을 Span에 속성값으로 저장
+            span.setAttribute("CaseCount", case_count); // case_count(케이스 갯수)를 Span에 속성값으로 저장
+            create_switch(span); // Switch 블럭 생성
+            var plus = document.createElement('button'); // + 버튼 생성
+            plus.textContent = "+"; 
+            plus.id = span.getAttribute("SwitchCount"); // 버튼 만들때 버튼의 아이디 값을 Span의 SwitchCount의 속성값으로 지정
             plus.addEventListener('click', function(){
-                const span_case = add_case_block(color);
-                create_text(span_case, 1, 0);
+                const span_case = add_case_block(span, color);
                 explain = document.createTextNode(" 일때");
                 span_case.appendChild(explain);
                 span_case.classList.add("switch");
-                contain.insertBefore(span_case, switch_close_span[plus.id]);
-                include_case = 1;
+                contain.insertBefore(span_case, switch_close_span[plus.id]); // Plus를 누른 Span 의 "/" 블록을 찾아 그위에 바로 Case 블록을 붙임
             })
             switch_id = span.id;
             console.log(span.id);
@@ -156,9 +155,8 @@ contain.addEventListener("dragenter", (e) => { //진입
             span.classList.add("closed");
             const span_close = add_close_block(color);
             if(span.getAttribute('SwitchCount') != null){
-                switch_close_span[switch_count] = span_close;
+                switch_close_span[span.getAttribute("SwitchCount")] = span_close; // 스위치의 close 블록 (span)을 switch_close_span 배열에 저장
             }
-            switch_count++;
             contain.appendChild(span);
             contain.appendChild(span_close);
             span_close_setting = span_close;

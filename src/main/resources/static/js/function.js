@@ -205,15 +205,20 @@ function random_color() {
     return [r, g, b];
 }
 
-function add_case_block(color) {
+function add_case_block(element, color) {
     const span_case = document.createElement('span');
     span_case.draggable = false;
-    span_case.id = "case_immediate" + cnt.toString();
+    span_case.id = "case_immediate" + element.getAttribute("SwitchCount").toString() + element.getAttribute("CaseCount").toString(); // 만들어지는 Case의 ID를 element의 SwitchCount 와 CaseCount 의 값을 이용해 지정
+    create_text(span_case, 1, 0);
+    console.log(span_case.id);
     span_case.classList.add("conding_contents");
     span_case.classList.add("select");
     span_case.classList.add("closed");
     span_case.classList.add("this_is_close");
     span_case.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
+    switch_count = element.getAttribute("CaseCount"); // 변수 switch_count에 CaseCount 값을 넣어줌
+    switch_count++;
+    element.setAttribute("CaseCount", switch_count); // element의 CaseCount의 값을 갱신
     return span_case
 }
 

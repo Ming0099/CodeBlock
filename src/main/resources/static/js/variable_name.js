@@ -5,7 +5,6 @@ var spans = document.querySelectorAll("span.conding_contents");
 var in_check = 0;
 
 var include_close = 0;
-var include_case = 0;
 var close_click = null;
 var cnt = 0;
 
@@ -43,3 +42,5 @@ var temp_afterElement_id = null;
 var switch_close_span = [];
 
 var switch_count = 0;
+
+var case_count = 0;
