@@ -5,12 +5,14 @@ var spans = document.querySelectorAll("span.conding_contents");
 var in_check = 0;
 
 var include_close = 0;
+var include_case = 0;
 var close_click = null;
 var cnt = 0;
 
 var check = 0;
 var span_setting = null; // "if"부분 및 단일 형태의 코드를 얻기 위해
 var span_close_setting = null; //"/if"부분을 얻기 위해
+var span_case_setting = null;
 var dont_up = 0; //위로 올라갈지 여부
 
 
@@ -27,6 +29,7 @@ const targetNode = document.body;
 
 var remove_code = null;
 var remove_close_code = null;
+var remove_case_code = null;
 var mousedown_check = 0;
 
 var pre_block = null; //여닫이 검사
@@ -36,3 +39,7 @@ var draggableElements = null;
 var focus_block = null;
 
 var temp_afterElement_id = null;
+
+var switch_close_span = [];
+
+var switch_count = 0;

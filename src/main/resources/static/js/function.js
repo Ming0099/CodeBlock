@@ -151,19 +151,6 @@ function create_switch(element) {
     element.appendChild(explain);
 }
 
-function add_case_block(color) {
-    const span_case = document.createElement('span');
-    span_case.draggable = false;
-    span_case.innerHTML = "일때";
-    span_case.id = "case_immediate" + cnt.toString();
-    span_case.classList.add("conding_contents");
-    span_case.classList.add("closed");
-    span_case.classList.add("select");
-    span_case.classList.add("this_is_close");
-    span_case.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
-    return span_case
-}
-
 function create_operator(element) {
     create_text(element, 1, 0);
 
@@ -216,6 +203,18 @@ function random_color() {
     var g = parseInt(Math.random() * 255);
     var b = parseInt(Math.random() * 255);
     return [r, g, b];
+}
+
+function add_case_block(color) {
+    const span_case = document.createElement('span');
+    span_case.draggable = false;
+    span_case.id = "case_immediate" + cnt.toString();
+    span_case.classList.add("conding_contents");
+    span_case.classList.add("select");
+    span_case.classList.add("closed");
+    span_case.classList.add("this_is_close");
+    span_case.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
+    return span_case
 }
 
 function add_close_block(color) {

@@ -25,6 +25,12 @@ popMenu.addEventListener("click", function (e) {
             contain.removeChild(remove_close_code);
             remove_close_code = null;
         }
+
+        if (remove_case_code != null) {
+            contain.removeChild(remove_case_code);
+            remove_case_code = null;
+        }
+
         remove_code = null;
     }
 });

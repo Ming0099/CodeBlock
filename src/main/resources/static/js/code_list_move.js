@@ -28,6 +28,7 @@ contain.addEventListener("dragleave", (e) => { //나가기
     if (check == 1) {
         check = 0;
         const re = document.getElementById("immediate" + cnt.toString());
+        console.log(re);
         re.remove();
         if (include_close == 1) {
             const re_close = document.getElementById("close_immediate" + cnt.toString());

@@ -127,14 +127,22 @@ contain.addEventListener("dragenter", (e) => { //진입
             //span.setAttribute('data-value', 'value값넣기')
             span.innerHTML = "만약 ";
             span.title = "버튼을 클릭하여 케이스를 추가하세요";
+            span.setAttribute('SwitchCount', switch_count);
             create_switch(span);
             var plus = document.createElement('button');
             plus.textContent = "+";
+            plus.id = switch_count;
             plus.addEventListener('click', function(){
                 const span_case = add_case_block(color);
-                contain.appendChild(span_case);
-                console.log(span.textContent);
+                create_text(span_case, 1, 0);
+                explain = document.createTextNode(" 일때");
+                span_case.appendChild(explain);
+                span_case.classList.add("switch");
+                contain.insertBefore(span_case, switch_close_span[plus.id]);
+                include_case = 1;
             })
+            switch_id = span.id;
+            console.log(span.id);
             span.appendChild(plus);
         }
         else {
@@ -147,6 +155,10 @@ contain.addEventListener("dragenter", (e) => { //진입
         else { //close 블럭 추가
             span.classList.add("closed");
             const span_close = add_close_block(color);
+            if(span.getAttribute('SwitchCount') != null){
+                switch_close_span[switch_count] = span_close;
+            }
+            switch_count++;
             contain.appendChild(span);
             contain.appendChild(span_close);
             span_close_setting = span_close;
