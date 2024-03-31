@@ -91,7 +91,7 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
     for (var i = 0; i < create_cnt; i++) {
         var texting = document.createElement('input'); //texting의 기능
         texting.type = 'text';
-        texting.id = 'texting' + "immediate" + cnt.toString() + "-" + (start_num + i + 1).toString();
+        texting.id = 'texting' + "immediate" + element.id.match(/\d+/)[0].toString() + "-" + (start_num + i + 1).toString();
         texting.readOnly = true;
         texting.classList.add("code_text");
         texting.onclick = function (element) {
@@ -209,12 +209,9 @@ function add_case_block(element, color) {
     const span_case = document.createElement('span');
     span_case.draggable = false;
     span_case.id = "case_immediate" + element.getAttribute("SwitchCount").toString() + element.getAttribute("CaseCount").toString(); // 만들어지는 Case의 ID를 element의 SwitchCount 와 CaseCount 의 값을 이용해 지정
-    create_text(span_case, 1, 0);
     console.log(span_case.id);
+    create_text(span_case, 1, 0);
     span_case.classList.add("conding_contents");
-    span_case.classList.add("select");
-    span_case.classList.add("closed");
-    span_case.classList.add("this_is_close");
     span_case.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
     switch_count = element.getAttribute("CaseCount"); // 변수 switch_count에 CaseCount 값을 넣어줌
     switch_count++;
@@ -234,6 +231,9 @@ function add_close_block(color) {
     }
     else if(target_id === "번 반복 (while문)"){
         span_close.setAttribute('data-value', "/WHILE");
+    }
+    else if(target_id === "스위치"){
+        span_close.setAttribute('data-value', "/SWITCH");
     }
     span_close.id = "close_immediate" + cnt.toString();
     span_close.classList.add("conding_contents");

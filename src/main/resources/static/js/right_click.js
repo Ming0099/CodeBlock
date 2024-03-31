@@ -21,16 +21,20 @@ popMenu.addEventListener("click", function (e) {
     alert("삭제");
     if (remove_code !== null) {
         contain.removeChild(remove_code);
+        if (remove_code.getAttribute('data-value') !== null) {
+            if (remove_code.getAttribute('data-value').includes('SWITCH')) {
+                var num = remove_code.id.match(/\d+/)[0];
+                spans.forEach(span => {
+                    if (span.id.includes('case_immediate' + num)) {
+                        contain.removeChild(span);
+                    }
+                });
+            }
+        }
         if (remove_close_code != null) {
             contain.removeChild(remove_close_code);
             remove_close_code = null;
         }
-
-        if (remove_case_code != null) {
-            contain.removeChild(remove_case_code);
-            remove_case_code = null;
-        }
-
         remove_code = null;
     }
 });
