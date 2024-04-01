@@ -1,0 +1,136 @@
+/* body */
+div.bodyBox{
+    display: flex;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 3%;
+    background-color: #E5F0FF;
+    height: 90%;
+}
+
+/* sidebar area (변수 연산자 제어문 ...) */
+div.sidebar{
+    background-color: white;
+    border: 1px solid #C3CCD9;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+}
+div.sidebar ol{
+    list-style-type: none; 
+    margin: 0;
+    padding-left: 0;
+}
+div.sidebar ol li{
+    color:#fff;
+    text-align: center;
+    background-color: #855CD6;
+    cursor: pointer;
+    width: 70px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #C3CCD9;
+}
+div.sidebar ol li[id="first_side_menu"]{ /* 첫번째 메뉴 */
+    border-top-left-radius: 16px;
+    color:#855CD6;
+    background-color: #fff;
+}
+
+/* code block button area (만약, 변수, 출력 ...) */
+div.left{
+    float: left;
+    background-color: white;
+    width: 12%;
+    overflow: scroll;
+    direction:rtl;
+    border: 1px solid #C3CCD9;
+    border-left: none;
+    padding-right: 3px;
+}
+div.left::-webkit-scrollbar{
+    width: 0.5vw;
+}
+div.left ol div{
+    display: none;
+}
+
+/* code block script area */
+div.middle{
+    float: left;
+    border: 1px solid #C3CCD9;
+    border-left: none;
+    width: 59%;
+}
+div.code_screen{
+    overflow: auto;
+    background-color: rgb(255, 255, 255);
+    width: 98%;
+    height: 92%;
+    margin : 0.5% 1% 1% 1%;
+}
+div.code_screen.dragging>* {
+    pointer-events: none; /* 드래그 중인 경우 자식 요소에 대한 이벤트를 무시 */
+}
+
+/* script & problem area */
+div.right{
+    float: left;
+    border: 1px solid #C3CCD9;
+    border-left: none;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    width: 30%;
+}
+div.right div{
+    margin: 1%; 
+    background-color: white; 
+    width: 98%; height: 49.5%;
+}
+div.question_screen{
+    border-top-right-radius: 16px;
+
+    .question_title{
+        height: 10%;
+        border-bottom: 1px solid #C3CCD9;
+        align-content: center;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        border-top-right-radius: 16px;
+        color: rgba(0, 0, 0, 0.7);
+    }
+
+    .question_info{
+        color: rgba(0, 0, 0, 0.7);
+        
+        ul{
+            list-style: none;
+            margin: 0px;
+            padding:0px;
+        }
+
+        li{
+            font-size: 15px;
+            border-bottom: 1px solid #C3CCD9;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        li[id="success"]{
+            text-decoration: line-through;
+            color:green;
+            font-weight: bold;
+        }
+
+        /*현재 목표*/
+        li[id="current"]{
+            list-style: inside;
+            list-style-type: "🚩";
+            color:black;
+            font-weight: bold;
+        }
+    }
+}
+div.translated_code_screen{
+    border-bottom-right-radius: 16px;
+}
