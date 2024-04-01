@@ -39,6 +39,8 @@ public class CodeBlockService {
         // c언어로 번역
         CTranslator cTranslator = new CTranslator();
 
+        boolean isBreak = false;
+
         int j = 0;
         for(int i=0; i<codeBlock.getContentSize(); i++){
             switch (codeBlock.getContentById(i)){
@@ -60,9 +62,24 @@ public class CodeBlockService {
                 case OPERATOR:
                     cTranslator.translateOperator(codeBlock.getChildById(j)[0],codeBlock.getChildById(j)[1],codeBlock.getChildById(j)[2],codeBlock.getChildById(j)[3]);
                     break;
+                case SWITCH:
+                    cTranslator.translateSwitch(codeBlock.getChildById(j)[0]);
+                    break;
+                case CASE:
+                    if(!isBreak){
+                        isBreak = true;
+                    }else{
+                        cTranslator.translateBreak();
+                    }
+                    cTranslator.translateCase(codeBlock.getChildById(j)[0]);
+                    break;
             }
 
             if(codeBlock.getContentById(i).contains("/")){
+                if(codeBlock.getContentById(i).contains("SWITCH")){
+                    cTranslator.translateBreak();
+                    isBreak = false;
+                }
                 cTranslator.closeBrace();
             }else{
                 j++;

@@ -66,6 +66,27 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
     }
 
     @Override
+    public void translateSwitch(String s1) {
+        createIndent(getCodeDepth());
+        code.append("switch(").append(s1).append(") {\n");
+        codeDepthStack.push(codeDepthStack.peek() + 1);
+    }
+
+    @Override
+    public void translateCase(String s1) {
+        codeDepthStack.pop();
+        createIndent(getCodeDepth());
+        code.append("case ").append(s1).append(": \n");
+        codeDepthStack.push(codeDepthStack.peek() + 1);
+    }
+
+    @Override
+    public void translateBreak() {
+        createIndent(getCodeDepth());
+        code.append("break; \n");
+    }
+
+    @Override
     public void closeBrace() {
         createIndent(getCodeDepth() - 1);
         code.append("}\n");

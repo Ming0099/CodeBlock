@@ -13,6 +13,12 @@ public interface CodeTranslator {
     void translateWhile(int count);
     // 조건문 변환
     void translateIf(String s1, String condition, String s2);
+    // 스위치 변환
+    void translateSwitch(String s1);
+    // 케이스 변환
+    void translateCase(String s1);
+    // break 변환
+    void translateBreak();
     // 중괄호 닫기
     void closeBrace();
     // 중괄호 블록 깊이 반환
