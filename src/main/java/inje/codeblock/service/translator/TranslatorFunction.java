@@ -45,23 +45,43 @@ public class TranslatorFunction {
     public static String translateCondition(String con){
         String condition = "";
         switch (con){
-            case "작다":
+            case "작을때":
                 condition = "<";
                 break;
-            case "크다":
+            case "클때":
                 condition = ">";
                 break;
-            case "같다":
+            case "같을때":
                 condition = "==";
                 break;
-            case "작거나 같다":
+            case "작거나 같을때":
                 condition = "<=";
                 break;
-            case "크거나 같다":
+            case "크거나 같을때":
                 condition = ">=";
                 break;
-            case "다르다":
+            case "다를때":
                 condition = "!=";
+                break;
+        }
+        return condition;
+    }
+
+    // 연산자 변환 (더하기) -> (+)
+    public static String translateOperatorCondition(String con){
+        String condition = "";
+        switch (con){
+            case "더하기":
+                condition = "+";
+                break;
+            case "빼기":
+                condition = "-";
+                break;
+            case "곱하기":
+                condition = "*";
+                break;
+            case "나누기":
+                condition = "/";
                 break;
         }
         return condition;

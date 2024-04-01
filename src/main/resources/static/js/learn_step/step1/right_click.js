@@ -19,18 +19,12 @@ document.addEventListener("click", function (e) {
 });
 popMenu.addEventListener("click", function (e) {
     alert("삭제");
+    // 세 번째 목표
+    if(currentQuestionNumber == 2){
+        questionCheck();
+    }
     if (remove_code !== null) {
         contain.removeChild(remove_code);
-        if (remove_code.getAttribute('data-value') !== null) {
-            if (remove_code.getAttribute('data-value').includes('SWITCH')) {
-                var num = remove_code.id.match(/\d+/)[0];
-                spans.forEach(span => {
-                    if (span.id.includes('case_immediate' + num)) {
-                        contain.removeChild(span);
-                    }
-                });
-            }
-        }
         if (remove_close_code != null) {
             contain.removeChild(remove_close_code);
             remove_close_code = null;

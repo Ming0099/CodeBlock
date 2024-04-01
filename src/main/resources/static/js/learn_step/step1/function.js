@@ -47,7 +47,7 @@ $(document).ready(function () { //출력하기
                 var child_arr = []
                 var childNodes = content.childNodes;
                 Array.from(childNodes).forEach(function (childNode) {
-                    if(childNode.value != undefined && childNode.value != ''){
+                    if(childNode.value != undefined){
                         child_arr.push(childNode.value);
                     }
                 });
@@ -62,15 +62,27 @@ $(document).ready(function () { //출력하기
             contentType: 'application/json',
             data: JSON.stringify({ code_content: all_content, child_code: total_arr }),
             success: function (response) {
+                // 다섯 번째 목표
+                if(currentQuestionNumber == 4){
+                    questionCheck();
+                }
                 $("#result").text(response);
             },
             error: function (error) {
+                // 다섯 번째 목표
+                if(currentQuestionNumber == 4){
+                    questionCheck();
+                }
                 console.log(error);
             }
         })
     });
 
     $("#save_text").click(function () { //저장
+        // 두 번째 목표
+        if(currentQuestionNumber == 1){
+            questionCheck();
+        }
         var content_temp = $('#input_texting').val();
         $("#" + input_text_element.id).val(content_temp);
         close_modal();
@@ -91,7 +103,7 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
     for (var i = 0; i < create_cnt; i++) {
         var texting = document.createElement('input'); //texting의 기능
         texting.type = 'text';
-        texting.id = 'texting' + "immediate" + element.id.match(/\d+/)[0].toString() + "-" + (start_num + i + 1).toString();
+        texting.id = 'texting' + "immediate" + cnt.toString() + "-" + (start_num + i + 1).toString();
         texting.readOnly = true;
         texting.classList.add("code_text");
         texting.onclick = function (element) {
@@ -151,6 +163,19 @@ function create_switch(element) {
     element.appendChild(explain);
 }
 
+function add_case_block(color) {
+    const span_case = document.createElement('span');
+    span_case.draggable = false;
+    span_case.innerHTML = "일때";
+    span_case.id = "case_immediate" + cnt.toString();
+    span_case.classList.add("conding_contents");
+    span_case.classList.add("closed");
+    span_case.classList.add("select");
+    span_case.classList.add("this_is_close");
+    span_case.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
+    return span_case
+}
+
 function create_operator(element) {
     create_text(element, 1, 0);
 
@@ -205,21 +230,6 @@ function random_color() {
     return [r, g, b];
 }
 
-function add_case_block(element, color) {
-    const span_case = document.createElement('span');
-    span_case.setAttribute('data-value', 'CASE')
-    span_case.draggable = false;
-    span_case.id = "case_immediate" + element.getAttribute("SwitchCount").toString() + element.getAttribute("CaseCount").toString(); // 만들어지는 Case의 ID를 element의 SwitchCount 와 CaseCount 의 값을 이용해 지정
-    console.log(span_case.id);
-    create_text(span_case, 1, 0);
-    span_case.classList.add("conding_contents");
-    span_case.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
-    switch_count = element.getAttribute("CaseCount"); // 변수 switch_count에 CaseCount 값을 넣어줌
-    switch_count++;
-    element.setAttribute("CaseCount", switch_count); // element의 CaseCount의 값을 갱신
-    return span_case
-}
-
 function add_close_block(color) {
     const span_close = document.createElement('span'); //span추가 및 설정 //닫는 것
     span_close.draggable = true;
@@ -232,9 +242,6 @@ function add_close_block(color) {
     }
     else if(target_id === "번 반복 (while문)"){
         span_close.setAttribute('data-value', "/WHILE");
-    }
-    else if(target_id === "스위치"){
-        span_close.setAttribute('data-value', "/SWITCH");
     }
     span_close.id = "close_immediate" + cnt.toString();
     span_close.classList.add("conding_contents");

@@ -25,6 +25,14 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
     }
 
     @Override
+    public void translateOperator(String name, String value1, String operator, String value2) {
+        createIndent(getCodeDepth());
+        operator = translateOperatorCondition(operator);
+        String type = translateType(value1);
+        code.append(type).append(" ").append(name).append(" = ").append(value1).append(" ").append(operator).append(" ").append(value2).append(";\n");
+    }
+
+    @Override
     public void translatePrint(String text) {
         createIndent(getCodeDepth());
         code.append("printf(\"").append(text).append("\");\n");
@@ -44,6 +52,8 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
         createIndent(getCodeDepth());
         code.append("while(i < ").append(count).append(") {\n");
         codeDepthStack.push(codeDepthStack.peek() + 1);
+        createIndent(getCodeDepth());
+        code.append("i++;\n");
     }
 
     @Override
@@ -53,6 +63,27 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
         createIndent(getCodeDepth());
         code.append("if(").append(s1).append(" ").append(condition).append(" ").append(s2).append(") {\n");
         codeDepthStack.push(codeDepthStack.peek() + 1);
+    }
+
+    @Override
+    public void translateSwitch(String s1) {
+        createIndent(getCodeDepth());
+        code.append("switch(").append(s1).append(") {\n");
+        codeDepthStack.push(codeDepthStack.peek() + 1);
+    }
+
+    @Override
+    public void translateCase(String s1) {
+        codeDepthStack.pop();
+        createIndent(getCodeDepth());
+        code.append("case ").append(s1).append(": \n");
+        codeDepthStack.push(codeDepthStack.peek() + 1);
+    }
+
+    @Override
+    public void translateBreak() {
+        createIndent(getCodeDepth());
+        code.append("break; \n");
     }
 
     @Override

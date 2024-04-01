@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="css/index/header.css">
-    <link rel="stylesheet" type="text/css" href="css/index/body.css">
-    <link rel="stylesheet" type="text/css" href="css/index/modal.css">
-    <link rel="stylesheet" type="text/css" href="css/index/object.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/learn_step/header.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/learn_step/body.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/learn_step/modal.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/learn_step/object.css">
 </head>
 
 <body style="margin: 0; padding: 0; width: 100vw; height: 100vh;">
@@ -76,6 +76,20 @@
             <button class="enter" id="results_code">출력</button>
         </div>
         <div class="right">
+            <div class="question_screen" id="question">
+                <div class="question_title">
+                    <span>목표</span>
+                </div>
+                <div class="question_info">
+                    <ul id="question_list">
+                        <li id="current">리스트에 있는 코드 블록을 스크린으로 드래그하세요.</li>
+                        <li id="yet">코드 블록에 내용을 추가해 보세요.</li>
+                        <li id="yet">우클릭을 눌러 코드 블록을 삭제해보세요.</li>
+                        <li id="yet">코드 스크린에서 코드 블록들의 위치를 옮겨보세요.</li>
+                        <li id="yet">코드 스크린에 코드 블록을 추가하고 번역버튼을 눌러보세요.</li>
+                    </ul>
+                </div>
+            </div>
             <div class="translated_code_screen" id="result" style="white-space: pre;">
             </div>
         </div>
@@ -91,13 +105,14 @@
         <button id="cancel_text" class="click_text">취소</button>
     </div>
 </div>
-<script src="js/variable_name.js"></script>
+<script src="../static/js/learn_step/step1/question.js"></script>
+<script src="../static/js/learn_step/step1/variable_name.js"></script>
 
-<script src="js/code_screen_in.js"></script>
-<script src="js/right_click.js"></script>
-<script src="js/code_list_move.js"></script>
-<script src="js/function.js"></script>
-<script src="js/side_menu.js"></script>
+<script src="../static/js/learn_step/step1/code_screen_in.js"></script>
+<script src="../static/js/learn_step/step1/right_click.js"></script>
+<script src="../static/js/learn_step/step1/code_list_move.js"></script>
+<script src="../static/js/learn_step/step1/function.js"></script>
+<script src="../static/js/learn_step/step1/side_menu.js"></script>
 </body>
 
 </html>
