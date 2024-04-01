@@ -41,12 +41,7 @@ public class CodeBlockController {
 
         // child 추가
         for(String[] strArray : total_arr){
-            // null 제거
-            String[] newArray = IntStream.range(0, strArray.length)
-                    .filter(idx -> idx != 0)
-                    .mapToObj(idx -> strArray[idx])
-                    .toArray(String[]::new);
-            codeBlock.addChild(newArray);
+            codeBlock.addChild(strArray);
         }
 
         // 코드 생성 후 리턴
