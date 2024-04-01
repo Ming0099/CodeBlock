@@ -47,7 +47,7 @@ $(document).ready(function () { //출력하기
                 var child_arr = []
                 var childNodes = content.childNodes;
                 Array.from(childNodes).forEach(function (childNode) {
-                    if(childNode.value != undefined){
+                    if(childNode.value != undefined && childNode.value != ''){
                         child_arr.push(childNode.value);
                     }
                 });
@@ -207,6 +207,7 @@ function random_color() {
 
 function add_case_block(element, color) {
     const span_case = document.createElement('span');
+    span_case.setAttribute('data-value', 'CASE')
     span_case.draggable = false;
     span_case.id = "case_immediate" + element.getAttribute("SwitchCount").toString() + element.getAttribute("CaseCount").toString(); // 만들어지는 Case의 ID를 element의 SwitchCount 와 CaseCount 의 값을 이용해 지정
     console.log(span_case.id);

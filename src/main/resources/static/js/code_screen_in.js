@@ -122,6 +122,7 @@ contain.addEventListener("dragenter", (e) => { //진입
         }
         else if (span.textContent.includes("스위치") === true) {
             //span.setAttribute('data-value', 'value값넣기')
+            span.setAttribute('data-value', 'SWITCH');
             span.innerHTML = "만약 ";
             span.title = "버튼을 클릭하여 케이스를 추가하세요";
             span.setAttribute('data-value', "SWITCH");
