@@ -28,7 +28,23 @@ popMenu.addEventListener("click", function (e) {
                     if (span.id.includes('case_immediate' + num)) {
                         contain.removeChild(span);
                     }
+
+                    if (span.getAttribute('under-case') != null) {
+                        var temp_under_case = span.getAttribute('under-case');
+                        console.log(temp_under_case);
+                        if (temp_under_case.includes('case_immediate' + num)) {
+                            contain.removeChild(span);
+                        }
+                    }
                 });
+            }
+            if (remove_code.getAttribute('data-value').includes('CASE')) {
+                spans.forEach(span => {
+                    var attribute = span.getAttribute('under-case');
+                    if (remove_code.id === attribute) {
+                        contain.removeChild(span);
+                    }
+                })
             }
         }
         if (remove_close_code != null) {

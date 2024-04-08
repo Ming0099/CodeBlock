@@ -17,6 +17,7 @@ const observer = new MutationObserver(() => { //code div에 있는 설정 코드
             if (first == 1 && check == 0 && in_check == 1) {
                 // 클릭할 때 수행할 작업
                 close_check = check_close_complete(span);
+                switch_check = check_switch_complete(span);
                 first = 0;
             }
             if (include_close == 1) {
@@ -125,7 +126,6 @@ contain.addEventListener("dragenter", (e) => { //진입
             span.setAttribute('data-value', 'SWITCH');
             span.innerHTML = "만약 ";
             span.title = "버튼을 클릭하여 케이스를 추가하세요";
-            span.setAttribute('data-value', "SWITCH");
             span.setAttribute('SwitchCount', cnt); // cnt 해당하는 값을 Span에 속성값으로 저장
             span.setAttribute("CaseCount", case_count); // case_count(케이스 갯수)를 Span에 속성값으로 저장
             create_switch(span); // Switch 블럭 생성
@@ -140,7 +140,6 @@ contain.addEventListener("dragenter", (e) => { //진입
                 contain.insertBefore(span_case, switch_close_span[plus.id]); // Plus를 누른 Span 의 "/" 블록을 찾아 그위에 바로 Case 블록을 붙임
             })
             switch_id = span.id;
-            console.log(span.id);
             span.appendChild(plus);
         }
         else {
@@ -195,6 +194,22 @@ contain.addEventListener("drop", (e) => { //놓기
         }
     }
     spans = document.querySelectorAll("span.conding_contents");
+
+    spans.forEach(span => {
+        var now_above = getSpanAboveCurrent(contain, span);
+        if(now_above != null) {
+            if(now_above.getAttribute('data-value') == 'CASE') {
+                var caseID = now_above.id;
+                span.setAttribute('under-case', caseID);
+            }
+            else if(now_above.getAttribute('under-case') != null){
+                span.setAttribute('under-case', now_above.getAttribute('under-case'));
+            }
+            else {
+                span.setAttribute('under-case', '');
+            }
+        }
+    })
 });
 
 contain.addEventListener("dragover", (e) => { //움직이기

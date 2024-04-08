@@ -244,6 +244,34 @@ function add_close_block(color) {
     span_close.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
     return span_close
 }
+function check_switch_complete(span) {
+    var now_above = getSpanAboveCurrent(contain, span);
+    if(now_above != undefined) {
+        console.log(now_above.getAttribute('data-value'));
+        if(now_above.getAttribute('data-value') == 'SWITCH') {
+            if(pre_block == undefined) {
+                contain.prepend(span);
+            }
+            else {
+                insertAfter(span, pre_block);
+            }
+        }
+
+        if(now_above.getAttribute('data-value') == 'CASE') {
+            var caseID = now_above.id;
+            span.setAttribute('under-case', caseID);
+        }
+        else if(now_above.getAttribute('under-case') != null){
+            span.setAttribute('under-case', now_above.getAttribute('under-case'));
+        }
+        else {
+            span.setAttribute('under-case', '');
+        }
+    }
+    spans.forEach(span => {
+        console.log(span.getAttribute('under-case'));
+    })
+}
 
 function check_close_complete(span) { //close 유효성검사
     need_close_list = []
