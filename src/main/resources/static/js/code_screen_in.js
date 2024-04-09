@@ -197,12 +197,12 @@ contain.addEventListener("drop", (e) => { //놓기
 
     spans.forEach(span => {
         var now_above = getSpanAboveCurrent(contain, span);
-        if(now_above != null) {
-            if(now_above.getAttribute('data-value') == 'CASE') {
+        if (now_above != null) {
+            if (now_above.getAttribute('data-value') == 'CASE') {
                 var caseID = now_above.id;
                 span.setAttribute('under-case', caseID);
             }
-            else if(now_above.getAttribute('under-case') != null){
+            else if (now_above.getAttribute('under-case') != null) {
                 span.setAttribute('under-case', now_above.getAttribute('under-case'));
             }
             else {
@@ -219,6 +219,7 @@ contain.addEventListener("dragover", (e) => { //움직이기
     if (afterElement != null) {
         // 드래그 중인 블럭 위의 블럭이 이전과 달라지면
         if (temp_afterElement_id != afterElement.id) {
+
             if (close_click != null) { // 클릭한 것이 "/if"인지 "if"인지 판별
                 // "/if"라면
                 draggable = document.querySelector(".conding_contents.select");
@@ -247,6 +248,24 @@ contain.addEventListener("dragover", (e) => { //움직이기
                 }
             }
             temp_afterElement_id = afterElement.id;
+        }
+    }
+    if (afterElement === null) {
+        if (close_click != null) { // 클릭한 것이 "/if"인지 "if"인지 판별
+            // "/if"라면
+            draggable = document.querySelector(".conding_contents.select");
+            var dontmove = draggable.id.replace("close_", "");
+        }
+        else { // 'if' 라면
+            draggable = document.querySelector(".conding_contents.select:not(.this_is_close)");
+            var dontmove = "";
+        }
+        if (dontmove === "") {
+            contain.appendChild(draggable);
+            if (include_close == 1) { //close를 포함한 코드인지 아닌지
+                const draggable_close = document.getElementById("close_" + draggable.id);
+                contain.appendChild(draggable_close);
+            }
         }
     }
 });
