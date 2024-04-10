@@ -36,6 +36,29 @@ function getSpanAboveCurrent(container, currentSpan) {
     return spanAboveCurrent.element;
 }
 
+function getSpanUnderCurrent(container, currentSpan) { //현 블록의 아래에 있는 블록 확인하기
+    const draggableElements = [
+        ...container.querySelectorAll("span.conding_contents:not(.select)") // container 내의 모든 span 요소 가져오기
+    ];
+
+    // 현재 span 요소의 위치 정보 가져오기
+    const currentSpanRect = currentSpan.getBoundingClientRect();
+
+    // 현재 span 요소의 위에 있는 span 요소를 찾기
+    const spanAboveCurrent = draggableElements.reduce((closest, span) => {
+        if (span !== currentSpan) { // 현재 span 요소는 제외합니다.
+            const spanRect = span.getBoundingClientRect();
+            const offset = currentSpanRect.top - spanRect.bottom; // 현재 span 요소와의 수직 거리 계산
+            if (offset < 0 && -offset < closest.offset) { // 현재 span 요소의 위에 있는 span 요소인지 확인하고 가장 가까운 것을 업데이트합니다.
+                return { offset: -offset, element: span };
+            }
+        }
+        return closest;
+    }, { offset: Number.POSITIVE_INFINITY });
+
+    return spanAboveCurrent.element;
+}
+
 $(document).ready(function () { //출력하기
     $("#results_code").click(function () {
         const contents = document.querySelectorAll("span.conding_contents"); //만약 변수 
@@ -209,7 +232,7 @@ function add_case_block(element, color) {
     const span_case = document.createElement('span');
     span_case.setAttribute('data-value', 'CASE')
     span_case.draggable = false;
-    span_case.id = "case_immediate" + element.getAttribute("SwitchCount").toString() + element.getAttribute("CaseCount").toString(); // 만들어지는 Case의 ID를 element의 SwitchCount 와 CaseCount 의 값을 이용해 지정
+    span_case.id = "case_immediate" + element.getAttribute("SwitchCount").toString() +"_"+ element.getAttribute("CaseCount").toString(); // 만들어지는 Case의 ID를 element의 SwitchCount 와 CaseCount 의 값을 이용해 지정
     console.log(span_case.id);
     create_text(span_case, 1, 0);
     span_case.classList.add("conding_contents");
@@ -257,20 +280,20 @@ function check_switch_complete(span) {
             }
         }
 
-        if(now_above.getAttribute('data-value') == 'CASE') {
-            var caseID = now_above.id;
-            span.setAttribute('under-case', caseID);
-        }
-        else if(now_above.getAttribute('under-case') != null){
-            span.setAttribute('under-case', now_above.getAttribute('under-case'));
-        }
-        else {
-            span.setAttribute('under-case', '');
-        }
+        // if(now_above.getAttribute('data-value') == 'CASE') {
+        //     var caseID = now_above.id;
+        //     span.setAttribute('under-case', caseID);
+        // }
+        // else if(now_above.getAttribute('under-case') != null){
+        //     span.setAttribute('under-case', now_above.getAttribute('under-case'));
+        // }
+        // else {
+        //     span.setAttribute('under-case', '');
+        // }
     }
-    spans.forEach(span => {
-        console.log(span.getAttribute('under-case'));
-    })
+    // spans.forEach(span => {
+    //     console.log(span.getAttribute('under-case'));
+    // })
 }
 
 function check_close_complete(span) { //close 유효성검사

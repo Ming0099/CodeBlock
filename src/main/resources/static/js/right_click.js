@@ -20,37 +20,52 @@ document.addEventListener("click", function (e) {
 popMenu.addEventListener("click", function (e) {
     alert("삭제");
     if (remove_code !== null) {
-        contain.removeChild(remove_code);
-        if (remove_code.getAttribute('data-value') !== null) {
-            if (remove_code.getAttribute('data-value').includes('SWITCH')) {
+        if (remove_code.getAttribute('data-value') !== null) { //data-value값이 있는지 확인
+            if (remove_code.getAttribute('data-value').includes('SWITCH')) { //스위치를 지웠을때 전체를 지움
                 var num = remove_code.id.match(/\d+/)[0];
-                spans.forEach(span => {
-                    if (span.id.includes('case_immediate' + num)) {
-                        contain.removeChild(span);
-                    }
+                while(true){
+                     temp = getSpanUnderCurrent(contain, remove_code);
+                     console.log(temp.id);
+                     if(temp.id.includes('close_immediate' + num)){
+                        break;
+                     }
+                     else{
+                        contain.removeChild(temp);
+                     }
+                }
+                // spans.forEach(span => {
+                //     if (span.id.includes('case_immediate' + num)) {
+                //         contain.removeChild(span);
+                //     }
 
-                    if (span.getAttribute('under-case') != null) {
-                        var temp_under_case = span.getAttribute('under-case');
-                        console.log(temp_under_case);
-                        if (temp_under_case.includes('case_immediate' + num)) {
-                            contain.removeChild(span);
-                        }
-                    }
-                });
+                //     // if (span.getAttribute('under-case') != null) {
+                //     //     var temp_under_case = span.getAttribute('under-case');
+                //     //     console.log(temp_under_case);
+                //     //     if (temp_under_case.includes('case_immediate' + num)) {
+                //     //         contain.removeChild(span);
+                //     //     }
+                //     // }
+                // });
             }
             if (remove_code.getAttribute('data-value').includes('CASE')) {
-                spans.forEach(span => {
-                    var attribute = span.getAttribute('under-case');
-                    if (remove_code.id === attribute) {
-                        contain.removeChild(span);
+                var num = remove_code.id.match(/\d+/)[0];
+                while(true){
+                    temp = getSpanUnderCurrent(contain, remove_code);
+                    console.log(temp.id);
+                    if(temp.id.includes('case_immediate' + num) || temp.id.includes('close_immediate' + num)){
+                       break;
                     }
-                })
+                    else{
+                       contain.removeChild(temp);
+                    }
+               }
             }
         }
-        if (remove_close_code != null) {
+        if (remove_close_code != null) { //닫는 블록이 있는지 확인
             contain.removeChild(remove_close_code);
             remove_close_code = null;
         }
+        contain.removeChild(remove_code);
         remove_code = null;
     }
 });

@@ -171,6 +171,19 @@ contain.addEventListener("dragenter", (e) => { //진입
 contain.addEventListener("drop", (e) => { //놓기
     e.preventDefault();
     if (check == 1 && in_check == 0) { //목록에서 들고 왔으면
+
+        above_block = getSpanAboveCurrent(contain, span_setting); //여기서 부터 switch 정리
+        if(above_block && above_block.getAttribute('data-value') != null){
+            if (above_block.getAttribute('data-value') === 'SWITCH') { //넣은 곳이 switch일시
+                const re = document.getElementById("immediate" + cnt.toString());
+                re.remove();
+                if (include_close == 1) {
+                    const re_close = document.getElementById("close_immediate" + cnt.toString());
+                    re_close.remove();
+                }
+            }
+        }
+
         cnt = cnt + 1;
         check = 0;
         if (include_close == 0) { // close가 없는 코드는
@@ -184,6 +197,7 @@ contain.addEventListener("drop", (e) => { //놓기
     }
     else if (check == 0 && in_check == 1) { //코드에서 들고 왔으면
         //검사
+
         close_click = null;
         if (include_close == 0) { // close가 없는 코드는
             span_setting.classList.remove("select");
@@ -195,21 +209,21 @@ contain.addEventListener("drop", (e) => { //놓기
     }
     spans = document.querySelectorAll("span.conding_contents");
 
-    spans.forEach(span => {
-        var now_above = getSpanAboveCurrent(contain, span);
-        if (now_above != null) {
-            if (now_above.getAttribute('data-value') == 'CASE') {
-                var caseID = now_above.id;
-                span.setAttribute('under-case', caseID);
-            }
-            else if (now_above.getAttribute('under-case') != null) {
-                span.setAttribute('under-case', now_above.getAttribute('under-case'));
-            }
-            else {
-                span.setAttribute('under-case', '');
-            }
-        }
-    })
+    // spans.forEach(span => {
+    //     var now_above = getSpanAboveCurrent(contain, span);
+    //     if (now_above != null) {
+    //         if (now_above.getAttribute('data-value') == 'CASE') {
+    //             var caseID = now_above.id;
+    //             span.setAttribute('under-case', caseID);
+    //         }
+    //         else if (now_above.getAttribute('under-case') != null) {
+    //             span.setAttribute('under-case', now_above.getAttribute('under-case'));
+    //         }
+    //         else {
+    //             span.setAttribute('under-case', '');
+    //         }
+    //     }
+    // })
 });
 
 contain.addEventListener("dragover", (e) => { //움직이기
@@ -230,7 +244,7 @@ contain.addEventListener("dragover", (e) => { //움직이기
                 var dontmove = "";
             }
             if (dontmove === "") {
-                if(afterElement !== undefined) {
+                if (afterElement !== undefined) {
                     if (draggable && afterElement) { //가능한 
                         contain.insertBefore(draggable, afterElement);
                         if (include_close == 1) { //close를 포함한 코드인지 아닌지
