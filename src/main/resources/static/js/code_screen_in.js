@@ -230,14 +230,7 @@ contain.addEventListener("dragover", (e) => { //움직이기
                 var dontmove = "";
             }
             if (dontmove === "") {
-                if (afterElement === undefined) { //위치 바꿀게 없으면
-                    contain.appendChild(draggable);
-                    if (include_close == 1) { //close를 포함한 코드인지 아닌지
-                        const draggable_close = document.getElementById("close_" + draggable.id);
-                        contain.appendChild(draggable_close);
-                    }
-                }
-                else {
+                if(afterElement !== undefined) {
                     if (draggable && afterElement) { //가능한 
                         contain.insertBefore(draggable, afterElement);
                         if (include_close == 1) { //close를 포함한 코드인지 아닌지
