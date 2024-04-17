@@ -44,3 +44,8 @@ var switch_close_span = [];
 var switch_count = 0;
 
 var case_count = 0;
+
+var switch_array = [];
+var switch_start = null;
+var switch_end = null;
+var left_mouse_down = 0;

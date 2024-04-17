@@ -1,3 +1,26 @@
+//사이값 구하기
+function BetweenSpantoSpan(span_start, span_end){ //시작은 element, 끝은 id인 배열을 넣어야함    
+    var spans_array = [];
+    var standard = span_start;
+    while(true){
+        var under_span = getSpanUnderCurrent(contain, standard);
+        var break_check = 0;
+        for(var i = 0; i< span_end.length; i++){
+            if(under_span.id.includes(span_end[i])){
+                break_check = 1;
+                switch_end = under_span;
+                break;
+            }
+        }
+        if(break_check == 1){
+            break;
+        }
+        spans_array.push(under_span);
+        standard = under_span;
+    }
+    return spans_array;
+}
+
 function getDragAfterElement(y) {
     let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
 
@@ -233,7 +256,6 @@ function add_case_block(element, color) {
     span_case.setAttribute('data-value', 'CASE')
     span_case.draggable = false;
     span_case.id = "case_immediate" + element.getAttribute("SwitchCount").toString() +"_"+ element.getAttribute("CaseCount").toString(); // 만들어지는 Case의 ID를 element의 SwitchCount 와 CaseCount 의 값을 이용해 지정
-    console.log(span_case.id);
     create_text(span_case, 1, 0);
     span_case.classList.add("conding_contents");
     span_case.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
@@ -270,7 +292,6 @@ function add_close_block(color) {
 function check_switch_complete(span) {
     var now_above = getSpanAboveCurrent(contain, span);
     if(now_above != undefined) {
-        console.log(now_above.getAttribute('data-value'));
         if(now_above.getAttribute('data-value') == 'SWITCH') {
             if(pre_block == undefined) {
                 contain.prepend(span);
@@ -279,21 +300,7 @@ function check_switch_complete(span) {
                 insertAfter(span, pre_block);
             }
         }
-
-        // if(now_above.getAttribute('data-value') == 'CASE') {
-        //     var caseID = now_above.id;
-        //     span.setAttribute('under-case', caseID);
-        // }
-        // else if(now_above.getAttribute('under-case') != null){
-        //     span.setAttribute('under-case', now_above.getAttribute('under-case'));
-        // }
-        // else {
-        //     span.setAttribute('under-case', '');
-        // }
     }
-    // spans.forEach(span => {
-    //     console.log(span.getAttribute('under-case'));
-    // })
 }
 
 function check_close_complete(span) { //close 유효성검사
@@ -349,27 +356,3 @@ function insertAfter(newNode, referenceNode) { //뒤에 삽입
         console.error("Invalid parameters passed to insertAfter function.");
     }
 }
-
-// function create_span(value, title, close_is, text_cnt) {
-//     const span = document.createElement('span');
-//     span.draggable = true;
-//     span.innerHTML = target_id; //html에 target_id라는 내용을 화면에 표시
-//     span.id = "immediate" + cnt.toString(); //마우스 다운 하고 움직이기 때문에 임시id를 줌
-//     span.classList.add("conding_contents"); //code_screen에 들어가기 때문에 css로 conding_contents를 줌
-//     span.classList.add("select"); //down하고 움직이기 때문에 특정 블럭을 뽑기 위해 select라는 클릭
-//     var color = random_color(); //블럭 background 색깔입히기
-//     span.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
-//     //리스트 블록 추가시
-//     create_text(span, text_cnt, 0);
-//     if (close_is == 0) {
-//         contain.appendChild(span);
-//     }
-//     else { //close 블럭 추가
-//         span.classList.add("closed");
-//         const span_close = add_close_block(color)
-//         contain.appendChild(span);
-//         contain.appendChild(span_close);
-//         span_close_setting = span_close;
-//     }
-//     return span
-// }

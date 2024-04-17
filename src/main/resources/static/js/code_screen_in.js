@@ -49,14 +49,23 @@ const observer = new MutationObserver(() => { //code div에 있는 설정 코드
                 mousedown_check = 1;
             }
             else {
+                if (span.getAttribute('data-value') && span.getAttribute('data-value') === 'SWITCH' && left_mouse_down == 0) {
+                    switch_start = span;
+                    var num = span.id.match(/\d+/)[0];
+                    switch_array = BetweenSpantoSpan(span, ['close_immediate' + num]);
+                    left_mouse_down = 1;
+                }
                 focus_block = span;
-                draggableElements = [ //getDragAfterElement 함수에서 필요한데 처리속도 개선으로 인한 안타까움으로 쩔 수 없음
-                    ...contain.querySelectorAll("span.conding_contents:not(.select)") //css가 conding_contents인 요소 전부 찾기
+                draggableElements = [
+                    ...contain.querySelectorAll("span.conding_contents:not(.select)")
                 ];
                 in_check = 1;
             }
         });
         span.addEventListener("mouseup", function (e) {
+            if (span.getAttribute('data-value') && span.getAttribute('data-value') === 'SWITCH' && left_mouse_down == 1) {
+                left_mouse_down = 0;
+            }
             if (in_check == 1) {
                 in_check = 0;
             }
@@ -173,7 +182,7 @@ contain.addEventListener("drop", (e) => { //놓기
     if (check == 1 && in_check == 0) { //목록에서 들고 왔으면
 
         above_block = getSpanAboveCurrent(contain, span_setting); //여기서 부터 switch 정리
-        if(above_block && above_block.getAttribute('data-value') != null){
+        if (above_block && above_block.getAttribute('data-value') != null) {
             if (above_block.getAttribute('data-value') === 'SWITCH') { //넣은 곳이 switch일시
                 const re = document.getElementById("immediate" + cnt.toString());
                 re.remove();
@@ -206,24 +215,30 @@ contain.addEventListener("drop", (e) => { //놓기
             span_setting.classList.remove("select");
             span_close_setting.classList.remove("select");
         }
+        if (span_setting.getAttribute('data-value') && span_setting.getAttribute('data-value') === "SWITCH") {
+            if (getSpanAboveCurrent(contain, switch_start) && getSpanAboveCurrent(contain, switch_start).getAttribute('data-value') && getSpanAboveCurrent(contain, switch_start).getAttribute('data-value') !== "SWITCH") {
+                var standard = switch_start;
+                for (var i = 0; i < switch_array.length; i++) {
+                    insertAfter(switch_array[i], standard);
+                    standard = switch_array[i];
+                }
+                insertAfter(switch_end, standard);
+                switch_array = [];
+                left_mouse_down = 0;
+            }
+            else if(getSpanAboveCurrent(contain, switch_start) == null){
+                var standard = switch_start;
+                for (var i = 0; i < switch_array.length; i++) {
+                    insertAfter(switch_array[i], standard);
+                    standard = switch_array[i];
+                }
+                insertAfter(switch_end, standard);
+                switch_array = [];
+                left_mouse_down = 0;
+            }
+        }
     }
     spans = document.querySelectorAll("span.conding_contents");
-
-    // spans.forEach(span => {
-    //     var now_above = getSpanAboveCurrent(contain, span);
-    //     if (now_above != null) {
-    //         if (now_above.getAttribute('data-value') == 'CASE') {
-    //             var caseID = now_above.id;
-    //             span.setAttribute('under-case', caseID);
-    //         }
-    //         else if (now_above.getAttribute('under-case') != null) {
-    //             span.setAttribute('under-case', now_above.getAttribute('under-case'));
-    //         }
-    //         else {
-    //             span.setAttribute('under-case', '');
-    //         }
-    //     }
-    // })
 });
 
 contain.addEventListener("dragover", (e) => { //움직이기
