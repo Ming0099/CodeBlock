@@ -2,7 +2,7 @@
 function BetweenSpantoSpan(span_start, span_end){ //시작은 element, 끝은 id인 배열을 넣어야함    
     var spans_array = [];
     var standard = span_start;
-    while(true){
+    while(standard != null){
         var under_span = getSpanUnderCurrent(contain, standard);
         var break_check = 0;
         for(var i = 0; i< span_end.length; i++){
@@ -86,6 +86,7 @@ $(document).ready(function () { //출력하기
     $("#results_code").click(function () {
         const contents = document.querySelectorAll("span.conding_contents"); //만약 변수 
         var all_content = init;
+        var empty_text_check = false;
         var total_arr = []; //배열 만들기 위해서
         contents.forEach(content => {//데이터(코드) 모으기
             all_content = all_content + " " + content.getAttribute('data-value');
@@ -93,15 +94,23 @@ $(document).ready(function () { //출력하기
                 var child_arr = []
                 var childNodes = content.childNodes;
                 Array.from(childNodes).forEach(function (childNode) {
-                    if(childNode.value != undefined && childNode.value != ''){
-                        child_arr.push(childNode.value);
+                    if(childNode.value != undefined){
+                        if(childNode.value.length > 0){ //뭐라도 적혀있으면....
+                            child_arr.push(childNode.value);
+                        }
+                        else{
+                            empty_text_check = true;
+                            return;
+                        }
                     }
                 });
                 total_arr.push(child_arr);
             }
         });
-        console.log(all_content);
-        console.log(total_arr);
+        if(empty_text_check == true){
+            alert("오잉~!? 빈칸이 보영~~~");
+            return;
+        }
         $.ajax({
             type: 'POST',
             url: '/send_data',
