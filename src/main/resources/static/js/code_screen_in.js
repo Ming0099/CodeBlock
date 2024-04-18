@@ -72,7 +72,6 @@ const observer = new MutationObserver(() => { //code div에 있는 설정 코드
         });
     });
 });
-
 // Mutation Observer 시작
 observer.observe(targetNode, observerConfig);
 

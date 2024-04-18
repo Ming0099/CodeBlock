@@ -16,6 +16,7 @@ document.addEventListener("click", function (e) {
     popMenu.style.top = null;
     popMenu.style.left = null;
 });
+
 popMenu.addEventListener("click", function (e) {
     alert("삭제");
     if (remove_code !== null) {
@@ -32,7 +33,8 @@ popMenu.addEventListener("click", function (e) {
             if (remove_code.getAttribute('data-value').includes('CASE')) { //case만 지웠을때 
                 var num = remove_code.id.match(/\d+/)[0];
 
-                var spans_array = BetweenSpantoSpan(remove_code, ['close_immediate' + num, 'case_immediate' + num]) //시작은 element, 끝은 id인 배열을 넣어야함
+                var spans_array = BetweenSpantoSpan(remove_code, ['close_immediate' + num, 'case_immediate' + num]) 
+                //시작은 element, 끝은 id인 배열을 넣어야함
                 for(var i=0; i< spans_array.length; i++){
                     contain.removeChild(spans_array[i]);
                 }
@@ -44,5 +46,6 @@ popMenu.addEventListener("click", function (e) {
         }
         contain.removeChild(remove_code);
         remove_code = null;
+        create_my_variable();
     }
 });

@@ -128,6 +128,9 @@ $(document).ready(function () { //출력하기
     $("#save_text").click(function () { //저장
         var content_temp = $('#input_texting').val();
         $("#" + input_text_element.id).val(content_temp);
+        if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE'){
+            create_my_variable();
+        }
         close_modal();
     });
 
