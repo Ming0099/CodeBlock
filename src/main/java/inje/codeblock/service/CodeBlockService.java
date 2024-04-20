@@ -39,7 +39,8 @@ public class CodeBlockService {
         // c언어로 번역
         CTranslator cTranslator = new CTranslator();
 
-        boolean isBreak = false;
+        // 이전 SWITCH 블록을 저장하기 위한 변수 (SWITCH | /SWITCH | CASE)
+        String currentSwitchBlock = "";
 
         int j = 0;
         for(int i=0; i<codeBlock.getContentSize(); i++){
@@ -66,23 +67,29 @@ public class CodeBlockService {
                     cTranslator.translateSwitch(codeBlock.getChildById(j)[0]);
                     break;
                 case CASE:
-                    if(!isBreak){
-                        isBreak = true;
-                    }else{
-                        cTranslator.translateBreak();
+                    if(currentSwitchBlock.contains("CASE") || currentSwitchBlock.contains("/SWITCH")){ // 이전 SWITCH 블록이 CASE 또는 /SWITCH 라면
+                        cTranslator.translateBreak(); // BREAK 블록 추가
                     }
                     cTranslator.translateCase(codeBlock.getChildById(j)[0]);
                     break;
             }
 
-            if(codeBlock.getContentById(i).contains("/")){
-                if(codeBlock.getContentById(i).contains("SWITCH")){
+            // 현재 블록이 /SWITCH 이고 이전 블록이 CASE 라면 BREAK 블록 추가
+            if(codeBlock.getContentById(i).contains("/SWITCH")){
+                if(currentSwitchBlock.contains("CASE")){
                     cTranslator.translateBreak();
-                    isBreak = false;
                 }
+            }
+
+            if(codeBlock.getContentById(i).contains("/")){
                 cTranslator.closeBrace();
             }else{
                 j++;
+            }
+
+            // 이전 SWITCH 블록이 무엇인지 저장 (SWITCH | /SWITCH | CASE)
+            if(codeBlock.getContentById(i).contains("SWITCH") || codeBlock.getContentById(i).contains("CASE")){
+                currentSwitchBlock = codeBlock.getContentById(i);
             }
         }
 

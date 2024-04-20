@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/index/body.css">
     <link rel="stylesheet" type="text/css" href="css/index/modal.css">
     <link rel="stylesheet" type="text/css" href="css/index/object.css">
+    <link rel="stylesheet" type="text/css" href="prism/prism.css">
 </head>
 
 <body style="margin: 0; padding: 0; width: 100vw; height: 100vh;">
@@ -38,6 +39,7 @@
                 <li class="side_menu_button" id="first_side_menu">선언</li>
                 <li class="side_menu_button">제어문</li>
                 <li class="side_menu_button">입출력문</li>
+                <li class="side_menu_button">내변수</li>
             </ol>
         </div>
         <div class="left">
@@ -65,6 +67,9 @@
                     <li class="button" draggable="true">출력</li>
                     <li class="underbar"></li>
                 </div>
+                <!--내변수 블럭들-->
+                <div class="blocks" id="my_variable_blocks">
+                </div>
             </ol>
         </div>
         <div class="middle">
@@ -76,7 +81,9 @@
             <button class="enter" id="results_code">출력</button>
         </div>
         <div class="right">
-            <div class="translated_code_screen" id="result" style="white-space: pre;">
+            <div class="translated_code_screen" id="result"><pre><code id="c-code" class="language-c">
+            </code>
+            </pre>
             </div>
         </div>
     </div>
@@ -91,6 +98,7 @@
         <button id="cancel_text" class="click_text">취소</button>
     </div>
 </div>
+<script src="prism/prism.js"></script>
 <script src="js/variable_name.js"></script>
 
 <script src="js/code_screen_in.js"></script>
@@ -98,6 +106,8 @@
 <script src="js/code_list_move.js"></script>
 <script src="js/function.js"></script>
 <script src="js/side_menu.js"></script>
+<script src="js/my_variables.js"></script>
+
 </body>
 
 </html>
