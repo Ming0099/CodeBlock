@@ -368,3 +368,26 @@ function insertAfter(newNode, referenceNode) { //뒤에 삽입
         console.error("Invalid parameters passed to insertAfter function.");
     }
 }
+
+function switch_remove(){
+    if (remove_code.getAttribute('data-value').includes('SWITCH')) { //스위치를 지웠을때 전체를 지움
+        if (remove_code.id.includes("close_")) { //스위치 닫는 블록을 지우면 위치 바뀜 (remove_code와 remove_close_code)
+            remove_close_code = remove_code;
+            remove_code = document.getElementById(remove_code.id.replace('close_', ''));
+        }
+        var num = remove_code.id.match(/\d+/)[0];
+        var spans_array = BetweenSpantoSpan(remove_code, ['close_immediate' + num]) //시작은 element, 끝은 id인 배열을 넣어야함
+        for (var i = 0; i < spans_array.length; i++) {
+            contain.removeChild(spans_array[i]);
+        }
+    }
+    if (remove_code.getAttribute('data-value').includes('CASE')) { //case만 지웠을때 
+        var num = remove_code.id.match(/\d+/)[0];
+
+        var spans_array = BetweenSpantoSpan(remove_code, ['close_immediate' + num, 'case_immediate' + num])
+        //시작은 element, 끝은 id인 배열을 넣어야함
+        for (var i = 0; i < spans_array.length; i++) {
+            contain.removeChild(spans_array[i]);
+        }
+    }
+}
