@@ -95,7 +95,7 @@ $(document).ready(function () { //출력하기
                 var childNodes = content.childNodes;
                 Array.from(childNodes).forEach(function (childNode) {
                     if(childNode.value != undefined){
-                        if(childNode.tagName.toLowerCase() === 'input' && childNode.value.length > 0){ //뭐라도 적혀있으면....
+                        if(childNode.value.length > 0){ //뭐라도 적혀있으면....
                             child_arr.push(childNode.value);
                         }
                         else if(childNode.tagName.toLowerCase() === 'input'){
@@ -117,7 +117,8 @@ $(document).ready(function () { //출력하기
             contentType: 'application/json',
             data: JSON.stringify({ code_content: all_content, child_code: total_arr }),
             success: function (response) {
-                $("#result").text(response);
+                $("#c-code").text(response);
+                Prism.highlightAll();
             },
             error: function (error) {
                 console.log(error);
