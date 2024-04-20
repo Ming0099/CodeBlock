@@ -149,7 +149,12 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
     for (var i = 0; i < create_cnt; i++) {
         var texting = document.createElement('input'); //texting의 기능
         texting.type = 'text';
-        texting.id = 'texting' + "immediate" + element.id.match(/\d+/)[0].toString() + "-" + (start_num + i + 1).toString();
+        if(element.getAttribute('data-value').includes("CASE")){
+            texting.id = "texting_immediate" + element.id.match(/\d+/g)[0].toString() + "-" + element.id.match(/\d+/g)[1].toString() + "-" + (start_num + i + 1).toString();
+        }
+        else{
+            texting.id = "texting_immediate" + element.id.match(/\d+/g)[0].toString() + "-" + (start_num + i + 1).toString();
+        }
         texting.readOnly = true;
         texting.classList.add("code_text");
         texting.onclick = function (element) {
@@ -179,7 +184,7 @@ function create_for(element) {
 function create_while(element) {
     create_text(element, 1, 0);
 
-    explain = document.createTextNode("번 반복 (do-while문)");
+    explain = document.createTextNode("번 반복 (while문)");
     element.appendChild(explain);
 }
 
