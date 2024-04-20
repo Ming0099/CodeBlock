@@ -1,0 +1,41 @@
+nav.sidebar{
+    width: 250px;
+    height: 100%;
+    position: fixed;  /* 사이드 메뉴를 화면에 고정 */
+    overflow-y: auto; /* 내용이 많을 경우 스크롤 가능하도록 설정 */
+    border-right: 1px solid #C3CCD9;
+    padding: 20px;
+}
+
+.sidebar h1{
+    padding-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.sidebar ol{
+    list-style-type: none;
+    padding-left: 0px;
+    margin-top: 10px;
+}
+
+.sidebar li{
+    line-height: 2.0;
+}
+
+.sidebar a{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    padding-left: 10px;
+}
+
+.sidebar a.small{
+    font-size: 15px;
+    padding-left: 30px;
+}
+
+.sidebar a:hover{
+    color: #68A6DB;
+}

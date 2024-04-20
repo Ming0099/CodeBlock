@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/reference/header.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/reference/nav.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/reference/content.css">
+</head>
+<body style="margin: 0; padding: 0; width: 100vw; height: 100vh;">
+    <div class="header">
+        <div class="header_title">
+            <a href="#">Code Block</a>
+        </div>
+        <div class="header_menu">
+            <ul>
+                <li id="first_menu"><a href="#">Home</a></li>
+                <li><a href="#">학습하기</a></li>
+                <li><a href="#">도움말</a></li>
+            </ul>
+        </div>
+        <div class="header_myinfo">
+            <ul>
+                <li><a href="#">Sign in</a></li>
+                <li><a href="#">Sign up</a></li>
+            </ul>
+        </div>
+    </div>
+    <nav class="sidebar">
+        <h1>도움말</h1>
+        <hr>
+        <ol>
+            <li>
+                <a href="#codeblock">코드 블록이란?</a>
+            </li>
+            <li>
+                <a href="#use">사용 방법</a>
+            </li>
+            <li>
+                <a href="#declaration">선언</a>
+                <a class="small" href="#variable">변수</a>
+                <a class="small" href="#operator">연산자</a>
+            </li>
+            <li>
+                <a href="#control">제어문</a>
+                <a class="small" href="#repeat">반복문</a>
+                <a class="small" href="#if">만약</a>
+                <a class="small" href="#switch">스위치</a>
+            </li>
+            <li>
+                <a href="#input_output">입출력문</a>
+                <a class="small" href="#print">출력</a>
+            </li>
+        </ol>
+    </nav>
+    <div class="content_box">
+        <div class="content">
+            <section id="codeblock">
+                <h2>코드 블록이란?</h2>
+                <hr>
+                <p>코드 블록이란 코드 블록이다.</p>
+            </section>
+
+            <section id="use">
+                <h2>사용 방법</h2>
+                <hr>
+                <p>사용 방법이다.</p>
+            </section>
+
+            <section id="declaration">
+                <h2>선언</h2>
+                <hr>
+                <p>선언이다.</p>
+
+                <section id="variable">
+                    <h3>변수</h3>
+                    <p> 변수다.</p>
+                </section>
+
+                <section id="operator">
+                    <h3>연산자</h3>
+                    <p> 연산자다.</p>
+                </section>
+
+            </section>
+
+            <section id="control">
+                <h2>제어문</h2>
+                <hr>
+                <p>제어문이다.</p>
+
+                <section id="repeat">
+                    <h3>반복문</h3>
+                    <p> 반복문이다. </p>
+                </section>
+
+                <section id="if">
+                    <h3>만약</h3>
+                    <p> if문이다. </p>
+                </section>
+
+                <section id="switch">
+                    <h3>스위치</h3>
+                    <p> 스위치문이다. </p>
+                </section>
+
+            </section>
+
+            <section id="input_output">
+                <h2>입출력문</h2>
+                <hr>
+                <p>입출력문이다.</p>
+
+                <section id="print">
+                    <h3>출력</h3>
+                    <p> 출력문이다. </p>
+                </section>
+
+            </section>
+        </div>
+    </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const navbarHeight = document.querySelector('.header').offsetHeight;
+            const container = document.querySelector('.sidebar');
+            const content = document.querySelector('.content_box');
+            
+            container.style.marginTop = navbarHeight + 'px';
+            content.style.paddingTop = navbarHeight + 'px';
+            content.style.paddingLeft = container.clientWidth + 'px';
+            content.style.clientWidth = window.innerWidth - container.clientWidth + 'px';
+        });
+        // 창의 크기가 변할때
+        window.addEventListener('resize', () => {
+            const navbarHeight = document.querySelector('.header').offsetHeight;
+            const container = document.querySelector('.sidebar');
+            const content = document.querySelector('.content_box');
+            
+            container.style.marginTop = navbarHeight + 'px';
+            content.style.paddingTop = navbarHeight + 'px';
+            content.style.clientWidth = window.innerWidth - container.clientWidth + 'px';
+        });
+
+        // a 태그를 클릭했을때
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const navbarHeight = document.querySelector('.header').offsetHeight;
+
+        let targetId = this.getAttribute('href').substring(1); // # 제거
+        let targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            let xPosition = 0; // x좌표를 0으로 고정
+            let yPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 10;
+
+            window.scrollTo({
+                    top: yPosition,
+                    behavior: 'smooth'
+                });
+        }
+    });
+});
+    </script>
+</body>
+</html>

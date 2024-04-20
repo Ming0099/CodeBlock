@@ -17,6 +17,7 @@ const observer = new MutationObserver(() => { //code div에 있는 설정 코드
             if (first == 1 && check == 0 && in_check == 1) {
                 // 클릭할 때 수행할 작업
                 close_check = check_close_complete(span);
+                switch_check = check_switch_complete(span);
                 first = 0;
             }
             if (include_close == 1) {
@@ -48,21 +49,29 @@ const observer = new MutationObserver(() => { //code div에 있는 설정 코드
                 mousedown_check = 1;
             }
             else {
+                if (span.getAttribute('data-value') && span.getAttribute('data-value') === 'SWITCH' && left_mouse_down == 0) {
+                    switch_start = span;
+                    var num = span.id.match(/\d+/)[0];
+                    switch_array = BetweenSpantoSpan(span, ['close_immediate' + num]);
+                    left_mouse_down = 1;
+                }
                 focus_block = span;
-                draggableElements = [ //getDragAfterElement 함수에서 필요한데 처리속도 개선으로 인한 안타까움으로 쩔 수 없음
-                    ...contain.querySelectorAll("span.conding_contents:not(.select)") //css가 conding_contents인 요소 전부 찾기
+                draggableElements = [
+                    ...contain.querySelectorAll("span.conding_contents:not(.select)")
                 ];
                 in_check = 1;
             }
         });
         span.addEventListener("mouseup", function (e) {
+            if (span.getAttribute('data-value') && span.getAttribute('data-value') === 'SWITCH' && left_mouse_down == 1) {
+                left_mouse_down = 0;
+            }
             if (in_check == 1) {
                 in_check = 0;
             }
         });
     });
 });
-
 // Mutation Observer 시작
 observer.observe(targetNode, observerConfig);
 
@@ -84,6 +93,7 @@ contain.addEventListener("dragenter", (e) => { //진입
         span.id = "immediate" + cnt.toString(); //마우스 다운 하고 움직이기 때문에 임시id를 줌
         span.classList.add("conding_contents"); //code_screen에 들어가기 때문에 css로 conding_contents를 줌
         span.classList.add("select"); //down하고 움직이기 때문에 특정 블럭을 뽑기 위해 select라는 클릭
+        span.style.userSelect = 'none';
         var color = random_color(); //블럭 background 색깔입히기
         span.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
         //리스트 블록 추가시
@@ -125,7 +135,6 @@ contain.addEventListener("dragenter", (e) => { //진입
             span.setAttribute('data-value', 'SWITCH');
             span.innerHTML = "만약 ";
             span.title = "버튼을 클릭하여 케이스를 추가하세요";
-            span.setAttribute('data-value', "SWITCH");
             span.setAttribute('SwitchCount', cnt); // cnt 해당하는 값을 Span에 속성값으로 저장
             span.setAttribute("CaseCount", case_count); // case_count(케이스 갯수)를 Span에 속성값으로 저장
             create_switch(span); // Switch 블럭 생성
@@ -140,7 +149,6 @@ contain.addEventListener("dragenter", (e) => { //진입
                 contain.insertBefore(span_case, switch_close_span[plus.id]); // Plus를 누른 Span 의 "/" 블록을 찾아 그위에 바로 Case 블록을 붙임
             })
             switch_id = span.id;
-            console.log(span.id);
             span.appendChild(plus);
         }
         else {
@@ -172,6 +180,19 @@ contain.addEventListener("dragenter", (e) => { //진입
 contain.addEventListener("drop", (e) => { //놓기
     e.preventDefault();
     if (check == 1 && in_check == 0) { //목록에서 들고 왔으면
+
+        above_block = getSpanAboveCurrent(contain, span_setting); //여기서 부터 switch 정리
+        if (above_block && above_block.getAttribute('data-value') != null) {
+            if (above_block.getAttribute('data-value') === 'SWITCH') { //넣은 곳이 switch일시
+                const re = document.getElementById("immediate" + cnt.toString());
+                re.remove();
+                if (include_close == 1) {
+                    const re_close = document.getElementById("close_immediate" + cnt.toString());
+                    re_close.remove();
+                }
+            }
+        }
+
         cnt = cnt + 1;
         check = 0;
         if (include_close == 0) { // close가 없는 코드는
@@ -185,6 +206,7 @@ contain.addEventListener("drop", (e) => { //놓기
     }
     else if (check == 0 && in_check == 1) { //코드에서 들고 왔으면
         //검사
+
         close_click = null;
         if (include_close == 0) { // close가 없는 코드는
             span_setting.classList.remove("select");
@@ -192,6 +214,28 @@ contain.addEventListener("drop", (e) => { //놓기
         else { // close가 있는 코드는
             span_setting.classList.remove("select");
             span_close_setting.classList.remove("select");
+        }
+        if (span_setting.getAttribute('data-value') && span_setting.getAttribute('data-value') === "SWITCH") {
+            if (getSpanAboveCurrent(contain, switch_start) && getSpanAboveCurrent(contain, switch_start).getAttribute('data-value') && getSpanAboveCurrent(contain, switch_start).getAttribute('data-value') !== "SWITCH") {
+                var standard = switch_start;
+                for (var i = 0; i < switch_array.length; i++) {
+                    insertAfter(switch_array[i], standard);
+                    standard = switch_array[i];
+                }
+                insertAfter(switch_end, standard);
+                switch_array = [];
+                left_mouse_down = 0;
+            }
+            else if(getSpanAboveCurrent(contain, switch_start) == null){
+                var standard = switch_start;
+                for (var i = 0; i < switch_array.length; i++) {
+                    insertAfter(switch_array[i], standard);
+                    standard = switch_array[i];
+                }
+                insertAfter(switch_end, standard);
+                switch_array = [];
+                left_mouse_down = 0;
+            }
         }
     }
     spans = document.querySelectorAll("span.conding_contents");
@@ -204,6 +248,7 @@ contain.addEventListener("dragover", (e) => { //움직이기
     if (afterElement != null) {
         // 드래그 중인 블럭 위의 블럭이 이전과 달라지면
         if (temp_afterElement_id != afterElement.id) {
+
             if (close_click != null) { // 클릭한 것이 "/if"인지 "if"인지 판별
                 // "/if"라면
                 draggable = document.querySelector(".conding_contents.select");
@@ -214,14 +259,7 @@ contain.addEventListener("dragover", (e) => { //움직이기
                 var dontmove = "";
             }
             if (dontmove === "") {
-                if (afterElement === undefined) { //위치 바꿀게 없으면
-                    contain.appendChild(draggable);
-                    if (include_close == 1) { //close를 포함한 코드인지 아닌지
-                        const draggable_close = document.getElementById("close_" + draggable.id);
-                        contain.appendChild(draggable_close);
-                    }
-                }
-                else {
+                if (afterElement !== undefined) {
                     if (draggable && afterElement) { //가능한 
                         contain.insertBefore(draggable, afterElement);
                         if (include_close == 1) { //close를 포함한 코드인지 아닌지
@@ -232,6 +270,24 @@ contain.addEventListener("dragover", (e) => { //움직이기
                 }
             }
             temp_afterElement_id = afterElement.id;
+        }
+    }
+    if (afterElement === null) {
+        if (close_click != null) { // 클릭한 것이 "/if"인지 "if"인지 판별
+            // "/if"라면
+            draggable = document.querySelector(".conding_contents.select");
+            var dontmove = draggable.id.replace("close_", "");
+        }
+        else { // 'if' 라면
+            draggable = document.querySelector(".conding_contents.select:not(.this_is_close)");
+            var dontmove = "";
+        }
+        if (dontmove === "") {
+            contain.appendChild(draggable);
+            if (include_close == 1) { //close를 포함한 코드인지 아닌지
+                const draggable_close = document.getElementById("close_" + draggable.id);
+                contain.appendChild(draggable_close);
+            }
         }
     }
 });

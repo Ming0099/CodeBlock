@@ -1,3 +1,26 @@
+//사이값 구하기
+function BetweenSpantoSpan(span_start, span_end){ //시작은 element, 끝은 id인 배열을 넣어야함    
+    var spans_array = [];
+    var standard = span_start;
+    while(standard != null){
+        var under_span = getSpanUnderCurrent(contain, standard);
+        var break_check = 0;
+        for(var i = 0; i< span_end.length; i++){
+            if(under_span.id.includes(span_end[i])){
+                break_check = 1;
+                switch_end = under_span;
+                break;
+            }
+        }
+        if(break_check == 1){
+            break;
+        }
+        spans_array.push(under_span);
+        standard = under_span;
+    }
+    return spans_array;
+}
+
 function getDragAfterElement(y) {
     let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
 
@@ -36,10 +59,34 @@ function getSpanAboveCurrent(container, currentSpan) {
     return spanAboveCurrent.element;
 }
 
+function getSpanUnderCurrent(container, currentSpan) { //현 블록의 아래에 있는 블록 확인하기
+    const draggableElements = [
+        ...container.querySelectorAll("span.conding_contents:not(.select)") // container 내의 모든 span 요소 가져오기
+    ];
+
+    // 현재 span 요소의 위치 정보 가져오기
+    const currentSpanRect = currentSpan.getBoundingClientRect();
+
+    // 현재 span 요소의 위에 있는 span 요소를 찾기
+    const spanAboveCurrent = draggableElements.reduce((closest, span) => {
+        if (span !== currentSpan) { // 현재 span 요소는 제외합니다.
+            const spanRect = span.getBoundingClientRect();
+            const offset = currentSpanRect.top - spanRect.bottom; // 현재 span 요소와의 수직 거리 계산
+            if (offset < 0 && -offset < closest.offset) { // 현재 span 요소의 위에 있는 span 요소인지 확인하고 가장 가까운 것을 업데이트합니다.
+                return { offset: -offset, element: span };
+            }
+        }
+        return closest;
+    }, { offset: Number.POSITIVE_INFINITY });
+
+    return spanAboveCurrent.element;
+}
+
 $(document).ready(function () { //출력하기
     $("#results_code").click(function () {
         const contents = document.querySelectorAll("span.conding_contents"); //만약 변수 
         var all_content = init;
+        var empty_text_check = false;
         var total_arr = []; //배열 만들기 위해서
         contents.forEach(content => {//데이터(코드) 모으기
             all_content = all_content + " " + content.getAttribute('data-value');
@@ -47,15 +94,23 @@ $(document).ready(function () { //출력하기
                 var child_arr = []
                 var childNodes = content.childNodes;
                 Array.from(childNodes).forEach(function (childNode) {
-                    if(childNode.value != undefined && childNode.value != ''){
-                        child_arr.push(childNode.value);
+                    if(childNode.value != undefined){
+                        if(childNode.tagName.toLowerCase() === 'input' && childNode.value.length > 0){ //뭐라도 적혀있으면....
+                            child_arr.push(childNode.value);
+                        }
+                        else if(childNode.tagName.toLowerCase() === 'input'){
+                            empty_text_check = true;
+                            return;
+                        }
                     }
                 });
                 total_arr.push(child_arr);
             }
         });
-        console.log(all_content);
-        console.log(total_arr);
+        if(empty_text_check == true){
+            alert("오잉~!? 빈칸이 보영~~~");
+            return;
+        }
         $.ajax({
             type: 'POST',
             url: '/send_data',
@@ -73,6 +128,9 @@ $(document).ready(function () { //출력하기
     $("#save_text").click(function () { //저장
         var content_temp = $('#input_texting').val();
         $("#" + input_text_element.id).val(content_temp);
+        if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE'){
+            create_my_variable();
+        }
         close_modal();
     });
 
@@ -91,7 +149,12 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
     for (var i = 0; i < create_cnt; i++) {
         var texting = document.createElement('input'); //texting의 기능
         texting.type = 'text';
-        texting.id = 'texting' + "immediate" + element.id.match(/\d+/)[0].toString() + "-" + (start_num + i + 1).toString();
+        if(element.getAttribute('data-value').includes("CASE")){
+            texting.id = "texting_immediate" + element.id.match(/\d+/g)[0].toString() + "-" + element.id.match(/\d+/g)[1].toString() + "-" + (start_num + i + 1).toString();
+        }
+        else{
+            texting.id = "texting_immediate" + element.id.match(/\d+/g)[0].toString() + "-" + (start_num + i + 1).toString();
+        }
         texting.readOnly = true;
         texting.classList.add("code_text");
         texting.onclick = function (element) {
@@ -121,7 +184,7 @@ function create_for(element) {
 function create_while(element) {
     create_text(element, 1, 0);
 
-    explain = document.createTextNode("번 반복 (do-while문)");
+    explain = document.createTextNode("번 반복 (while문)");
     element.appendChild(explain);
 }
 
@@ -207,10 +270,10 @@ function random_color() {
 
 function add_case_block(element, color) {
     const span_case = document.createElement('span');
+    span_case.style.userSelect = 'none';
     span_case.setAttribute('data-value', 'CASE')
     span_case.draggable = false;
-    span_case.id = "case_immediate" + element.getAttribute("SwitchCount").toString() + element.getAttribute("CaseCount").toString(); // 만들어지는 Case의 ID를 element의 SwitchCount 와 CaseCount 의 값을 이용해 지정
-    console.log(span_case.id);
+    span_case.id = "case_immediate" + element.getAttribute("SwitchCount").toString() +"_"+ element.getAttribute("CaseCount").toString(); // 만들어지는 Case의 ID를 element의 SwitchCount 와 CaseCount 의 값을 이용해 지정
     create_text(span_case, 1, 0);
     span_case.classList.add("conding_contents");
     span_case.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
@@ -224,6 +287,7 @@ function add_close_block(color) {
     const span_close = document.createElement('span'); //span추가 및 설정 //닫는 것
     span_close.draggable = true;
     span_close.innerHTML = "/" + target_id;
+    span_close.style.userSelect = 'none';
     if(target_id === "만약"){
         span_close.setAttribute('data-value', '/IF');
     }
@@ -243,6 +307,19 @@ function add_close_block(color) {
     span_close.classList.add("this_is_close");
     span_close.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
     return span_close
+}
+function check_switch_complete(span) {
+    var now_above = getSpanAboveCurrent(contain, span);
+    if(now_above != undefined) {
+        if(now_above.getAttribute('data-value') == 'SWITCH') {
+            if(pre_block == undefined) {
+                contain.prepend(span);
+            }
+            else {
+                insertAfter(span, pre_block);
+            }
+        }
+    }
 }
 
 function check_close_complete(span) { //close 유효성검사
@@ -299,26 +376,25 @@ function insertAfter(newNode, referenceNode) { //뒤에 삽입
     }
 }
 
-// function create_span(value, title, close_is, text_cnt) {
-//     const span = document.createElement('span');
-//     span.draggable = true;
-//     span.innerHTML = target_id; //html에 target_id라는 내용을 화면에 표시
-//     span.id = "immediate" + cnt.toString(); //마우스 다운 하고 움직이기 때문에 임시id를 줌
-//     span.classList.add("conding_contents"); //code_screen에 들어가기 때문에 css로 conding_contents를 줌
-//     span.classList.add("select"); //down하고 움직이기 때문에 특정 블럭을 뽑기 위해 select라는 클릭
-//     var color = random_color(); //블럭 background 색깔입히기
-//     span.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
-//     //리스트 블록 추가시
-//     create_text(span, text_cnt, 0);
-//     if (close_is == 0) {
-//         contain.appendChild(span);
-//     }
-//     else { //close 블럭 추가
-//         span.classList.add("closed");
-//         const span_close = add_close_block(color)
-//         contain.appendChild(span);
-//         contain.appendChild(span_close);
-//         span_close_setting = span_close;
-//     }
-//     return span
-// }
+function switch_remove(){
+    if (remove_code.getAttribute('data-value').includes('SWITCH')) { //스위치를 지웠을때 전체를 지움
+        if (remove_code.id.includes("close_")) { //스위치 닫는 블록을 지우면 위치 바뀜 (remove_code와 remove_close_code)
+            remove_close_code = remove_code;
+            remove_code = document.getElementById(remove_code.id.replace('close_', ''));
+        }
+        var num = remove_code.id.match(/\d+/)[0];
+        var spans_array = BetweenSpantoSpan(remove_code, ['close_immediate' + num]) //시작은 element, 끝은 id인 배열을 넣어야함
+        for (var i = 0; i < spans_array.length; i++) {
+            contain.removeChild(spans_array[i]);
+        }
+    }
+    if (remove_code.getAttribute('data-value').includes('CASE')) { //case만 지웠을때 
+        var num = remove_code.id.match(/\d+/)[0];
+
+        var spans_array = BetweenSpantoSpan(remove_code, ['close_immediate' + num, 'case_immediate' + num])
+        //시작은 element, 끝은 id인 배열을 넣어야함
+        for (var i = 0; i < spans_array.length; i++) {
+            contain.removeChild(spans_array[i]);
+        }
+    }
+}

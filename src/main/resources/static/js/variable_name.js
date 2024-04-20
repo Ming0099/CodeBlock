@@ -23,8 +23,10 @@ var input_text_element = null;
 
 // Mutation Observer 설정
 const observerConfig = { childList: true, subtree: true };
-// 감시할 대상 요소 선택
-const targetNode = document.body;
+const variables_observerConfig = {childList: true, subtree: true, characterData: true, characterDataOldValue : true };
+//(childList = 자식노드에 대해서 관찰<추가 및 삭제시 발동> / subtree = 대상 노드의 하위 요소의 변화 관찰)
+//감시할 대상 요소 선택
+const targetNode = contain;
 
 var remove_code = null;
 var remove_close_code = null;
@@ -44,3 +46,11 @@ var switch_close_span = [];
 var switch_count = 0;
 
 var case_count = 0;
+
+var switch_array = [];
+var switch_start = null;
+var switch_end = null;
+var left_mouse_down = 0;
+
+var my_variables_blocks = []; //내 변수 목록에 있어야할 리스트
+var my_variables_blocks_len = 0;
