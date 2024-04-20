@@ -95,10 +95,10 @@ $(document).ready(function () { //출력하기
                 var childNodes = content.childNodes;
                 Array.from(childNodes).forEach(function (childNode) {
                     if(childNode.value != undefined){
-                        if(childNode.value.length > 0){ //뭐라도 적혀있으면....
+                        if(childNode.tagName.toLowerCase() === 'input' && childNode.value.length > 0){ //뭐라도 적혀있으면....
                             child_arr.push(childNode.value);
                         }
-                        else{
+                        else if(childNode.tagName.toLowerCase() === 'input'){
                             empty_text_check = true;
                             return;
                         }
