@@ -265,6 +265,7 @@ function random_color() {
 
 function add_case_block(element, color) {
     const span_case = document.createElement('span');
+    span_case.style.userSelect = 'none';
     span_case.setAttribute('data-value', 'CASE')
     span_case.draggable = false;
     span_case.id = "case_immediate" + element.getAttribute("SwitchCount").toString() +"_"+ element.getAttribute("CaseCount").toString(); // 만들어지는 Case의 ID를 element의 SwitchCount 와 CaseCount 의 값을 이용해 지정
@@ -281,6 +282,7 @@ function add_close_block(color) {
     const span_close = document.createElement('span'); //span추가 및 설정 //닫는 것
     span_close.draggable = true;
     span_close.innerHTML = "/" + target_id;
+    span_close.style.userSelect = 'none';
     if(target_id === "만약"){
         span_close.setAttribute('data-value', '/IF');
     }

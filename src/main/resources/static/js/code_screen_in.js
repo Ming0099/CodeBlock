@@ -93,6 +93,7 @@ contain.addEventListener("dragenter", (e) => { //진입
         span.id = "immediate" + cnt.toString(); //마우스 다운 하고 움직이기 때문에 임시id를 줌
         span.classList.add("conding_contents"); //code_screen에 들어가기 때문에 css로 conding_contents를 줌
         span.classList.add("select"); //down하고 움직이기 때문에 특정 블럭을 뽑기 위해 select라는 클릭
+        span.style.userSelect = 'none';
         var color = random_color(); //블럭 background 색깔입히기
         span.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
         //리스트 블록 추가시
