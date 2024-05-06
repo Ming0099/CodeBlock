@@ -129,6 +129,7 @@ $(document).ready(function () { //출력하기
     $("#save_text").click(function () { //저장
         var content_temp = $('#input_texting').val();
         $("#" + input_text_element.id).val(content_temp);
+        //console.log($("#" + input_text_element.id).val());
         if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE'){
             create_my_variable();
         }
@@ -138,11 +139,26 @@ $(document).ready(function () { //출력하기
     $("#cancel_text").click(function () { //취소
         close_modal();
     });
+
+    $("#variable_save_text").click(function () { //저장
+        var content_temp = $('#variable_input_texting').val();
+        $("#" + input_text_element.id).val(content_temp);
+        //console.log($("#" + input_text_element.id).val());
+        if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE'){
+            create_my_variable();
+        }
+        close_modal();
+    });
+
+    $("#variable_cancel_text").click(function () { //취소
+        close_modal();
+    });
 });
 
 function close_modal() { //모달창 닫기
     $("#input_texting").val("");
     document.getElementById("modal_screen2").style.display = "none";
+    document.getElementById("variable_modal_screen2").style.display = "none";
     document.getElementById("modal_screen1").style.zIndex = "2";
 }
 
@@ -168,6 +184,35 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
                     "top" : e.y+40+"px"
                 });
                 document.getElementById("modal_screen2").style.display = "block";
+                document.getElementById("modal_screen1").style.zIndex = "-1";
+            };
+        }(texting);
+        element.appendChild(texting);
+    }
+}
+
+function create_text_2(element, create_cnt, start_num) { //목록에서 code_screen으로 끌어당길때 text 생성
+    for (var i = 0; i < create_cnt; i++) {
+        var texting = document.createElement('input'); //texting의 기능
+        texting.type = 'text';
+        if(element.getAttribute('data-value').includes("CASE")){
+            texting.id = "texting_immediate" + element.id.match(/\d+/g)[0].toString() + "-" + element.id.match(/\d+/g)[1].toString() + "-" + (start_num + i + 1).toString();
+        }
+        else{
+            texting.id = "texting_immediate" + element.id.match(/\d+/g)[0].toString() + "-" + (start_num + i + 1).toString();
+        }
+        texting.readOnly = true;
+        texting.classList.add("code_text");
+        texting.onclick = function (element) {
+            return function (e) {
+                input_text_element = element;
+                var content_temp = $('#' + input_text_element.id).val();
+                $("#variable_input_texting").val(content_temp);
+                $("#input_screen2").css({
+                    "left" : e.x+150+"px",
+                    "top" : e.y+40+"px"
+                });
+                document.getElementById("variable_modal_screen2").style.display = "block";
                 document.getElementById("modal_screen1").style.zIndex = "-1";
             };
         }(texting);
@@ -216,7 +261,7 @@ function create_switch(element) {
 }
 
 function create_operator(element) {
-    create_text(element, 1, 0);
+    create_text_2(element, 1, 0);
 
     explain = document.createTextNode("는 ");
     element.appendChild(explain);

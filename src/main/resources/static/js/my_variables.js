@@ -7,7 +7,9 @@ function create_my_variable() {
     });
 
     var lists = document.getElementById('my_variable_blocks');
+    var modal = document.getElementById('my_variable_blocks_in_modal');
     lists.innerHTML = "";
+    modal.innerHTML = "";
     my_variables_blocks.forEach(variable => {
         var temp_variable = document.createElement('li');
         var input_count = 0; //1 이면 선언명 2 면 선언값
@@ -42,5 +44,14 @@ function create_my_variable() {
         temp_underbar.classList.add('underbar');
         lists.appendChild(temp_variable);
         lists.appendChild(temp_underbar);
+
+        var modal_variable = document.createElement('span');
+        modal_variable.id = temp_variable.id;
+        modal_variable.textContent = temp_variable.textContent;
+        modal_variable.setAttribute('data-value', temp_variable.getAttribute('data-value'));
+        modal_variable.style.backgroundColor = '#855CD6';
+        modal_variable.style.color = '#fff';
+
+        modal.appendChild(modal_variable);
     });
 }
