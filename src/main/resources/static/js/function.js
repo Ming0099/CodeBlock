@@ -124,6 +124,7 @@ $(document).ready(function () { //출력하기
                 console.log(error);
             }
         })
+
     });
 
     $("#save_text").click(function () { //저장
@@ -141,19 +142,28 @@ $(document).ready(function () { //출력하기
     });
 
     $("#variable_save_text").click(function () { //저장
-        var content_temp = $('#variable_input_texting').val();
-        $("#" + input_text_element.id).val(content_temp);
+        var content_temp = document.getElementById('variable_input_texting').lastChild;
+        $("#" + input_text_element.id).val(content_temp.textContent);
+        input_text_element.setAttribute('data-value', content_temp.getAttribute('data-value'))
+        input_text_element.setAttribute('back-ground', content_temp.style.backgroundColor)
         //console.log($("#" + input_text_element.id).val());
-        if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE'){
-            create_my_variable();
-        }
-        close_modal();
+        // if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE'){
+        //     create_my_variable();
+        // }
+        close_modal2();
     });
 
     $("#variable_cancel_text").click(function () { //취소
-        close_modal();
+        close_modal2();
     });
 });
+
+function close_modal2() { //모달창 닫기
+    document.getElementById('variable_input_texting').innerHTML = "";
+    document.getElementById("variable_modal_screen2").style.display = "none";
+    document.getElementById("modal_screen2").style.display = "none";
+    document.getElementById("modal_screen1").style.zIndex = "2";
+}
 
 function close_modal() { //모달창 닫기
     $("#input_texting").val("");
@@ -206,8 +216,13 @@ function create_text_2(element, create_cnt, start_num) { //목록에서 code_scr
         texting.onclick = function (element) {
             return function (e) {
                 input_text_element = element;
-                var content_temp = $('#' + input_text_element.id).val();
-                $("#variable_input_texting").val(content_temp);
+                if(element.value != ""){
+                    var adding = document.createElement('span')
+                    adding.style.backgroundColor = element.getAttribute('back-ground');
+                    adding.textContent = element.value;
+                    adding.setAttribute('data-value', element.getAttribute('data-value'))
+                    document.getElementById('variable_input_texting').appendChild(adding);
+                }
                 $("#input_screen2").css({
                     "left" : e.x+150+"px",
                     "top" : e.y+40+"px"

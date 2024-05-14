@@ -51,6 +51,13 @@ function create_my_variable() {
         modal_variable.setAttribute('data-value', temp_variable.getAttribute('data-value'));
         modal_variable.style.backgroundColor = '#855CD6';
         modal_variable.style.color = '#fff';
+        modal_variable.style.cursor = 'pointer'
+        modal_variable.addEventListener('click', function(){
+            document.getElementById('variable_input_texting').innerHTML = "";
+            var temp1 = this.cloneNode(true);
+            temp1.style.cursor = 'default';
+            document.getElementById('variable_input_texting').appendChild(temp1);
+        })
 
         modal.appendChild(modal_variable);
     });
