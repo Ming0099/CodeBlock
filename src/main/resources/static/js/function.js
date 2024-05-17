@@ -227,6 +227,7 @@ function create_text_2(element, create_cnt, start_num) { //목록에서 code_scr
                     "left" : e.x+150+"px",
                     "top" : e.y+40+"px"
                 });
+                input_variable_modal_screen2(element.parentNode);
                 document.getElementById("variable_modal_screen2").style.display = "block";
                 document.getElementById("modal_screen1").style.zIndex = "-1";
             };

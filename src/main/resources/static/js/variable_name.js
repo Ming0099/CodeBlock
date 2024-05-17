@@ -54,3 +54,4 @@ var left_mouse_down = 0;
 
 var my_variables_blocks = []; //내 변수 목록에 있어야할 리스트
 var my_variables_blocks_len = 0;
+
