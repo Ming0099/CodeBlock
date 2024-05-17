@@ -105,9 +105,7 @@ function can_use_variable(start_span, end_span) {
                         }
                         else if (input_count == 2) {
                             modal_variable.setAttribute('data-value', k.value);
-                            modal_variable.style.backgroundColor = '#855CD6';
-                            modal_variable.style.color = '#fff';
-                            modal_variable.style.cursor = 'pointer'
+                            modal_variable.classList.add('modal_variable');
                             modal_variable.addEventListener('click', function () {
                                 document.getElementById('variable_input_texting').innerHTML = "";
                                 var temp1 = this.cloneNode(true);

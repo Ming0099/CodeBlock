@@ -55,3 +55,11 @@ button.click_text{
 section.size{
     text-align: center;
 }
+
+.modal_variable{ /*변수 모달의 변수디자인*/
+    border-radius: 10px;
+    background-color: #e2d3ff;
+    cursor: pointer;
+    color: #565656;
+    margin-left: 6px;
+}
