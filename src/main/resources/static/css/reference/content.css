@@ -1,5 +1,6 @@
 div.content_box{
     height: 500px;
+    padding-right: 100px;
 }
 
 div.content{
@@ -9,7 +10,7 @@ div.content{
 }
 
 div.content hr{
-    width: 90%;
+    width: 100%;
     margin: 0;
 }
 
@@ -22,4 +23,9 @@ div.content h3{
     font-size: 22px;
     margin-top: 25px;
     margin-bottom: 25px;
+}
+
+div.content p.step{
+    font-size: 18px;
+    font-weight: bold;
 }
