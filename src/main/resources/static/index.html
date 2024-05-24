@@ -38,6 +38,7 @@
         <div class="sidebar">
             <ol class="side_menu">
                 <li class="side_menu_button" id="first_side_menu">선언</li>
+                <li class="side_menu_button">변경</li>
                 <li class="side_menu_button">제어문</li>
                 <li class="side_menu_button">입출력문</li>
                 <li class="side_menu_button">내변수</li>
@@ -45,11 +46,16 @@
         </div>
         <div class="left">
             <ol class="script">
-                <!--변수 블럭들-->
+                <!--선언 블럭들-->
                 <div class="blocks" id="variable_blocks" style="display: block;">
                     <li class="button" draggable="true">변수</li>
                     <li class="underbar"></li>
                     <li class="button" draggable="true">연산자</li>
+                    <li class="underbar"></li>
+                </div>
+                <!--변경 블럭들-->
+                <div class="blocks" id="change_blocks">
+                    <li class="button" draggable="true">값 변경</li>
                     <li class="underbar"></li>
                 </div>
                 <!--제어문 블럭들-->
@@ -104,7 +110,6 @@
     <div id="input_screen2">
         <span>내변수 모달 테스트</span>
         <div id="variable_input_texting" style="margin-left: 3%; margin-top: 2%; width: 90%; height: 25%; background-color: white;"></div>
-        <br>
         <div id="my_variable_blocks_in_modal">
         </div>
         <br>

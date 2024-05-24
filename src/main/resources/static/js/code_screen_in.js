@@ -125,6 +125,11 @@ contain.addEventListener("dragenter", (e) => { //진입
             span.innerHTML = "";
             create_operator(span);
         }
+        else if (span.textContent.includes('값 변경') === true) {
+            span.setAttribute('data-value', 'CHANGE');
+            span.innerHTML = "";
+            create_changer(span);
+        }
         else if (span.textContent.includes("출력") === true) {
             span.setAttribute('data-value', 'PRINT');
             span.innerHTML = "";

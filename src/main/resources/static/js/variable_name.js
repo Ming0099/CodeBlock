@@ -54,4 +54,6 @@ var left_mouse_down = 0;
 
 var my_variables_blocks = []; //내 변수 목록에 있어야할 리스트
 var my_variables_blocks_len = 0;
-
+var check_use_many_variable = 1;
+var save_click_varibale_blocks = [];
+var save_modal_variable_blocks = [];

@@ -1,7 +1,7 @@
 /* modal screen */
 #input_screen2 {
     width: 300px;
-    height: 100px;
+    height: 150px;
     position: absolute;
     top: 200px;
     left: 50%;
@@ -38,6 +38,7 @@
     resize:none;
     border-radius: 10px;
     padding-left: 10px;
+    margin-bottom: 6px;
 }
 
 /* cancel & save button*/
@@ -57,9 +58,10 @@ section.size{
 }
 
 .modal_variable{ /*변수 모달의 변수디자인*/
+    font-size: 20px;
     border-radius: 10px;
-    background-color: #e2d3ff;
+    background-color: #855CD6;
     cursor: pointer;
-    color: #565656;
+    color: #fff;
     margin-left: 6px;
 }

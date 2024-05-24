@@ -142,10 +142,10 @@ $(document).ready(function () { //출력하기
     });
 
     $("#variable_save_text").click(function () { //저장
-        var content_temp = document.getElementById('variable_input_texting').lastChild;
-        $("#" + input_text_element.id).val(content_temp.textContent);
-        input_text_element.setAttribute('data-value', content_temp.getAttribute('data-value'))
-        input_text_element.setAttribute('back-ground', content_temp.style.backgroundColor)
+        //var content_temp = document.getElementById('variable_input_texting').lastChild;
+        $("#" + input_text_element.id).val(save_click_varibale_blocks); // 클릭한 버튼 텍스트값 저장했던거 넣기
+        //input_text_element.setAttribute('data-value', content_temp.getAttribute('data-value'))
+        //input_text_element.setAttribute('back-ground', content_temp.style.backgroundColor)
         //console.log($("#" + input_text_element.id).val());
         // if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE'){
         //     create_my_variable();
@@ -251,10 +251,14 @@ function create_while(element) {
 }
 
 function create_print(element) {
-    create_text(element, 1, 0);
+    create_text_2(element, 1, 0);
 
     explain = document.createTextNode(" 출력");
     element.appendChild(explain);
+    
+    element.addEventListener('click', function() {
+        check_use_many_variable = 2;
+    })
 }
 
 function create_variable(element) {
@@ -277,6 +281,32 @@ function create_switch(element) {
 }
 
 function create_operator(element) {
+    create_text(element, 1, 0);
+
+    explain = document.createTextNode("는 ");
+    element.appendChild(explain);
+
+    create_text(element, 1, 1);
+
+    var selecting = document.createElement('select'); //select의 기능
+    selecting.classList.add("size");
+    var optionValues = ['더하기', '빼기', '나누기', '곱하기'];
+    for (var i = 0; i < 4; i++) {
+        var option = document.createElement('option'); //option의 기능
+        option.id = 'option' + "immediate" + cnt.toString() + "-" + (i + 1).toString();
+        option.value = optionValues[i];
+        option.text = optionValues[i];
+        selecting.appendChild(option);
+    }
+    element.appendChild(selecting);
+
+    create_text(element, 1, 2);
+
+    explain = document.createTextNode("로 선언");
+    element.appendChild(explain);
+}
+
+function create_changer(element) {
     create_text_2(element, 1, 0);
 
     explain = document.createTextNode("는 ");
@@ -297,6 +327,13 @@ function create_operator(element) {
     element.appendChild(selecting);
 
     create_text(element, 1, 2);
+
+    explain = document.createTextNode("로 변경");
+    element.appendChild(explain);
+
+    element.addEventListener('click', function() {
+        check_use_many_variable = 1;
+    })
 }
 
 function create_if(element) { //목록에서 code_screen으로 끌어당길때 만약 조건문 생성

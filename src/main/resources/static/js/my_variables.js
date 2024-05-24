@@ -73,6 +73,8 @@ function input_variable_modal_screen2(end_span) {
 
 function can_use_variable(start_span, end_span) {
     var input_variable = [];
+    save_click_varibale_blocks = [];
+    save_modal_variable_blocks = [];
     document.getElementById('my_variable_blocks_in_modal').innerHTML = "";
     while (start_span != null) {
         if (start_span.classList.contains('closed')) { //괄호 여부 
@@ -93,7 +95,7 @@ function can_use_variable(start_span, end_span) {
             return { temp_input_variable, start_span }
         }
         if (start_span.getAttribute('data-value') && start_span.getAttribute('data-value') == 'VARIABLE') { //변수 넣기
-            var modal_variable = document.createElement('span');
+            var modal_variable = document.createElement('button');
             var input_count = 0;
             start_span.childNodes.forEach(k => {
                 if (k && k.tagName && k.tagName.toLowerCase() === 'input') { // input 형태인지
@@ -106,11 +108,31 @@ function can_use_variable(start_span, end_span) {
                         else if (input_count == 2) {
                             modal_variable.setAttribute('data-value', k.value);
                             modal_variable.classList.add('modal_variable');
+                            save_modal_variable_blocks.push(modal_variable);
+                            // $("#input_screen2").css({
+                            //     "height" : 100 + "px"
+                            // });
                             modal_variable.addEventListener('click', function () {
-                                document.getElementById('variable_input_texting').innerHTML = "";
-                                var temp1 = this.cloneNode(true);
-                                temp1.style.cursor = 'default';
-                                document.getElementById('variable_input_texting').appendChild(temp1);
+                                if(check_use_many_variable == 1) {
+                                    document.getElementById('variable_input_texting').innerHTML = "";
+                                    var temp1 = this.cloneNode(true);
+                                    temp1.style.cursor = 'default';
+                                    document.getElementById('variable_input_texting').appendChild(temp1);
+                                    save_click_varibale_blocks = temp1.textContent; // 클릭한 버튼의 텍스트값 저장
+                                    save_modal_variable_blocks.forEach(f => { // 버튼 클릭시 비활성화 코드
+                                        f.disabled = false;
+                                    })
+                                    this.disabled = true;
+                                    console.log(save_modal_variable_blocks);
+                                }
+                                else{
+                                    var temp1 = this.cloneNode(true);
+                                    temp1.style.cursor = 'default';
+                                    document.getElementById('variable_input_texting').appendChild(temp1);
+                                    save_click_varibale_blocks.push(temp1.textContent); // 클릭한 버튼의 텍스트값 저장
+                                    this.disabled = true; // 버튼 클릭시 비활성화 코드
+                                }
+                                
                             })
                             input_variable.push(modal_variable);
                         }
