@@ -57,3 +57,5 @@ var my_variables_blocks_len = 0;
 var check_use_many_variable = 1;
 var save_click_varibale_blocks = [];
 var save_modal_variable_blocks = [];
+var variable_input_texting = document.getElementById('variable_input_texting');
+var variables = [];

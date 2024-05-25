@@ -73,7 +73,6 @@ function input_variable_modal_screen2(end_span) {
 
 function can_use_variable(start_span, end_span) {
     var input_variable = [];
-    save_click_varibale_blocks = [];
     save_modal_variable_blocks = [];
     document.getElementById('my_variable_blocks_in_modal').innerHTML = "";
     while (start_span != null) {
@@ -109,28 +108,39 @@ function can_use_variable(start_span, end_span) {
                             modal_variable.setAttribute('data-value', k.value);
                             modal_variable.classList.add('modal_variable');
                             save_modal_variable_blocks.push(modal_variable);
-                            // $("#input_screen2").css({
-                            //     "height" : 100 + "px"
-                            // });
                             modal_variable.addEventListener('click', function () {
                                 if(check_use_many_variable == 1) {
-                                    document.getElementById('variable_input_texting').innerHTML = "";
-                                    var temp1 = this.cloneNode(true);
-                                    temp1.style.cursor = 'default';
-                                    document.getElementById('variable_input_texting').appendChild(temp1);
-                                    save_click_varibale_blocks = temp1.textContent; // 클릭한 버튼의 텍스트값 저장
-                                    save_modal_variable_blocks.forEach(f => { // 버튼 클릭시 비활성화 코드
-                                        f.disabled = false;
-                                    })
-                                    this.disabled = true;
-                                    console.log(save_modal_variable_blocks);
+                                    //variable_input_texting.innerHTML = "";
+                                    //var temp1 = this.cloneNode(true);
+                                    //temp1.style.cursor = 'default';
+                                    $('#variable_input_texting').val(this.textContent);
+                                    //save_click_varibale_blocks = temp1.textContent; // 클릭한 버튼의 텍스트값 저장
+                                    // save_modal_variable_blocks.forEach(f => { // 버튼 클릭시 비활성화 코드
+                                    //     f.disabled = false;
+                                    // })
+                                    //this.disabled = true;
                                 }
                                 else{
-                                    var temp1 = this.cloneNode(true);
-                                    temp1.style.cursor = 'default';
-                                    document.getElementById('variable_input_texting').appendChild(temp1);
-                                    save_click_varibale_blocks.push(temp1.textContent); // 클릭한 버튼의 텍스트값 저장
-                                    this.disabled = true; // 버튼 클릭시 비활성화 코드
+                                    // var temp1 = this.cloneNode(true);
+                                    // temp1.addEventListener('click', function () {
+                                    //     variable_input_texting.removeChild(temp1);
+                                    //     save_modal_variable_blocks.forEach(f => {
+                                    //         if(f.textContent == temp1.textContent){
+                                    //             f.disabled = false;
+                                    //             console.log(variable_input_texting.textContent);
+                                    //             save_click_varibale_blocks = save_click_varibale_blocks.filter(user => {
+                                    //                 return user !== f.textContent;
+                                    //             })
+                                    //         }
+                                    //     })
+                                    // })
+                                    // temp1.style.cursor = 'default';
+                                    // variable_input_texting.appendChild(temp1);
+                                    // save_click_varibale_blocks.push(temp1.textContent); // 클릭한 버튼의 텍스트값 저장
+                                    // this.disabled = true; // 버튼 클릭시 비활성화 코드
+                                    var content_temp = $('#variable_input_texting').val() + this.textContent;
+                                    $('#variable_input_texting').val(content_temp);
+                                    $('#variable_input_texting').focus();
                                 }
                                 
                             })

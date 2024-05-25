@@ -108,7 +108,7 @@ $(document).ready(function () { //출력하기
             }
         });
         if(empty_text_check == true){
-            alert("오잉~!? 빈칸이 보영~~~");
+            alert("빈칸이 없도록 모두 채워주세요.");
             return;
         }
         $.ajax({
@@ -128,8 +128,25 @@ $(document).ready(function () { //출력하기
     });
 
     $("#save_text").click(function () { //저장
-        var content_temp = $('#input_texting').val();
-        $("#" + input_text_element.id).val(content_temp);
+        if(input_text_element.getAttribute('variable_name') == 'yes'){
+            var check = 0;
+            variables.forEach(k => {
+                if(k == $('#input_texting').val()) {
+                    alert("이미 존재하는 변수 입니다.");
+                    check = 1;
+                    return;
+                }
+            })
+
+            if(check == 0){
+                variables.push($('#input_texting').val());
+                var content_temp = $('#input_texting').val();
+                $("#" + input_text_element.id).val(content_temp);
+            }
+        } else{
+            var content_temp = $('#input_texting').val();
+            $("#" + input_text_element.id).val(content_temp);
+        }
         //console.log($("#" + input_text_element.id).val());
         if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE'){
             create_my_variable();
@@ -143,7 +160,8 @@ $(document).ready(function () { //출력하기
 
     $("#variable_save_text").click(function () { //저장
         //var content_temp = document.getElementById('variable_input_texting').lastChild;
-        $("#" + input_text_element.id).val(save_click_varibale_blocks); // 클릭한 버튼 텍스트값 저장했던거 넣기
+        var content_temp = $('#variable_input_texting').val();
+        $("#" + input_text_element.id).val(content_temp); // 클릭한 버튼 텍스트값 저장했던거 넣기
         //input_text_element.setAttribute('data-value', content_temp.getAttribute('data-value'))
         //input_text_element.setAttribute('back-ground', content_temp.style.backgroundColor)
         //console.log($("#" + input_text_element.id).val());
@@ -198,6 +216,10 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
             };
         }(texting);
         element.appendChild(texting);
+
+        if(element.getAttribute('data-value') == 'VARIABLE' && start_num == 0) {
+            texting.setAttribute('variable_name', "yes");
+        }
     }
 }
 
@@ -216,13 +238,8 @@ function create_text_2(element, create_cnt, start_num) { //목록에서 code_scr
         texting.onclick = function (element) {
             return function (e) {
                 input_text_element = element;
-                if(element.value != ""){
-                    var adding = document.createElement('span')
-                    adding.style.backgroundColor = element.getAttribute('back-ground');
-                    adding.textContent = element.value;
-                    adding.setAttribute('data-value', element.getAttribute('data-value'))
-                    document.getElementById('variable_input_texting').appendChild(adding);
-                }
+                var content_temp = $('#' + input_text_element.id).val();
+                $("#variable_input_texting").val(content_temp);
                 $("#input_screen2").css({
                     "left" : e.x+150+"px",
                     "top" : e.y+40+"px",
@@ -259,6 +276,7 @@ function create_print(element) {
     
     element.addEventListener('click', function() {
         check_use_many_variable = 2;
+        variable_input_texting.disabled = false;
     })
 }
 
@@ -272,13 +290,22 @@ function create_variable(element) {
 
     explain = document.createTextNode("(으)로 선언");
     element.appendChild(explain);
+
+    element.addEventListener('click', function() {
+        check_this_is_variable_block = 1;
+    })
 }
 
 function create_switch(element) {
-    create_text(element, 1, 0);
+    create_text_2(element, 1, 0);
 
     explain = document.createTextNode("가");
     element.appendChild(explain);
+
+    element.addEventListener('click', function() {
+        check_use_many_variable = 1;
+        variable_input_texting.disabled = true;
+    })
 }
 
 function create_operator(element) {
@@ -334,11 +361,12 @@ function create_changer(element) {
 
     element.addEventListener('click', function() {
         check_use_many_variable = 1;
+        variable_input_texting.disabled = true;
     })
 }
 
 function create_if(element) { //목록에서 code_screen으로 끌어당길때 만약 조건문 생성
-    create_text(element, 1, 0);
+    create_text_2(element, 1, 0);
 
     explain = document.createTextNode("가 ");
     element.appendChild(explain);
@@ -359,6 +387,11 @@ function create_if(element) { //목록에서 code_screen으로 끌어당길때 �
         selecting.appendChild(option);
     }
     element.appendChild(selecting);
+
+    element.addEventListener('click', function() {
+        check_use_many_variable = 1;
+        variable_input_texting.disabled = true;
+    })
 }
 
 function random_color() {
