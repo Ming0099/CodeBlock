@@ -5,7 +5,7 @@ let selectedContentSize = 0; // 선택된 학습하기 컨텐츠 개수(이미�
 
 // json 파일 가져오기
 function getJSON(){
-    fetch("../static/js/learn/info.json")
+    fetch("js/learn/info.json")
     .then((res) => {
     return res.json()
     })
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // popup 사진 변경
             for(let i=0; i<selectedContentSize; i++){
                 const img = document.createElement("img");
-                img.src = "../static/image/learn/"+box.id+"/"+i+".jpg";
+                img.src = "image/learn/"+box.id+"/"+i+".jpg";
                 $(".slides").append(img);
             }
 

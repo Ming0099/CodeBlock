@@ -35,33 +35,13 @@
     <div class="bodyBox">
         <div class="sidebar">
             <ol class="side_menu">
-                <li class="side_menu_button" id="first_side_menu">선언</li>
-                <li class="side_menu_button">제어문</li>
-                <li class="side_menu_button">입출력문</li>
+                <li class="side_menu_button" id="first_side_menu">입출력문</li>
             </ol>
         </div>
         <div class="left">
             <ol class="script">
-                <!--변수 블럭들-->
-                <div class="blocks" id="variable_blocks" style="display: block;">
-                    <li class="button" draggable="true">변수</li>
-                    <li class="underbar"></li>
-                    <li class="button" draggable="true">연산자</li>
-                    <li class="underbar"></li>
-                </div>
-                <!--제어문 블럭들-->
-                <div class="blocks" id="control_blocks">
-                    <li class="button closed" draggable="true">번 반복 (for문)</li>
-                    <li class="underbar"></li>
-                    <li class="button closed" draggable="true">번 반복 (while문)</li>
-                    <li class="underbar"></li>
-                    <li class="button closed" draggable="true">만약</li>
-                    <li class="underbar"></li>
-                    <li class="button closed" draggable="true">스위치</li>
-                    <li class="underbar"></li>
-                </div>
                 <!--입출력문 블럭들-->
-                <div class="blocks" id="input_output_blocks">
+                <div class="blocks" id="input_output_blocks" style="display: block;">
                     <li class="button" draggable="true">출력</li>
                     <li class="underbar"></li>
                 </div>
@@ -73,7 +53,7 @@
                     <span style="color: white; font-weight: bold;">삭제</span>
                 </div>
             </div>
-            <button class="enter" id="results_code">출력</button>
+            <button class="enter" id="results_code">번역</button>
         </div>
         <div class="right">
             <div class="question_screen" id="question">
@@ -82,7 +62,7 @@
                 </div>
                 <div class="question_info">
                     <ul id="question_list">
-                        <li id="current">리스트에 있는 코드 블록을 스크린으로 드래그하세요.</li>
+                        <li id="current">리스트에 있는 출력 블록을 스크린으로 드래그하세요.</li>
                         <li id="yet">코드 블록에 내용을 추가해 보세요.</li>
                         <li id="yet">우클릭을 눌러 코드 블록을 삭제해보세요.</li>
                         <li id="yet">코드 스크린에서 코드 블록들의 위치를 옮겨보세요.</li>
