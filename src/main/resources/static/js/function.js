@@ -88,6 +88,7 @@ $(document).ready(function () { //출력하기
         var all_content = init;
         var empty_text_check = false;
         var total_arr = []; //배열 만들기 위해서
+        var test_arr = [];
         contents.forEach(content => {//데이터(코드) 모으기
             all_content = all_content + " " + content.getAttribute('data-value');
             if (content.textContent.includes("/") === false) {
@@ -111,6 +112,8 @@ $(document).ready(function () { //출력하기
             alert("빈칸이 없도록 모두 채워주세요.");
             return;
         }
+        console.log(all_content);
+        console.log(total_arr);
         $.ajax({
             type: 'POST',
             url: '/send_data',
@@ -220,7 +223,7 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
         }(texting);
         element.appendChild(texting);
 
-        if(element.getAttribute('data-value') == 'VARIABLE' && start_num == 0) {
+        if((element.getAttribute('data-value') == 'VARIABLE' && start_num == 0) || (element.getAttribute('data-value') == 'OPERATOR' && start_num == 0)) {
             texting.setAttribute('variable_name', "yes");
         }
     }

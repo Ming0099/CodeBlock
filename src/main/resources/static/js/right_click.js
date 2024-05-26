@@ -25,18 +25,20 @@ popMenu.addEventListener("click", function (e) {
             contain.removeChild(remove_close_code);
             remove_close_code = null;
         }
-        try{
-            remove_code.childNodes.forEach(f => {
-                if(f.getAttribute('variable_name') == 'yes'){
-                    variables = variables.filter(user => {
-                        return user !== f.value;
-                    })
-                    throw new Error();
-                }
-            });
-        } catch (error) {
-            console.log("FOREACH문 탈출");
-        } 
+        if(remove_code.getAttribute('data-value') == 'VARIABLE' || remove_code.getAttribute('data-value') == 'OPERATOR'){
+            try{
+                remove_code.childNodes.forEach(f => {
+                    if(f.getAttribute('variable_name') == 'yes'){
+                        variables = variables.filter(user => {
+                            return user !== f.value;
+                        })
+                        throw new Error();
+                    }
+                });
+            } catch (error) {
+                console.log("FOREACH문 탈출");
+            } 
+        }
         contain.removeChild(remove_code);
         remove_code = null;
         create_my_variable();

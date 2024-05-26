@@ -177,7 +177,7 @@ function can_use_variable(start_span, end_span) {
                                     // variable_input_texting.appendChild(temp1);
                                     // save_click_varibale_blocks.push(temp1.textContent); // 클릭한 버튼의 텍스트값 저장
                                     // this.disabled = true; // 버튼 클릭시 비활성화 코드
-                                    var content_temp = $('#variable_input_texting').val() + this.textContent;
+                                    var content_temp = $('#variable_input_texting').val() + '-' + this.textContent + '-';
                                     $('#variable_input_texting').val(content_temp);
                                     $('#variable_input_texting').focus();
                                 }
@@ -220,7 +220,6 @@ function can_use_variable(start_span, end_span) {
                                     //this.disabled = true;
                                 }
                                 else{
-                                    // var temp1 = this.cloneNode(true);
                                     // temp1.addEventListener('click', function () {
                                     //     variable_input_texting.removeChild(temp1);
                                     //     save_modal_variable_blocks.forEach(f => {
@@ -237,7 +236,8 @@ function can_use_variable(start_span, end_span) {
                                     // variable_input_texting.appendChild(temp1);
                                     // save_click_varibale_blocks.push(temp1.textContent); // 클릭한 버튼의 텍스트값 저장
                                     // this.disabled = true; // 버튼 클릭시 비활성화 코드
-                                    var content_temp = $('#variable_input_texting').val() + this.textContent;
+                                    
+                                    var content_temp = $('#variable_input_texting').val() + '-' + this.textContent + '-';
                                     $('#variable_input_texting').val(content_temp);
                                     $('#variable_input_texting').focus();
                                 }
