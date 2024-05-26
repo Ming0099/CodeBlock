@@ -151,6 +151,9 @@ $(document).ready(function () { //출력하기
         if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE'){
             create_my_variable();
         }
+        else if(input_text_element.parentNode.getAttribute('data-value') == 'OPERATOR'){
+            create_my_variable();
+        }
         close_modal();
     });
 
