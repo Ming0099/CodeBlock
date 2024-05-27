@@ -149,7 +149,7 @@ function can_use_variable(start_span, end_span) {
                             save_modal_variable_blocks.push(modal_variable);
                             modal_variable.addEventListener('click', function () {
                                 if (check_use_many_variable == 1) {
-                                    $('#variable_input_texting').val(this.textContent);
+                                    $('#variable_input_texting').val('<' + this.textContent + '>');
                                 }
                                 else {
                                     var content_temp = $('#variable_input_texting').val() + '<' + this.textContent + '>';
@@ -185,7 +185,7 @@ function can_use_variable(start_span, end_span) {
                             save_modal_variable_blocks.push(modal_variable);
                             modal_variable.addEventListener('click', function () {
                                 if (check_use_many_variable == 1) {
-                                    $('#variable_input_texting').val(this.textContent);
+                                    $('#variable_input_texting').val('<' + this.textContent + '>');
                                 }
                                 else {
                                     var content_temp = $('#variable_input_texting').val() + '<' + this.textContent + '>';
@@ -221,7 +221,7 @@ document.getElementById('variable_input_texting').addEventListener('input', func
         matches = [...text.matchAll(regex)];
         var positions2 = matches.map(match => match.index);
         for (var i = 0; i < positions2.length; i++) {
-            if (positions1[i] <= this.selectionStart && positions2[i] >= this.selectionStart) {
+            if (positions1[i] <= this.selectionStart && positions2[i] > this.selectionStart) {
                 event.target.value = texting_backup.slice(0, positions1[i]) + texting_backup.slice(positions2[i] + 1);
                 texting_backup = event.target.value;
                 break;
@@ -257,7 +257,7 @@ document.getElementById('variable_input_texting').addEventListener('keydown', fu
         matches = [...text.matchAll(regex)];
         var positions2 = matches.map(match => match.index);
         for (var i = 0; i < positions2.length; i++) { //변수값에 사이에 작성
-            if (positions1[i] <= this.selectionStart && positions2[i] >= this.selectionStart) {
+            if (positions1[i] <= this.selectionStart && positions2[i] > this.selectionStart) {
                 alert('변수값 사이에는 작성이 불가합니다.');
                 texting_backup_check = 1;
                 break;
