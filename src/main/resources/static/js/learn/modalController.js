@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
             currentIndex--;
             // 마지막 페이지가 아닐 때 "학습하러 가기" 버튼 안나타나게
             $(".to_learn").css("display","none");
+            // 마지막 페이지가 아닐 때 "종료" 버튼 안나타나게
+            $(".to_exit").css("display","none");
+
             // 설명 설정
             $(".popup_foot_info").text(selectedContentInfo.text[currentIndex]);
         }
@@ -74,7 +77,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         // 마지막 페이지일때 "학습하러 가기" 버튼 나타나게
         if(currentIndex == slides.children.length - 1){
-            $(".to_learn").css("display","block");
+            if(selectedContentInfo.title == "조작법 익히기") {
+                $(".to_learn").css("display", "block");
+            }else{
+                $(".to_exit").css("display", "block");
+            }
         }
         updateSlidePosition();
     });
@@ -92,7 +99,7 @@ function show() {
 // 모달창 닫기
 function cancel(event) {
     const clickedElement = event.target;
-    if (clickedElement.classList.contains('window')) {
+    if (clickedElement.classList.contains('window') || clickedElement.classList.contains('to_exit')) {
         const slides = document.querySelector('.slides');
         const slideWidth = slides.clientWidth;
         currentIndex = 0;
@@ -101,6 +108,7 @@ function cancel(event) {
         $(".popup_foot_info").text("");
         // 버튼 clear
         $(".to_learn").css("display","none");
+        $(".to_exit").css("display","none");
         document.querySelector(".modalbackground").className = "modalbackground";
     }
     

@@ -107,9 +107,10 @@
                         STEP 6
                     </div>
                     <div class="study_content_image">
+                        <img src="image/learn/title/step6.png">
                     </div>
                     <div class="study_content_text">
-                        임시
+                        내 변수
                     </div>
                 </div>
             </div>
@@ -127,7 +128,8 @@
                     </div>
                     <button class="prev-btn">&lt;</button>
                     <button class="next-btn">&gt;</button>
-                    <button class="to_learn">학습하러 가기</button>
+                    <button class="to_learn" onclick="to_learn()">학습하러 가기</button>
+                    <button class="to_exit">학습종료</button>
                 </div>
                 <div class="popup_foot">
                     <div class="popup_foot_info"></div>
@@ -136,6 +138,11 @@
         </div>
     </div>
     <script src="js/learn/modalController.js"></script>
+    <script>
+        function to_learn(){
+            location.href = "/step1";
+        }
+    </script>
 </body>
     
 </html>

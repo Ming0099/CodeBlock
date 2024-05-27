@@ -54,6 +54,11 @@ public class CodeBlockController {
         return "learn";
     }
 
+    @GetMapping(value = "/step1")
+    public String step1(){
+        return "step1";
+    }
+
     @GetMapping(value = "/reference")
     public String reference(){
         return "reference";
