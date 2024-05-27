@@ -59,3 +59,7 @@ var save_click_varibale_blocks = [];
 var save_modal_variable_blocks = [];
 var variable_input_texting = document.getElementById('variable_input_texting');
 var variables = [];
+
+var texting_backup = '';
+var texting_backup_check = 0;
+var press_backspace = 0;

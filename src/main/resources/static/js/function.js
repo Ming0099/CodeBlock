@@ -246,6 +246,7 @@ function create_text_2(element, create_cnt, start_num) { //목록에서 code_scr
                 input_text_element = element;
                 var content_temp = $('#' + input_text_element.id).val();
                 $("#variable_input_texting").val(content_temp);
+                texting_backup = $("#variable_input_texting").val();
                 $("#input_screen2").css({
                     "left" : e.x+150+"px",
                     "top" : e.y+40+"px",
