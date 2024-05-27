@@ -152,10 +152,19 @@ function can_use_variable(start_span, end_span) {
                                     $('#variable_input_texting').val('<' + this.textContent + '>');
                                 }
                                 else {
-                                    var content_temp = $('#variable_input_texting').val() + '<' + this.textContent + '>';
-                                    $('#variable_input_texting').val(content_temp);
-                                    $('#variable_input_texting').focus();
-                                    texting_backup = $('#variable_input_texting').val();
+                                    var find_input_select = document.getElementById('variable_input_texting');
+                                    if (find_input_select.selectionStart == find_input_select.textContent.length - 1) {
+                                        var content_temp = $('#variable_input_texting').val() + '<' + this.textContent + '>';
+                                        $('#variable_input_texting').val(content_temp);
+                                        $('#variable_input_texting').focus();
+                                        texting_backup = $('#variable_input_texting').val();
+                                    }
+                                    else{
+                                        var temp_text = document.getElementById('variable_input_texting').value.slice(0, find_input_select.selectionStart) + '<' + this.textContent + '>' + document.getElementById('variable_input_texting').value.slice(find_input_select.selectionStart)
+                                        document.getElementById('variable_input_texting').value = temp_text;
+                                        $('#variable_input_texting').focus();
+                                        texting_backup = $('#variable_input_texting').val();
+                                    }
                                 }
 
                             })
@@ -188,10 +197,18 @@ function can_use_variable(start_span, end_span) {
                                     $('#variable_input_texting').val('<' + this.textContent + '>');
                                 }
                                 else {
-                                    var content_temp = $('#variable_input_texting').val() + '<' + this.textContent + '>';
-                                    $('#variable_input_texting').val(content_temp);
-                                    $('#variable_input_texting').focus();
-                                    texting_backup = $('#variable_input_texting').val();
+                                    var find_input_select = document.getElementById('variable_input_texting');
+                                    if (find_input_select.selectionStart == find_input_select.textContent.length - 1) {
+                                        var content_temp = $('#variable_input_texting').val() + '<' + this.textContent + '>';
+                                        $('#variable_input_texting').val(content_temp);
+                                        $('#variable_input_texting').focus();
+                                        texting_backup = $('#variable_input_texting').val();
+                                    }
+                                    else{
+                                        var temp_text = document.getElementById('variable_input_texting').value.slice(0, find_input_select.selectionStart) + '<' + this.textContent + '>' + document.getElementById('variable_input_texting').value.slice(find_input_select.selectionStart)
+                                        document.getElementById('variable_input_texting').value = temp_text;
+                                        texting_backup = document.getElementById('variable_input_texting').value;
+                                    }
                                 }
 
                             })
@@ -216,12 +233,12 @@ document.getElementById('variable_input_texting').addEventListener('input', func
         var regex = /</g;
         var matches = [...text.matchAll(regex)];
         var positions1 = matches.map(match => match.index);
-    
+
         regex = />/g;
         matches = [...text.matchAll(regex)];
         var positions2 = matches.map(match => match.index);
         for (var i = 0; i < positions2.length; i++) {
-            if (positions1[i] <= this.selectionStart && positions2[i] > this.selectionStart) {
+            if (positions1[i] <= this.selectionStart && positions2[i] >= this.selectionStart) {
                 event.target.value = texting_backup.slice(0, positions1[i]) + texting_backup.slice(positions2[i] + 1);
                 texting_backup = event.target.value;
                 break;
@@ -247,17 +264,17 @@ document.getElementById('variable_input_texting').addEventListener('keydown', fu
         alert("'<'와 '>'은 입력 불가입니다.");
         texting_backup_check = 1;
     }
-    else if(event.keyCode != 38 && event.keyCode != 40 && event.keyCode != 37 && event.keyCode != 39){
+    else if (event.keyCode != 38 && event.keyCode != 40 && event.keyCode != 37 && event.keyCode != 39) {
         var text = event.target.value;
         var regex = /</g;
         var matches = [...text.matchAll(regex)];
         var positions1 = matches.map(match => match.index);
-    
+
         regex = />/g;
         matches = [...text.matchAll(regex)];
         var positions2 = matches.map(match => match.index);
         for (var i = 0; i < positions2.length; i++) { //변수값에 사이에 작성
-            if (positions1[i] <= this.selectionStart && positions2[i] > this.selectionStart) {
+            if (positions1[i] < this.selectionStart && positions2[i] > this.selectionStart) {
                 alert('변수값 사이에는 작성이 불가합니다.');
                 texting_backup_check = 1;
                 break;
