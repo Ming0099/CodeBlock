@@ -5,7 +5,7 @@ function create_my_variable() {
         if (span.getAttribute('data-value') == 'VARIABLE') {
             my_variables_blocks.push(span);
         }
-        else if (span.getAttribute('data-value') == 'OPERATOR') {
+        else if (span.getAttribute('data-value') == 'VARIABLE OPERATOR') {
             my_operator_blocks.push(span);
         }
     });
@@ -29,6 +29,12 @@ function create_my_variable() {
                     else if (input_count == 2) {
                         temp_variable.setAttribute('data-value', k.value);
                         temp_variable.title = k.value;
+                        var kValue = Number(k.value);
+                        if (isNaN(kValue)) {
+                            temp_variable.setAttribute('canNumber', 'cant');
+                        } else {
+                            temp_variable.setAttribute('canNumber', 'can');
+                        }
                     }
                 }
                 else {
@@ -69,6 +75,7 @@ function create_my_variable() {
                     else if (input_count == 3) {
                         title_explain = title_explain + k.value;
                         temp_variable.setAttribute('data-value', title_explain);
+                        temp_variable.setAttribute('canNumber', 'can');
                         temp_variable.title = title_explain;
                         title_explain = "";
                     }
@@ -177,7 +184,7 @@ function can_use_variable(start_span, end_span) {
                 }
             });
         }
-        else if (start_span.getAttribute('data-value') && start_span.getAttribute('data-value') == 'OPERATOR') {
+        else if (start_span.getAttribute('data-value') && start_span.getAttribute('data-value') == 'VARIABLE OPERATOR') {
             var modal_variable = document.createElement('button');
             var input_count = 0;
             start_span.childNodes.forEach(k => {
@@ -226,59 +233,3 @@ function can_use_variable(start_span, end_span) {
     var temp_input_variable = input_variable;
     return { temp_input_variable, start_span };
 }
-document.getElementById('variable_input_texting').addEventListener('input', function (event) {
-
-    if (press_backspace == 1) { //백스페이스
-        var text = texting_backup;
-        var regex = /</g;
-        var matches = [...text.matchAll(regex)];
-        var positions1 = matches.map(match => match.index);
-
-        regex = />/g;
-        matches = [...text.matchAll(regex)];
-        var positions2 = matches.map(match => match.index);
-        for (var i = 0; i < positions2.length; i++) {
-            if (positions1[i] <= this.selectionStart && positions2[i] >= this.selectionStart) {
-                event.target.value = texting_backup.slice(0, positions1[i]) + texting_backup.slice(positions2[i] + 1);
-                texting_backup = event.target.value;
-                break;
-            }
-        }
-        press_backspace = 0;
-    }
-    else if (texting_backup_check == 1) {
-        texting_backup_check = 0;
-        event.target.value = texting_backup;
-    }
-    else {
-        texting_backup = event.target.value;
-    }
-});
-
-document.getElementById('variable_input_texting').addEventListener('keydown', function (event) {
-    if (event.keyCode === 8) { // 백스페이스 키의 keyCode는 8입니다.
-        texting_backup = this.value;
-        press_backspace = 1;
-    }
-    else if (event.key == '>' || event.key == '<') {
-        alert("'<'와 '>'은 입력 불가입니다.");
-        texting_backup_check = 1;
-    }
-    else if (event.keyCode != 38 && event.keyCode != 40 && event.keyCode != 37 && event.keyCode != 39) {
-        var text = event.target.value;
-        var regex = /</g;
-        var matches = [...text.matchAll(regex)];
-        var positions1 = matches.map(match => match.index);
-
-        regex = />/g;
-        matches = [...text.matchAll(regex)];
-        var positions2 = matches.map(match => match.index);
-        for (var i = 0; i < positions2.length; i++) { //변수값에 사이에 작성
-            if (positions1[i] < this.selectionStart && positions2[i] > this.selectionStart) {
-                alert('변수값 사이에는 작성이 불가합니다.');
-                texting_backup_check = 1;
-                break;
-            }
-        }
-    }
-});

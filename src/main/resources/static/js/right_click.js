@@ -25,7 +25,7 @@ popMenu.addEventListener("click", function (e) {
             contain.removeChild(remove_close_code);
             remove_close_code = null;
         }
-        if(remove_code.getAttribute('data-value') == 'VARIABLE' || remove_code.getAttribute('data-value') == 'OPERATOR'){
+        if(remove_code.getAttribute('data-value') == 'VARIABLE' || remove_code.getAttribute('data-value') == 'VARIABLE OPERATOR'){
             try{
                 remove_code.childNodes.forEach(f => {
                     if(f.getAttribute('variable_name') == 'yes'){
@@ -41,6 +41,7 @@ popMenu.addEventListener("click", function (e) {
         }
         contain.removeChild(remove_code);
         remove_code = null;
+        test_variables = [];
         create_my_variable();
     }
 });

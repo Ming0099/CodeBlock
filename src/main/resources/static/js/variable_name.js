@@ -63,3 +63,9 @@ var variables = [];
 var texting_backup = '';
 var texting_backup_check = 0;
 var press_backspace = 0;
+
+var check_only_number = 0;
+
+var get_variables = [];
+
+var variable_count = 0;

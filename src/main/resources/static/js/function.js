@@ -133,34 +133,119 @@ $(document).ready(function () { //출력하기
     $("#save_text").click(function () { //저장
         if(input_text_element.getAttribute('variable_name') == 'yes'){
             var check = 0;
-            variables.forEach(k => {
-                if(k == $('#input_texting').val()) {
-                    alert("이미 존재하는 변수 입니다.");
-                    check = 1;
-                    return;
+            if ($('#input_texting').val().trim() !== "") {
+                if($("#" + input_text_element.id).val() === ""){
+                    variables.forEach(k => {
+                        if(k == $('#input_texting').val()) {
+                            alert("이미 존재하는 변수 입니다.");
+                            check = 1;
+                            return;
+                        }
+                    })
+        
+                    if(check == 0){
+                        variables.push($('#input_texting').val());
+                        var content_temp = $('#input_texting').val();
+                        $("#" + input_text_element.id).val(content_temp);
+                        close_modal();
+                    }
+                }
+                else {
+                    var temp_text = $("#" + input_text_element.id).val();
+                    var i = 0;
+                    if (temp_text !== $('#input_texting').val()) {
+                        variables.forEach(k => {
+                            if(k == $("#" + input_text_element.id).val()) {
+                                variables[i] = variables[i].replace(k,  $('#input_texting').val());
+                            }
+                            i++;
+                        })
+                        var content_temp = $('#input_texting').val();
+                        $("#" + input_text_element.id).val(content_temp);
+                        close_modal();
+                    }
+                    else {
+                        close_modal();
+                    }
+                }
+            }
+            else{
+                alert("입력해주세요.");
+            }
+        } else if(input_text_element.getAttribute('change_value') === 'yes') {
+            var check = 0;
+            var temp_span;
+            var temp_span_name;
+            var temp_input_texting = $('#input_texting').val()
+            temp_span = input_text_element.parentNode;
+            try{
+                temp_span.childNodes.forEach(k => {
+                    if (k.getAttribute('change_name') === 'yes') {
+                        temp_span_name = k.value.replace(/[<>]/g, '');
+                        //console.log(temp_span_value);
+                        throw new Error();
+                    }
+                })
+            } catch (error) {
+
+            }
+
+            get_variables = [];
+            var lists = document.getElementById('my_variable_blocks');
+            lists.childNodes.forEach(k => {
+                if (k.classList.value === 'button') {
+                    get_variables.push(k);
+                }
+            })
+            get_variables.forEach(f => {
+                if (f.getAttribute('canNumber') === 'can') {
+                    if (f.textContent === temp_span_name) {
+                        if (isNaN(temp_input_texting)) {
+                            alert('서로 다른 자료형은 사용할 수 없습니다.');
+                            check = 1;
+                            return;
+                        } else {
+                            console.log('가능');
+                        }
+                    }
+                }
+                else {
+                    if (f.textContent === temp_span_name) {
+                        if (isNaN(temp_input_texting)) {
+                            console.log('가능');
+                        } else {
+                            alert('서로 다른 자료형은 사용할 수 없습니다.');
+                            check = 1;
+                            return;
+                        }
+                    }
                 }
             })
 
             if(check == 0){
-                variables.push($('#input_texting').val());
                 var content_temp = $('#input_texting').val();
                 $("#" + input_text_element.id).val(content_temp);
+                close_modal();
             }
-        } else{
+        }
+        else{
             var content_temp = $('#input_texting').val();
             $("#" + input_text_element.id).val(content_temp);
+            close_modal();
         }
         //console.log($("#" + input_text_element.id).val());
         if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE'){
             create_my_variable();
         }
-        else if(input_text_element.parentNode.getAttribute('data-value') == 'OPERATOR'){
+        else if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE OPERATOR'){
             create_my_variable();
         }
-        close_modal();
+        check_only_number = 0;
+        console.log(check_only_number);
     });
 
     $("#cancel_text").click(function () { //취소
+        check_only_number == 0;
         close_modal();
     });
 
@@ -219,12 +304,25 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
                 });
                 document.getElementById("modal_screen2").style.display = "block";
                 document.getElementById("modal_screen1").style.zIndex = "-1";
+                if (texting.parentNode.getAttribute('data-value') === 'FOR' ||
+                texting.parentNode.getAttribute('data-value') === 'WHILE' ||
+                texting.parentNode.getAttribute('data-value') === 'VARIABLE OPERATOR' && start_num > 0 ||
+                texting.parentNode.getAttribute('data-value') === 'CHANGE OPERATOR' && start_num > 0) {
+                    check_only_number = 1;
+                }
+                console.log(texting.getAttribute('change_value'));
             };
         }(texting);
         element.appendChild(texting);
 
-        if((element.getAttribute('data-value') == 'VARIABLE' && start_num == 0) || (element.getAttribute('data-value') == 'OPERATOR' && start_num == 0)) {
+        if((element.getAttribute('data-value') == 'VARIABLE' && start_num == 0) || (element.getAttribute('data-value') == 'VARIABLE OPERATOR' && start_num == 0)) {
             texting.setAttribute('variable_name', "yes");
+        }
+        if((element.getAttribute('data-value') == 'VARIABLE' && start_num > 0) || (element.getAttribute('data-value') == 'VARIABLE OPERATOR' && start_num > 0)) {
+            texting.setAttribute('variable_value', "yes");
+        }
+        if((element.getAttribute('data-value') == 'CHANGE' && start_num > 0) || (element.getAttribute('data-value') == 'CHANGE OPERATOR' && start_num > 0)) {
+            texting.setAttribute('change_value', "yes");
         }
     }
 }
@@ -258,6 +356,10 @@ function create_text_2(element, create_cnt, start_num) { //목록에서 code_scr
             };
         }(texting);
         element.appendChild(texting);
+
+        if((element.getAttribute('data-value') == 'CHANGE' && start_num == 0) || (element.getAttribute('data-value') == 'CHANGE OPERATOR' && start_num == 0)) {
+            texting.setAttribute('change_name', "yes");
+        }
     }
 }
 
@@ -297,10 +399,6 @@ function create_variable(element) {
 
     explain = document.createTextNode("(으)로 선언");
     element.appendChild(explain);
-
-    element.addEventListener('click', function() {
-        check_this_is_variable_block = 1;
-    })
 }
 
 function create_switch(element) {
@@ -341,7 +439,7 @@ function create_operator(element) {
     element.appendChild(explain);
 }
 
-function create_changer(element) {
+function create_change_operator(element) {
     create_text_2(element, 1, 0);
 
     explain = document.createTextNode("는 ");
@@ -364,6 +462,23 @@ function create_changer(element) {
     create_text(element, 1, 2);
 
     explain = document.createTextNode("로 변경");
+    element.appendChild(explain);
+
+    element.addEventListener('click', function() {
+        check_use_many_variable = 1;
+        variable_input_texting.disabled = true;
+    })
+}
+
+function create_change(element) {
+    create_text_2(element, 1, 0);
+
+    explain = document.createTextNode("를 ");
+    element.appendChild(explain);
+
+    create_text(element, 1, 1);
+
+    explain = document.createTextNode("(으)로 변경");
     element.appendChild(explain);
 
     element.addEventListener('click', function() {
