@@ -100,6 +100,8 @@ public class CodeBlockService {
                 currentSwitchBlock = codeBlock.getContentById(i);
             }
         }
+        // 헤더파일 추가
+        cTranslator.addHeaderFile();
 
 
         System.out.println(cTranslator.getTranslatedCode());

@@ -9,12 +9,17 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
     private StringBuilder code;
     private Stack<Integer> codeDepthStack;
     private Variable variable; // 변수모음
+    private boolean isStdioHeader = false;
 
     public CTranslator() {
         code = new StringBuilder();
         codeDepthStack = new Stack<>();
         codeDepthStack.push(0);
         variable = new Variable();
+
+        // main 함수
+        code.append("int main(){\n");
+        codeDepthStack.push(codeDepthStack.peek() + 1);
     }
 
     @Override
@@ -74,6 +79,9 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
 
     @Override
     public void translatePrint(String text) {
+        // stdio 헤더파일 필요
+        isStdioHeader = true;
+
         createIndent(getCodeDepth());
 
         // 출력문에 변수가 있을시
@@ -219,5 +227,17 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
             default:
                 return "";
         }
+    }
+
+    public void addHeaderFile(){
+        StringBuilder headerCode = new StringBuilder();
+        if(isStdioHeader){
+            headerCode.append("#include<stdio.h>\n");
+        }
+        if(isStdioHeader){
+            headerCode.append("\n");
+        }
+
+        code.insert(0, headerCode);
     }
 }
