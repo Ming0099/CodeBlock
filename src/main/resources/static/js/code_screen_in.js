@@ -121,12 +121,12 @@ contain.addEventListener("dragenter", (e) => { //진입
             create_if(span);
         }
         else if (span.textContent === ("연산자")) {
-            span.setAttribute('data-value', 'VARIABLE OPERATOR');
+            span.setAttribute('data-value', 'VARIABLE_OPERATOR');
             span.innerHTML = "";
             create_operator(span);
         }
         else if (span.textContent.includes('연산자 사용하여 값 변경') === true) {
-            span.setAttribute('data-value', 'CHANGE OPERATOR');
+            span.setAttribute('data-value', 'CHANGE_OPERATOR');
             span.innerHTML = "";
             create_change_operator(span);
         }

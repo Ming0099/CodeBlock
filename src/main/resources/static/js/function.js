@@ -249,7 +249,7 @@ $(document).ready(function () { //출력하기
         if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE'){
             create_my_variable();
         }
-        else if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE OPERATOR'){
+        else if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE_OPERATOR'){
             create_my_variable();
         }
         check_only_number = 0;
@@ -318,8 +318,8 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
                 document.getElementById("modal_screen1").style.zIndex = "-1";
                 if (texting.parentNode.getAttribute('data-value') === 'FOR' ||
                 texting.parentNode.getAttribute('data-value') === 'WHILE' ||
-                texting.parentNode.getAttribute('data-value') === 'VARIABLE OPERATOR' && start_num > 0 ||
-                texting.parentNode.getAttribute('data-value') === 'CHANGE OPERATOR' && start_num > 0) {
+                texting.parentNode.getAttribute('data-value') === 'VARIABLE_OPERATOR' && start_num > 0 ||
+                texting.parentNode.getAttribute('data-value') === 'CHANGE_OPERATOR' && start_num > 0) {
                     check_only_number = 1;
                 }
                 //console.log(texting.getAttribute('change_value'));
@@ -327,13 +327,13 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
         }(texting);
         element.appendChild(texting);
 
-        if((element.getAttribute('data-value') == 'VARIABLE' && start_num == 0) || (element.getAttribute('data-value') == 'VARIABLE OPERATOR' && start_num == 0)) {
+        if((element.getAttribute('data-value') == 'VARIABLE' && start_num == 0) || (element.getAttribute('data-value') == 'VARIABLE_OPERATOR' && start_num == 0)) {
             texting.setAttribute('variable_name', "yes");
         }
-        if((element.getAttribute('data-value') == 'VARIABLE' && start_num > 0) || (element.getAttribute('data-value') == 'VARIABLE OPERATOR' && start_num > 0)) {
+        if((element.getAttribute('data-value') == 'VARIABLE' && start_num > 0) || (element.getAttribute('data-value') == 'VARIABLE_OPERATOR' && start_num > 0)) {
             texting.setAttribute('variable_value', "yes");
         }
-        if((element.getAttribute('data-value') == 'CHANGE' && start_num > 0) || (element.getAttribute('data-value') == 'CHANGE OPERATOR' && start_num > 0)) {
+        if((element.getAttribute('data-value') == 'CHANGE' && start_num > 0) || (element.getAttribute('data-value') == 'CHANGE_OPERATOR' && start_num > 0)) {
             texting.setAttribute('change_value', "yes");
         }
     }
@@ -369,7 +369,7 @@ function create_text_2(element, create_cnt, start_num) { //목록에서 code_scr
         }(texting);
         element.appendChild(texting);
 
-        if((element.getAttribute('data-value') == 'CHANGE' && start_num == 0) || (element.getAttribute('data-value') == 'CHANGE OPERATOR' && start_num == 0)) {
+        if((element.getAttribute('data-value') == 'CHANGE' && start_num == 0) || (element.getAttribute('data-value') == 'CHANGE_OPERATOR' && start_num == 0)) {
             texting.setAttribute('change_name', "yes");
         }
     }
