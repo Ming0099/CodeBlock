@@ -208,18 +208,30 @@ $(document).ready(function () { //출력하기
                             console.log('가능');
                         }
                     }
-                }
-                else {
-                    if (f.textContent === temp_span_name) {
-                        if (isNaN(temp_input_texting)) {
-                            console.log('가능');
-                        } else {
-                            alert('서로 다른 자료형은 사용할 수 없습니다.');
-                            check = 1;
-                            return;
+                } else if (f.getAttribute('canNumber') !== 'can'){
+                    if (f.title.length == 1){
+                        if (f.textContent === temp_span_name) {
+                            if (isNaN(temp_input_texting) && temp_input_texting.length == 1) {
+                                console.log('가능')
+                            }
+                            else {
+                                alert('서로 다른 자료형은 사용할 수 없습니다.');
+                                check = 1;
+                                return;
+                            }
+                        }
+                    } else {
+                        if (f.textContent === temp_span_name) {
+                            if (isNaN(temp_input_texting)) {
+                                console.log('가능');
+                            } else {
+                                alert('서로 다른 자료형은 사용할 수 없습니다.');
+                                check = 1;
+                                return;
+                            }
                         }
                     }
-                }
+                } 
             })
 
             if(check == 0){
@@ -241,11 +253,11 @@ $(document).ready(function () { //출력하기
             create_my_variable();
         }
         check_only_number = 0;
-        console.log(check_only_number);
+        //console.log(check_only_number);
     });
 
     $("#cancel_text").click(function () { //취소
-        check_only_number == 0;
+        check_only_number = 0;
         close_modal();
     });
 
@@ -310,7 +322,7 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
                 texting.parentNode.getAttribute('data-value') === 'CHANGE_OPERATOR' && start_num > 0) {
                     check_only_number = 1;
                 }
-                console.log(texting.getAttribute('change_value'));
+                //console.log(texting.getAttribute('change_value'));
             };
         }(texting);
         element.appendChild(texting);
