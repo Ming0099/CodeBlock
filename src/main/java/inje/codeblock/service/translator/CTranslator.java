@@ -172,6 +172,15 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
     public void translateCase(String s1) {
         codeDepthStack.pop();
         createIndent(getCodeDepth());
+
+        String type = translateType(s1);
+
+        if (type.equals("char")){ // 문자
+            s1 = "\'" + s1 + "\'";
+        }else if(type.equals("char *")){ // 문자열
+            s1 = "\"" + s1 + "\"";
+        }
+
         code.append("case ").append(s1).append(": \n");
         codeDepthStack.push(codeDepthStack.peek() + 1);
     }
