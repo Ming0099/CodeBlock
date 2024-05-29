@@ -34,6 +34,33 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
     }
 
     @Override
+    public void translateChange(String name, String value) {
+        // 꺽쇠 제거
+        name = name.substring(1,name.length()-1);
+
+        String type = variable.getTypeByName(name);
+
+        if (type.equals("char")){ // 문자
+            value = "\'" + value + "\'";
+        }else if(type.equals("char *")){ // 문자열
+            value = "\"" + value + "\"";
+        }
+        createIndent(getCodeDepth());
+        code.append(name).append(" = ").append(value).append(";\n");
+    }
+
+    @Override
+    public void translateChangeOperator(String name, String value1, String operator, String value2) {
+        // 꺽쇠 제거
+        name = name.substring(1,name.length()-1);
+
+        createIndent(getCodeDepth());
+        operator = translateOperatorCondition(operator);
+
+        code.append(name).append(" = ").append(value1).append(" ").append(operator).append(" ").append(value2).append(";\n");
+    }
+
+    @Override
     public void translateOperator(String name, String value1, String operator, String value2) {
         createIndent(getCodeDepth());
         operator = translateOperatorCondition(operator);

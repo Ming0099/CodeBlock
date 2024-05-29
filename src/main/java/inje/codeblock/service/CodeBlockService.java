@@ -17,6 +17,8 @@ public class CodeBlockService {
     private final String VARIABLE_OPERATOR = "VARIABLE_OPERATOR";
     private final String SWITCH = "SWITCH";
     private final String CASE = "CASE";
+    private final String CHANGE = "CHANGE";
+    private final String CHANGE_OPERATOR = "CHANGE_OPERATOR";
 
     public String translate(CodeBlock codeBlock){
         System.out.println(codeBlock);
@@ -53,6 +55,12 @@ public class CodeBlockService {
                     break;
                 case VARIABLE:
                     cTranslator.translateVariable(codeBlock.getChildById(j)[0],codeBlock.getChildById(j)[1]);
+                    break;
+                case CHANGE:
+                    cTranslator.translateChange(codeBlock.getChildById(j)[0],codeBlock.getChildById(j)[1]);
+                    break;
+                case CHANGE_OPERATOR:
+                    cTranslator.translateChangeOperator(codeBlock.getChildById(j)[0],codeBlock.getChildById(j)[1],codeBlock.getChildById(j)[2],codeBlock.getChildById(j)[3]);
                     break;
                 case FOR:
                     cTranslator.translateFor(Integer.parseInt(codeBlock.getChildById(j)[0]));
