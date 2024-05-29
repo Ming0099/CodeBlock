@@ -1,7 +1,7 @@
 /* modal screen */
-#input_screen {
+#input_screen2 {
     width: 300px;
-    height: 80px;
+    height: 150px;
     position: absolute;
     top: 200px;
     left: 50%;
@@ -12,7 +12,7 @@
     text-align: center;
 }
 
-#modal_screen1 {
+#variable_modal_screen1 {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -20,7 +20,7 @@
 }
 
 /* modal backgound */
-#modal_screen2 {
+#variable_modal_screen2 {
     display: none;
     position: absolute;
     width: 100%;
@@ -30,7 +30,7 @@
 }
 
 /* textarea */
-#input_texting{
+#variable_input_texting{
     width: 80%;
     overflow:hidden;
     white-space: nowrap;
@@ -38,6 +38,7 @@
     resize:none;
     border-radius: 10px;
     padding-left: 10px;
+    margin-bottom: 6px;
 }
 
 /* cancel & save button*/
@@ -54,4 +55,13 @@ button.click_text{
 
 section.size{
     text-align: center;
+}
+
+.modal_variable{ /*변수 모달의 변수디자인*/
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: #855CD6;
+    cursor: pointer;
+    color: #fff;
+    margin-left: 6px;
 }

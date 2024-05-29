@@ -3,6 +3,10 @@ package inje.codeblock.service.translator;
 public interface CodeTranslator {
     // 변수선언 변환
     void translateVariable(String name, String value);
+    // 변경 변환
+    void translateChange(String name, String value);
+    // 연산자변경 변환
+    void translateChangeOperator(String name, String value1, String operator, String value2);
     // 연산자선언 변환
     void translateOperator(String name, String value1, String operator, String value2);
     // 출력문 변환

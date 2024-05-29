@@ -120,10 +120,20 @@ contain.addEventListener("dragenter", (e) => { //진입
             span.setAttribute('data-value', 'IF');
             create_if(span);
         }
-        else if (span.textContent.includes("연산자") === true) {
-            span.setAttribute('data-value', 'OPERATOR');
+        else if (span.textContent === ("연산자")) {
+            span.setAttribute('data-value', 'VARIABLE_OPERATOR');
             span.innerHTML = "";
             create_operator(span);
+        }
+        else if (span.textContent.includes('연산자 사용하여 값 변경') === true) {
+            span.setAttribute('data-value', 'CHANGE_OPERATOR');
+            span.innerHTML = "";
+            create_change_operator(span);
+        }
+        else if (span.textContent.includes('단순 값 변경') === true) {
+            span.setAttribute('data-value', 'CHANGE');
+            span.innerHTML = "";
+            create_change(span);
         }
         else if (span.textContent.includes("출력") === true) {
             span.setAttribute('data-value', 'PRINT');

@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/index/body.css">
     <link rel="stylesheet" type="text/css" href="css/index/modal.css">
     <link rel="stylesheet" type="text/css" href="css/index/object.css">
+    <link rel="stylesheet" type="text/css" href="css/index/variable_modal.css">
     <link rel="stylesheet" type="text/css" href="prism/prism.css">
 </head>
 
@@ -17,13 +18,13 @@
 <div id="modal_screen1">
     <div class="header">
         <div class="header_title">
-            <a href="#">Code Block</a>
+            <a href="/">Code Block</a>
         </div>
         <div class="header_menu">
             <ul>
-                <li id="first_menu"><a href="#">Home</a></li>
-                <li><a href="#">학습하기</a></li>
-                <li><a href="#">도움말</a></li>
+                <li id="first_menu"><a href="/">Home</a></li>
+                <li><a href="/learn">학습하기</a></li>
+                <li><a href="/reference">도움말</a></li>
             </ul>
         </div>
         <div class="header_myinfo">
@@ -37,6 +38,7 @@
         <div class="sidebar">
             <ol class="side_menu">
                 <li class="side_menu_button" id="first_side_menu">선언</li>
+                <li class="side_menu_button">변경</li>
                 <li class="side_menu_button">제어문</li>
                 <li class="side_menu_button">입출력문</li>
                 <li class="side_menu_button">내변수</li>
@@ -44,11 +46,18 @@
         </div>
         <div class="left">
             <ol class="script">
-                <!--변수 블럭들-->
+                <!--선언 블럭들-->
                 <div class="blocks" id="variable_blocks" style="display: block;">
                     <li class="button" draggable="true">변수</li>
                     <li class="underbar"></li>
                     <li class="button" draggable="true">연산자</li>
+                    <li class="underbar"></li>
+                </div>
+                <!--변경 블럭들-->
+                <div class="blocks" id="change_blocks">
+                    <li class="button" draggable="true">연산자 사용하여 값 변경</li>
+                    <li class="underbar"></li>
+                    <li class="button" draggable="true">단순 값 변경</li>
                     <li class="underbar"></li>
                 </div>
                 <!--제어문 블럭들-->
@@ -92,12 +101,26 @@
 <div id="modal_screen2">
     <div id="input_screen">
         <span>작성하기</span>
-        <textarea id="input_texting" rows="1"></textarea>
+        <textarea id="input_texting" rows="1">asdasd</textarea>
         <br>
         <button id="save_text" class="click_text">저장</button>
         <button id="cancel_text" class="click_text">취소</button>
     </div>
 </div>
+
+<div id="variable_modal_screen2">
+    <div id="input_screen2">
+        <span>내변수 모달 테스트</span>
+        <textarea id="variable_input_texting" style="margin-left: 3%; margin-top: 2%; width: 90%; height: 30px; background-color: white;"></textarea>
+        <div id="my_variable_blocks_in_modal">
+        </div>
+        <br>
+        <span>출력블럭에서 변수 사용시으로 구분.</span>
+        <button id="variable_save_text" class="click_text">저장</button>
+        <button id="variable_cancel_text" class="click_text">취소</button>
+    </div>
+</div>
+
 <script src="prism/prism.js"></script>
 <script src="js/variable_name.js"></script>
 
@@ -107,6 +130,7 @@
 <script src="js/function.js"></script>
 <script src="js/side_menu.js"></script>
 <script src="js/my_variables.js"></script>
+<script src="js/Keydown Controller.js"></script>
 
 </body>
 

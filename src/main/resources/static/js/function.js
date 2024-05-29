@@ -88,6 +88,7 @@ $(document).ready(function () { //출력하기
         var all_content = init;
         var empty_text_check = false;
         var total_arr = []; //배열 만들기 위해서
+        var test_arr = [];
         contents.forEach(content => {//데이터(코드) 모으기
             all_content = all_content + " " + content.getAttribute('data-value');
             if (content.textContent.includes("/") === false) {
@@ -108,9 +109,11 @@ $(document).ready(function () { //출력하기
             }
         });
         if(empty_text_check == true){
-            alert("오잉~!? 빈칸이 보영~~~");
+            alert("빈칸이 없도록 모두 채워주세요.");
             return;
         }
+        console.log(all_content);
+        console.log(total_arr);
         $.ajax({
             type: 'POST',
             url: '/send_data',
@@ -124,25 +127,169 @@ $(document).ready(function () { //출력하기
                 console.log(error);
             }
         })
+
     });
 
     $("#save_text").click(function () { //저장
-        var content_temp = $('#input_texting').val();
-        $("#" + input_text_element.id).val(content_temp);
+        if(input_text_element.getAttribute('variable_name') == 'yes'){
+            var check = 0;
+            if ($('#input_texting').val().trim() !== "") {
+                if($("#" + input_text_element.id).val() === ""){
+                    variables.forEach(k => {
+                        if(k == $('#input_texting').val()) {
+                            alert("이미 존재하는 변수 입니다.");
+                            check = 1;
+                            return;
+                        }
+                    })
+        
+                    if(check == 0){
+                        variables.push($('#input_texting').val());
+                        var content_temp = $('#input_texting').val();
+                        $("#" + input_text_element.id).val(content_temp);
+                        close_modal();
+                    }
+                }
+                else {
+                    var temp_text = $("#" + input_text_element.id).val();
+                    var i = 0;
+                    if (temp_text !== $('#input_texting').val()) {
+                        variables.forEach(k => {
+                            if(k == $("#" + input_text_element.id).val()) {
+                                variables[i] = variables[i].replace(k,  $('#input_texting').val());
+                            }
+                            i++;
+                        })
+                        var content_temp = $('#input_texting').val();
+                        $("#" + input_text_element.id).val(content_temp);
+                        close_modal();
+                    }
+                    else {
+                        close_modal();
+                    }
+                }
+            }
+            else{
+                alert("입력해주세요.");
+            }
+        } else if(input_text_element.getAttribute('change_value') === 'yes') {
+            var check = 0;
+            var temp_span;
+            var temp_span_name;
+            var temp_input_texting = $('#input_texting').val()
+            temp_span = input_text_element.parentNode;
+            try{
+                temp_span.childNodes.forEach(k => {
+                    if (k.getAttribute('change_name') === 'yes') {
+                        temp_span_name = k.value.replace(/[<>]/g, '');
+                        //console.log(temp_span_value);
+                        throw new Error();
+                    }
+                })
+            } catch (error) {
+
+            }
+
+            get_variables = [];
+            var lists = document.getElementById('my_variable_blocks');
+            lists.childNodes.forEach(k => {
+                if (k.classList.value === 'button') {
+                    get_variables.push(k);
+                }
+            })
+            get_variables.forEach(f => {
+                if (f.getAttribute('canNumber') === 'can') {
+                    if (f.textContent === temp_span_name) {
+                        if (isNaN(temp_input_texting)) {
+                            alert('서로 다른 자료형은 사용할 수 없습니다.');
+                            check = 1;
+                            return;
+                        } else {
+                            console.log('가능');
+                        }
+                    }
+                } else if (f.getAttribute('canNumber') !== 'can'){
+                    if (f.title.length == 1){
+                        if (f.textContent === temp_span_name) {
+                            if (isNaN(temp_input_texting) && temp_input_texting.length == 1) {
+                                console.log('가능')
+                            }
+                            else {
+                                alert('서로 다른 자료형은 사용할 수 없습니다.');
+                                check = 1;
+                                return;
+                            }
+                        }
+                    } else {
+                        if (f.textContent === temp_span_name) {
+                            if (isNaN(temp_input_texting)) {
+                                console.log('가능');
+                            } else {
+                                alert('서로 다른 자료형은 사용할 수 없습니다.');
+                                check = 1;
+                                return;
+                            }
+                        }
+                    }
+                } 
+            })
+
+            if(check == 0){
+                var content_temp = $('#input_texting').val();
+                $("#" + input_text_element.id).val(content_temp);
+                close_modal();
+            }
+        }
+        else{
+            var content_temp = $('#input_texting').val();
+            $("#" + input_text_element.id).val(content_temp);
+            close_modal();
+        }
+        //console.log($("#" + input_text_element.id).val());
         if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE'){
             create_my_variable();
         }
-        close_modal();
+        else if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE_OPERATOR'){
+            create_my_variable();
+        }
+        check_only_number = 0;
+        //console.log(check_only_number);
     });
 
     $("#cancel_text").click(function () { //취소
+        check_only_number = 0;
         close_modal();
     });
+
+    $("#variable_save_text").click(function () { //저장
+        //var content_temp = document.getElementById('variable_input_texting').lastChild;
+        var content_temp = $('#variable_input_texting').val();
+        $("#" + input_text_element.id).val(content_temp); // 클릭한 버튼 텍스트값 저장했던거 넣기
+        //input_text_element.setAttribute('data-value', content_temp.getAttribute('data-value'))
+        //input_text_element.setAttribute('back-ground', content_temp.style.backgroundColor)
+        //console.log($("#" + input_text_element.id).val());
+        // if(input_text_element.parentNode.getAttribute('data-value') == 'VARIABLE'){
+        //     create_my_variable();
+        // }
+        close_modal2();
+    });
+
+    $("#variable_cancel_text").click(function () { //취소
+        close_modal2();
+    });
 });
+
+function close_modal2() { //모달창 닫기
+    document.getElementById('variable_input_texting').innerHTML = "";
+    document.getElementById("variable_modal_screen2").style.display = "none";
+    document.getElementById("modal_screen2").style.display = "none";
+    document.getElementById("modal_screen1").style.zIndex = "2";
+}
 
 function close_modal() { //모달창 닫기
     $("#input_texting").val("");
     document.getElementById("modal_screen2").style.display = "none";
+    document.getElementById("variable_modal_screen2").style.display = "none";
     document.getElementById("modal_screen1").style.zIndex = "2";
 }
 
@@ -169,9 +316,62 @@ function create_text(element, create_cnt, start_num) { //목록에서 code_scree
                 });
                 document.getElementById("modal_screen2").style.display = "block";
                 document.getElementById("modal_screen1").style.zIndex = "-1";
+                if (texting.parentNode.getAttribute('data-value') === 'FOR' ||
+                texting.parentNode.getAttribute('data-value') === 'WHILE' ||
+                texting.parentNode.getAttribute('data-value') === 'VARIABLE_OPERATOR' && start_num > 0 ||
+                texting.parentNode.getAttribute('data-value') === 'CHANGE_OPERATOR' && start_num > 0) {
+                    check_only_number = 1;
+                }
+                //console.log(texting.getAttribute('change_value'));
             };
         }(texting);
         element.appendChild(texting);
+
+        if((element.getAttribute('data-value') == 'VARIABLE' && start_num == 0) || (element.getAttribute('data-value') == 'VARIABLE_OPERATOR' && start_num == 0)) {
+            texting.setAttribute('variable_name', "yes");
+        }
+        if((element.getAttribute('data-value') == 'VARIABLE' && start_num > 0) || (element.getAttribute('data-value') == 'VARIABLE_OPERATOR' && start_num > 0)) {
+            texting.setAttribute('variable_value', "yes");
+        }
+        if((element.getAttribute('data-value') == 'CHANGE' && start_num > 0) || (element.getAttribute('data-value') == 'CHANGE_OPERATOR' && start_num > 0)) {
+            texting.setAttribute('change_value', "yes");
+        }
+    }
+}
+
+function create_text_2(element, create_cnt, start_num) { //목록에서 code_screen으로 끌어당길때 text 생성
+    for (var i = 0; i < create_cnt; i++) {
+        var texting = document.createElement('input'); //texting의 기능
+        texting.type = 'text';
+        if(element.getAttribute('data-value').includes("CASE")){
+            texting.id = "texting_immediate" + element.id.match(/\d+/g)[0].toString() + "-" + element.id.match(/\d+/g)[1].toString() + "-" + (start_num + i + 1).toString();
+        }
+        else{
+            texting.id = "texting_immediate" + element.id.match(/\d+/g)[0].toString() + "-" + (start_num + i + 1).toString();
+        }
+        texting.readOnly = true;
+        texting.classList.add("code_text");
+        texting.onclick = function (element) {
+            return function (e) {
+                input_text_element = element;
+                var content_temp = $('#' + input_text_element.id).val();
+                $("#variable_input_texting").val(content_temp);
+                texting_backup = $("#variable_input_texting").val();
+                $("#input_screen2").css({
+                    "left" : e.x+150+"px",
+                    "top" : e.y+40+"px",
+                    "height" : "auto"
+                });
+                input_variable_modal_screen2(element.parentNode);
+                document.getElementById("variable_modal_screen2").style.display = "block";
+                document.getElementById("modal_screen1").style.zIndex = "-1";
+            };
+        }(texting);
+        element.appendChild(texting);
+
+        if((element.getAttribute('data-value') == 'CHANGE' && start_num == 0) || (element.getAttribute('data-value') == 'CHANGE_OPERATOR' && start_num == 0)) {
+            texting.setAttribute('change_name', "yes");
+        }
     }
 }
 
@@ -190,10 +390,15 @@ function create_while(element) {
 }
 
 function create_print(element) {
-    create_text(element, 1, 0);
+    create_text_2(element, 1, 0);
 
     explain = document.createTextNode(" 출력");
     element.appendChild(explain);
+    
+    element.addEventListener('click', function() {
+        check_use_many_variable = 2;
+        variable_input_texting.disabled = false;
+    })
 }
 
 function create_variable(element) {
@@ -209,10 +414,15 @@ function create_variable(element) {
 }
 
 function create_switch(element) {
-    create_text(element, 1, 0);
+    create_text_2(element, 1, 0);
 
     explain = document.createTextNode("가");
     element.appendChild(explain);
+
+    element.addEventListener('click', function() {
+        check_use_many_variable = 1;
+        variable_input_texting.disabled = true;
+    })
 }
 
 function create_operator(element) {
@@ -236,10 +446,61 @@ function create_operator(element) {
     element.appendChild(selecting);
 
     create_text(element, 1, 2);
+
+    explain = document.createTextNode("로 선언");
+    element.appendChild(explain);
+}
+
+function create_change_operator(element) {
+    create_text_2(element, 1, 0);
+
+    explain = document.createTextNode("는 ");
+    element.appendChild(explain);
+
+    create_text(element, 1, 1);
+
+    var selecting = document.createElement('select'); //select의 기능
+    selecting.classList.add("size");
+    var optionValues = ['더하기', '빼기', '나누기', '곱하기'];
+    for (var i = 0; i < 4; i++) {
+        var option = document.createElement('option'); //option의 기능
+        option.id = 'option' + "immediate" + cnt.toString() + "-" + (i + 1).toString();
+        option.value = optionValues[i];
+        option.text = optionValues[i];
+        selecting.appendChild(option);
+    }
+    element.appendChild(selecting);
+
+    create_text(element, 1, 2);
+
+    explain = document.createTextNode("로 변경");
+    element.appendChild(explain);
+
+    element.addEventListener('click', function() {
+        check_use_many_variable = 1;
+        variable_input_texting.disabled = true;
+    })
+}
+
+function create_change(element) {
+    create_text_2(element, 1, 0);
+
+    explain = document.createTextNode("를 ");
+    element.appendChild(explain);
+
+    create_text(element, 1, 1);
+
+    explain = document.createTextNode("(으)로 변경");
+    element.appendChild(explain);
+
+    element.addEventListener('click', function() {
+        check_use_many_variable = 1;
+        variable_input_texting.disabled = true;
+    })
 }
 
 function create_if(element) { //목록에서 code_screen으로 끌어당길때 만약 조건문 생성
-    create_text(element, 1, 0);
+    create_text_2(element, 1, 0);
 
     explain = document.createTextNode("가 ");
     element.appendChild(explain);
@@ -260,6 +521,11 @@ function create_if(element) { //목록에서 code_screen으로 끌어당길때 �
         selecting.appendChild(option);
     }
     element.appendChild(selecting);
+
+    element.addEventListener('click', function() {
+        check_use_many_variable = 1;
+        variable_input_texting.disabled = true;
+    })
 }
 
 function random_color() {
