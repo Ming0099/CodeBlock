@@ -90,6 +90,20 @@
             cursor: pointer;
             right: 10px;
         }
+        .to_exit{
+            display: none;
+            position: absolute;
+            top: 85%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 16px;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            right: 10px;
+        }
 
         .prev-btn {
             left: 10px;

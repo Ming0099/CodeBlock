@@ -11,5 +11,6 @@ function questionCheck(){
 
     if(currentQuestionNumber == 5){
         alert("학습이 완료되었습니다!");
+        location.href = "/learn";
     }
 }

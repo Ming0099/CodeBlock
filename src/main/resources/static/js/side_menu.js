@@ -19,6 +19,9 @@ $('.side_menu li').click(function () {
         case '선언':
             $("#variable_blocks").show();
             break;
+        case '변경':
+            $("#change_blocks").show();
+            break;
         case '제어문':
             $("#control_blocks").show();
             break;
