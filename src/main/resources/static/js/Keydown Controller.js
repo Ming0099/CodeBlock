@@ -57,6 +57,11 @@ document.getElementById('variable_input_texting').addEventListener('keydown', fu
 
 document.getElementById('input_texting').addEventListener('input', function (event) {
     if (check_only_number == 1) {
-        this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+        if (input_text_element.parentNode.getAttribute('data-value') == 'FOR' || input_text_element.parentNode.getAttribute('data-value') == 'WHILE') {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        }
+        else {
+            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+        } 
     }
 });
