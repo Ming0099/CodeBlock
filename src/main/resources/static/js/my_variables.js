@@ -5,7 +5,7 @@ function create_my_variable() {
         if (span.getAttribute('data-value') == 'VARIABLE') {
             my_variables_blocks.push(span);
         }
-        else if (span.getAttribute('data-value') == 'VARIABLE OPERATOR') {
+        else if (span.getAttribute('data-value') == 'VARIABLE_OPERATOR') {
             my_operator_blocks.push(span);
         }
     });
@@ -184,7 +184,7 @@ function can_use_variable(start_span, end_span) {
                 }
             });
         }
-        else if (start_span.getAttribute('data-value') && start_span.getAttribute('data-value') == 'VARIABLE OPERATOR') {
+        else if (start_span.getAttribute('data-value') && start_span.getAttribute('data-value') == 'VARIABLE_OPERATOR') {
             var modal_variable = document.createElement('button');
             var input_count = 0;
             start_span.childNodes.forEach(k => {
