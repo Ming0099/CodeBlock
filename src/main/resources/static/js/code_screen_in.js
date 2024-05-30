@@ -135,6 +135,20 @@ contain.addEventListener("dragenter", (e) => { //진입
             span.innerHTML = "";
             create_change(span);
         }
+        else if (span.textContent.includes("입력") === true) {
+            span.setAttribute('data-value', 'SCANF');
+            span.innerHTML = "";
+            create_scanf(span);
+        }
+        else if (span.textContent.includes("제어문 종료") === true) {
+            span.setAttribute('data-value', 'BREAK');
+            span.innerHTML = "========제어문 종료========";
+        }
+        else if (span.textContent.includes("무한반복") === true) {
+            span.setAttribute('data-value', 'INFINITE_WHILE');
+            span.innerHTML = "";
+            create_infinite_while(span);
+        }
         else if (span.textContent.includes("출력") === true) {
             span.setAttribute('data-value', 'PRINT');
             span.innerHTML = "";
@@ -162,7 +176,6 @@ contain.addEventListener("dragenter", (e) => { //진입
             span.appendChild(plus);
         }
         else {
-            //span.setAttribute('data-value', 'value값넣기')
             create_text(span, 1, 0);
         }
         if (include_close == 0) {
@@ -190,6 +203,14 @@ contain.addEventListener("dragenter", (e) => { //진입
 contain.addEventListener("drop", (e) => { //놓기
     e.preventDefault();
     if (check == 1 && in_check == 0) { //목록에서 들고 왔으면
+
+
+        if (span_setting.getAttribute('data-value') === 'BREAK') {
+            if (control_between_check(span_setting) === false) {
+                const re = document.getElementById("immediate" + cnt.toString());
+                re.remove();
+            }
+        }
 
         above_block = getSpanAboveCurrent(contain, span_setting); //여기서 부터 switch 정리
         if (above_block && above_block.getAttribute('data-value') != null) {
@@ -225,6 +246,11 @@ contain.addEventListener("drop", (e) => { //놓기
             span_setting.classList.remove("select");
             span_close_setting.classList.remove("select");
         }
+        if (span_setting.getAttribute('data-value') && span_setting.getAttribute('data-value') === 'BREAK') {
+            if (control_between_check(span_setting) === false) {
+                insertAfter(span_setting, pre_block);
+            }
+        }
         if (span_setting.getAttribute('data-value') && span_setting.getAttribute('data-value') === "SWITCH") {
             if (getSpanAboveCurrent(contain, switch_start) && getSpanAboveCurrent(contain, switch_start).getAttribute('data-value') && getSpanAboveCurrent(contain, switch_start).getAttribute('data-value') !== "SWITCH") {
                 var standard = switch_start;
@@ -236,7 +262,7 @@ contain.addEventListener("drop", (e) => { //놓기
                 switch_array = [];
                 left_mouse_down = 0;
             }
-            else if(getSpanAboveCurrent(contain, switch_start) == null){
+            else if (getSpanAboveCurrent(contain, switch_start) == null) {
                 var standard = switch_start;
                 for (var i = 0; i < switch_array.length; i++) {
                     insertAfter(switch_array[i], standard);

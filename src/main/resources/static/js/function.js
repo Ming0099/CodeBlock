@@ -499,6 +499,24 @@ function create_change(element) {
     })
 }
 
+function create_infinite_while(element){
+    explain = document.createTextNode("무한반복 (while문)");
+    element.appendChild(explain);
+}
+
+function create_scanf(element){
+    create_text_2(element, 1, 0);
+
+    explain = document.createTextNode(" 입력");
+    element.appendChild(explain);
+    
+    element.addEventListener('click', function() {
+        check_use_many_variable = 1;
+        variable_input_texting.disabled = true;
+        
+    })
+}
+
 function create_if(element) { //목록에서 code_screen으로 끌어당길때 만약 조건문 생성
     create_text_2(element, 1, 0);
 
@@ -567,6 +585,9 @@ function add_close_block(color) {
     else if(target_id === "스위치"){
         span_close.setAttribute('data-value', "/SWITCH");
     }
+    else if(target_id === "무한반복"){
+        span_close.setAttribute('data-value', "/INFINITE_WHILE");
+    }
     span_close.id = "close_immediate" + cnt.toString();
     span_close.classList.add("conding_contents");
     span_close.classList.add("closed");
@@ -575,6 +596,7 @@ function add_close_block(color) {
     span_close.style.backgroundColor = "rgba(" + color[0].toString() + ", " + color[1].toString() + ", " + color[2].toString() + ", 0.5)";
     return span_close
 }
+
 function check_switch_complete(span) {
     var now_above = getSpanAboveCurrent(contain, span);
     if(now_above != undefined) {
@@ -663,5 +685,38 @@ function switch_remove(){
         for (var i = 0; i < spans_array.length; i++) {
             contain.removeChild(spans_array[i]);
         }
+    }
+}
+
+function control_between_check(element) {
+    var cnt_check = 0;
+    var plus_list = ['WHILE', 'IF', 'FOR', 'INFINITE_WHILE'];
+    var next_span = getSpanAboveCurrent(contain, element);
+    var case_check = 1;
+    while(next_span != undefined){
+        if(next_span.getAttribute('data-value')) {
+            if((next_span.getAttribute('data-value') == "CASE") && case_check == 1) {
+                return false;
+            }
+            else if(next_span.getAttribute('data-value') == "SWITCH" && case_check == 1){
+                return false;
+            }
+            else if(plus_list.includes(next_span.getAttribute('data-value'))){
+                cnt_check -= 1;
+            }
+        }
+        if(next_span.textContent.includes('/스위치')){
+            case_check = 0;
+        }
+        else if(next_span.textContent.includes('/')){
+            cnt_check += 1;
+        }
+        next_span = getSpanAboveCurrent(contain, next_span);
+    }
+    if(cnt_check < 0){
+        return true;
+    }
+    else{
+        return false;
     }
 }
