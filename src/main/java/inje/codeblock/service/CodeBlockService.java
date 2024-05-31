@@ -90,6 +90,10 @@ public class CodeBlockService {
             }
 
             if(codeBlock.getContentById(i).contains("/")){
+                if(codeBlock.getContentById(i).equals("/FOR") || codeBlock.getContentById(i).equals("/WHILE")){
+                    // 반복문 종료
+                    cTranslator.closeIterator();
+                }
                 cTranslator.closeBrace();
             }else{
                 j++;
