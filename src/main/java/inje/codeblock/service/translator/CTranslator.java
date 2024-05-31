@@ -10,12 +10,15 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
     private Stack<Integer> codeDepthStack;
     private Variable variable; // 변수모음
     private boolean isStdioHeader = false;
+    private int iteratorDepth;
+    private final String[] iteratorSign = {"i","j","k"};
 
     public CTranslator() {
         code = new StringBuilder();
         codeDepthStack = new Stack<>();
         codeDepthStack.push(0);
         variable = new Variable();
+        iteratorDepth = 0;
 
         // main 함수
         code.append("int main(){\n");
@@ -127,21 +130,56 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
     }
 
     @Override
+    public void translateScanf(String name) {
+        // stdio 헤더파일 필요
+        isStdioHeader = true;
+
+        // 꺽쇠 제거
+        name = name.substring(1,name.length()-1);
+
+        String type = variable.getTypeByName(name);
+        String sign = typeToScanfString(type);
+
+        createIndent(getCodeDepth());
+
+        code.append("scanf(\"").append(sign).append("\", ");
+        if(!sign.equals("%s")){
+            code.append("&");
+        }
+        code.append(name).append(")\n");
+    }
+
+    @Override
     public void translateFor(int count) {
         createIndent(getCodeDepth());
-        code.append("for(int i = 0; i < ").append(count).append("; i++) {\n");
+
+        String sign = getIteratorSignAndRun();
+
+        code.append("for(int ").append(sign).append(" = 0; ").append(sign)
+                .append(" < ").append(count).append("; ").append(sign).append("++) {\n");
         codeDepthStack.push(codeDepthStack.peek() + 1);
     }
 
     @Override
     public void translateWhile(int count) {
         createIndent(getCodeDepth());
-        code.append("int i = 0;\n");
+
+        String sign = getIteratorSignAndRun();
+
+        code.append("int ").append(sign).append(" = 0;\n");
         createIndent(getCodeDepth());
-        code.append("while(i < ").append(count).append(") {\n");
+        code.append("while(").append(sign).append(" < ").append(count).append(") {\n");
         codeDepthStack.push(codeDepthStack.peek() + 1);
         createIndent(getCodeDepth());
-        code.append("i++;\n");
+        code.append(sign).append("++;\n");
+    }
+
+    @Override
+    public void translateInfiniteWhile() {
+        createIndent(getCodeDepth());
+
+        code.append("while(1){\n");
+        codeDepthStack.push(codeDepthStack.peek() + 1);
     }
 
     @Override
@@ -238,6 +276,21 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
         }
     }
 
+    public String typeToScanfString(String type){
+        switch (type){
+            case "int":
+                return "%d";
+            case "double":
+                return "%lf";
+            case "char":
+                return "%c";
+            case "char *":
+                return "%s";
+            default:
+                return "";
+        }
+    }
+
     public void addHeaderFile(){
         StringBuilder headerCode = new StringBuilder();
         if(isStdioHeader){
@@ -248,5 +301,21 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
         }
 
         code.insert(0, headerCode);
+    }
+
+    public String getIteratorSignAndRun(){
+        String sign = "";
+        if(iteratorDepth > 2){
+            sign = "k";
+        }else{
+            sign = iteratorSign[iteratorDepth];
+        }
+        iteratorDepth++;
+
+        return sign;
+    }
+
+    public void closeIterator(){
+        iteratorDepth--;
     }
 }
