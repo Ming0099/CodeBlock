@@ -1,0 +1,67 @@
+/* modal screen */
+#print_input_screen2 {
+    width: 400px;
+    height: 150px;
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 16px;
+    color:#fff;
+    text-align: center;
+}
+
+#print_modal_screen1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+/* modal backgound */
+#print_modal_screen2 {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* textarea */
+#print_input_texting{
+    width: 80%;
+    overflow:hidden;
+    white-space: nowrap;
+    font-size: 20px;
+    resize:none;
+    border-radius: 10px;
+    padding-left: 10px;
+    margin-bottom: 6px;
+}
+
+/* cancel & save button*/
+button.click_text{
+    margin-right: 20%;
+    border-radius: 10px;
+    border-width: 1px;
+    float: right;
+    width: 20%;
+    background-color: black;
+    color:#fff;
+}
+
+
+section.size{
+    text-align: center;
+}
+
+.modal_variable{ /*변수 모달의 변수디자인*/
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: #855CD6;
+    cursor: pointer;
+    color: #fff;
+    margin-left: 6px;
+}
