@@ -507,7 +507,7 @@ function create_infinite_while(element){
 function create_scanf(element){
     create_text_2(element, 1, 0);
 
-    explain = document.createTextNode(" 입력");
+    explain = document.createTextNode("에 입력받기");
     element.appendChild(explain);
     
     element.addEventListener('click', function() {

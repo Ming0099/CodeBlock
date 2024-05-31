@@ -125,12 +125,12 @@ contain.addEventListener("dragenter", (e) => { //진입
             span.innerHTML = "";
             create_operator(span);
         }
-        else if (span.textContent.includes('연산자 사용하여 값 변경') === true) {
+        else if (span.textContent.includes('연산자 값 변경') === true) {
             span.setAttribute('data-value', 'CHANGE_OPERATOR');
             span.innerHTML = "";
             create_change_operator(span);
         }
-        else if (span.textContent.includes('단순 값 변경') === true) {
+        else if (span.textContent.includes('값 변경') === true) {
             span.setAttribute('data-value', 'CHANGE');
             span.innerHTML = "";
             create_change(span);
@@ -142,7 +142,7 @@ contain.addEventListener("dragenter", (e) => { //진입
         }
         else if (span.textContent.includes("제어문 종료") === true) {
             span.setAttribute('data-value', 'BREAK');
-            span.innerHTML = "========제어문 종료========";
+            span.innerHTML = "제어문 종료";
         }
         else if (span.textContent.includes("무한반복") === true) {
             span.setAttribute('data-value', 'INFINITE_WHILE');

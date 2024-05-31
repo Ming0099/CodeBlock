@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <title>Document</title>
+    <title>Code Block</title>
     <link rel="stylesheet" type="text/css" href="css/index/header.css">
     <link rel="stylesheet" type="text/css" href="css/index/body.css">
     <link rel="stylesheet" type="text/css" href="css/index/modal.css">
@@ -25,12 +25,6 @@
                     <li id="first_menu"><a href="/">Home</a></li>
                     <li><a href="/learn">학습하기</a></li>
                     <li><a href="/reference">도움말</a></li>
-                </ul>
-            </div>
-            <div class="header_myinfo">
-                <ul>
-                    <li><a href="#">Sign in</a></li>
-                    <li><a href="#">Sign up</a></li>
                 </ul>
             </div>
         </div>
@@ -55,9 +49,9 @@
                     </div>
                     <!--변경 블럭들-->
                     <div class="blocks" id="change_blocks">
-                        <li class="button" draggable="true">연산자 사용하여 값 변경</li>
+                        <li class="button" draggable="true">연산자 값 변경</li>
                         <li class="underbar"></li>
-                        <li class="button" draggable="true">단순 값 변경</li>
+                        <li class="button" draggable="true">값 변경</li>
                         <li class="underbar"></li>
                     </div>
                     <!--제어문 블럭들-->
@@ -117,13 +111,13 @@
 
     <div id="variable_modal_screen2">
         <div id="input_screen2">
-            <span>내변수 모달 테스트</span>
+            <span>내 변수</span>
             <textarea id="variable_input_texting"
                 style="margin-left: 3%; margin-top: 2%; width: 90%; height: 30px; background-color: white;"></textarea>
             <div id="my_variable_blocks_in_modal">
             </div>
             <br>
-            <span>출력블럭에서 변수 사용시으로 구분.</span>
+            <span>선언된 변수만 사용할 수 있습니다.</span>
             <button id="variable_save_text" class="click_text">저장</button>
             <button id="variable_cancel_text" class="click_text">취소</button>
         </div>
