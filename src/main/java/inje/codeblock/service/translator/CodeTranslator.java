@@ -11,10 +11,14 @@ public interface CodeTranslator {
     void translateOperator(String name, String value1, String operator, String value2);
     // 출력문 변환
     void translatePrint(String text);
+    // 입력문 변환
+    void translateScanf(String name);
     // for 루프 변환
     void translateFor(int count);
     // while 루프 변환
     void translateWhile(int count);
+    // infinity while 루프 변환
+    void translateInfiniteWhile();
     // 조건문 변환
     void translateIf(String s1, String condition, String s2);
     // 스위치 변환
