@@ -19,6 +19,9 @@ public class CodeBlockService {
     private final String CASE = "CASE";
     private final String CHANGE = "CHANGE";
     private final String CHANGE_OPERATOR = "CHANGE_OPERATOR";
+    private final String INFINITE_WHILE = "INFINITE_WHILE";
+    private final String BREAK = "BREAK";
+    private final String SCANF = "SCANF";
 
     public String translate(CodeBlock codeBlock){
         System.out.println(codeBlock);
@@ -53,6 +56,9 @@ public class CodeBlockService {
                 case PRINT:
                     cTranslator.translatePrint(codeBlock.getChildById(j)[0]);
                     break;
+                case SCANF:
+                    cTranslator.translateScanf(codeBlock.getChildById(j)[0]);
+                    break;
                 case VARIABLE:
                     cTranslator.translateVariable(codeBlock.getChildById(j)[0],codeBlock.getChildById(j)[1]);
                     break;
@@ -67,6 +73,12 @@ public class CodeBlockService {
                     break;
                 case WHILE:
                     cTranslator.translateWhile(Integer.parseInt(codeBlock.getChildById(j)[0]));
+                    break;
+                case INFINITE_WHILE:
+                    cTranslator.translateInfiniteWhile();
+                    break;
+                case BREAK:
+                    cTranslator.translateBreak();
                     break;
                 case VARIABLE_OPERATOR:
                     cTranslator.translateOperator(codeBlock.getChildById(j)[0],codeBlock.getChildById(j)[1],codeBlock.getChildById(j)[2],codeBlock.getChildById(j)[3]);

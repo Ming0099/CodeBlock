@@ -585,7 +585,7 @@ function add_close_block(color) {
     else if(target_id === "스위치"){
         span_close.setAttribute('data-value', "/SWITCH");
     }
-    else if(target_id === "무한반복"){
+    else if(target_id.includes("무한반복")){
         span_close.setAttribute('data-value', "/INFINITE_WHILE");
     }
     span_close.id = "close_immediate" + cnt.toString();

@@ -130,6 +130,26 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
     }
 
     @Override
+    public void translateScanf(String name) {
+        // stdio 헤더파일 필요
+        isStdioHeader = true;
+
+        // 꺽쇠 제거
+        name = name.substring(1,name.length()-1);
+
+        String type = variable.getTypeByName(name);
+        String sign = typeToScanfString(type);
+
+        createIndent(getCodeDepth());
+
+        code.append("scanf(\"").append(sign).append("\", ");
+        if(!sign.equals("%s")){
+            code.append("&");
+        }
+        code.append(name).append(")\n");
+    }
+
+    @Override
     public void translateFor(int count) {
         createIndent(getCodeDepth());
 
@@ -152,6 +172,14 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
         codeDepthStack.push(codeDepthStack.peek() + 1);
         createIndent(getCodeDepth());
         code.append(sign).append("++;\n");
+    }
+
+    @Override
+    public void translateInfiniteWhile() {
+        createIndent(getCodeDepth());
+
+        code.append("while(1){\n");
+        codeDepthStack.push(codeDepthStack.peek() + 1);
     }
 
     @Override
@@ -239,6 +267,21 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
                 return "%d";
             case "double":
                 return "%f";
+            case "char":
+                return "%c";
+            case "char *":
+                return "%s";
+            default:
+                return "";
+        }
+    }
+
+    public String typeToScanfString(String type){
+        switch (type){
+            case "int":
+                return "%d";
+            case "double":
+                return "%lf";
             case "char":
                 return "%c";
             case "char *":
