@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="css/index/modal.css">
     <link rel="stylesheet" type="text/css" href="css/index/object.css">
     <link rel="stylesheet" type="text/css" href="css/index/variable_modal.css">
+    <link rel="stylesheet" type="text/css" href="css/index/print_modal.css">
     <link rel="stylesheet" type="text/css" href="prism/prism.css">
 </head>
 
@@ -118,10 +119,27 @@
             </div>
             <br>
             <span>선언된 변수만 사용할 수 있습니다.</span>
+            <br><br>
             <button id="variable_save_text" class="click_text">저장</button>
             <button id="variable_cancel_text" class="click_text">취소</button>
         </div>
     </div>
+
+    <div id="print_modal_screen2">
+        <div id="print_input_screen2">
+            <span>출력</span>
+            <textarea id="print_input_texting"
+                style="margin-left: 3%; margin-top: 2%; width: 90%; height: 30px; background-color: white;"></textarea>
+            <div id="my_variable_blocks_in_print_modal">
+            </div>
+            <br>
+            <span>변수와 입력을 혼합하여 사용할 수 있습니다.</span>
+            <br><br>
+            <button id="print_save_text" class="click_text">저장</button>
+            <button id="print_cancel_text" class="click_text">취소</button>
+        </div>
+    </div>
+
 
     <script src="prism/prism.js"></script>
     <script src="js/variable_name.js"></script>

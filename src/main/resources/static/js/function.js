@@ -277,6 +277,16 @@ $(document).ready(function () { //출력하기
     $("#variable_cancel_text").click(function () { //취소
         close_modal2();
     });
+
+    $("#print_save_text").click(function () { //저장
+        var content_temp = $('#print_input_texting').val();
+        $("#" + input_text_element.id).val(content_temp); // 클릭한 버튼 텍스트값 저장했던거 넣기
+        close_print_modal();
+    });
+
+    $("#print_cancel_text").click(function () { //취소
+        close_print_modal();
+    });
 });
 
 function close_modal2() { //모달창 닫기
@@ -290,6 +300,14 @@ function close_modal() { //모달창 닫기
     $("#input_texting").val("");
     document.getElementById("modal_screen2").style.display = "none";
     document.getElementById("variable_modal_screen2").style.display = "none";
+    document.getElementById("print_modal_screen2").style.display = "none";
+    document.getElementById("modal_screen1").style.zIndex = "2";
+}
+
+function close_print_modal() { //모달창 닫기
+    document.getElementById('print_input_texting').innerHTML = "";
+    document.getElementById("print_modal_screen2").style.display = "none";
+    document.getElementById("modal_screen2").style.display = "none";
     document.getElementById("modal_screen1").style.zIndex = "2";
 }
 
@@ -375,6 +393,38 @@ function create_text_2(element, create_cnt, start_num) { //목록에서 code_scr
     }
 }
 
+function create_text_print(element, create_cnt, start_num) { //목록에서 code_screen으로 끌어당길때 text 생성
+    for (var i = 0; i < create_cnt; i++) {
+        var texting = document.createElement('input'); //texting의 기능
+        texting.type = 'text';
+        if(element.getAttribute('data-value').includes("CASE")){
+            texting.id = "texting_immediate" + element.id.match(/\d+/g)[0].toString() + "-" + element.id.match(/\d+/g)[1].toString() + "-" + (start_num + i + 1).toString();
+        }
+        else{
+            texting.id = "texting_immediate" + element.id.match(/\d+/g)[0].toString() + "-" + (start_num + i + 1).toString();
+        }
+        texting.readOnly = true;
+        texting.classList.add("code_text");
+        texting.onclick = function (element) {
+            return function (e) {
+                input_text_element = element;
+                var content_temp = $('#' + input_text_element.id).val();
+                $("#print_input_texting").val(content_temp);
+                texting_backup = $("#print_input_texting").val();
+                $("#print_input_screen2").css({
+                    "left" : e.x+150+"px",
+                    "top" : e.y+40+"px",
+                    "height" : "auto"
+                });
+                input_print_modal_screen(element.parentNode);
+                document.getElementById("print_modal_screen2").style.display = "block";
+                document.getElementById("modal_screen1").style.zIndex = "-1";
+            };
+        }(texting);
+        element.appendChild(texting);
+    }
+}
+
 function create_for(element) {
     create_text(element, 1, 0);
 
@@ -390,7 +440,7 @@ function create_while(element) {
 }
 
 function create_print(element) {
-    create_text_2(element, 1, 0);
+    create_text_print(element, 1, 0);
 
     explain = document.createTextNode(" 출력");
     element.appendChild(explain);

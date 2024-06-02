@@ -117,10 +117,19 @@ function input_variable_modal_screen2(end_span) {
     });
 }
 
+function input_print_modal_screen(end_span) {
+    var { temp_input_variable, start_span } = can_use_variable(spans[0], end_span); //처음 부터 클릭한 값까지 찾기
+    var modal = document.getElementById('my_variable_blocks_in_print_modal');
+    temp_input_variable.forEach(per => {
+        modal.appendChild(per);
+    });
+}
+
 function can_use_variable(start_span, end_span) {
     var input_variable = [];
     save_modal_variable_blocks = [];
     document.getElementById('my_variable_blocks_in_modal').innerHTML = "";
+    document.getElementById('my_variable_blocks_in_print_modal').innerHTML = "";
     while (start_span != null) {
         if (start_span.classList.contains('closed')) { //괄호 여부 
             if (start_span.id.includes('close_')) { // 닫는 괄호
@@ -159,18 +168,18 @@ function can_use_variable(start_span, end_span) {
                                     $('#variable_input_texting').val('<' + this.textContent + '>');
                                 }
                                 else {
-                                    var find_input_select = document.getElementById('variable_input_texting');
+                                    var find_input_select = document.getElementById('print_input_texting');
                                     if (find_input_select.selectionStart == find_input_select.textContent.length - 1) {
-                                        var content_temp = $('#variable_input_texting').val() + '<' + this.textContent + '>';
-                                        $('#variable_input_texting').val(content_temp);
-                                        $('#variable_input_texting').focus();
-                                        texting_backup = $('#variable_input_texting').val();
+                                        var content_temp = $('#print_input_texting').val() + '<' + this.textContent + '>';
+                                        $('#print_input_texting').val(content_temp);
+                                        $('#print_input_texting').focus();
+                                        texting_backup = $('#print_input_texting').val();
                                     }
                                     else{
-                                        var temp_text = document.getElementById('variable_input_texting').value.slice(0, find_input_select.selectionStart) + '<' + this.textContent + '>' + document.getElementById('variable_input_texting').value.slice(find_input_select.selectionStart)
-                                        document.getElementById('variable_input_texting').value = temp_text;
-                                        $('#variable_input_texting').focus();
-                                        texting_backup = $('#variable_input_texting').val();
+                                        var temp_text = document.getElementById('print_input_texting').value.slice(0, find_input_select.selectionStart) + '<' + this.textContent + '>' + document.getElementById('print_input_texting').value.slice(find_input_select.selectionStart)
+                                        document.getElementById('print_input_texting').value = temp_text;
+                                        $('#print_input_texting').focus();
+                                        texting_backup = $('#print_input_texting').val();
                                     }
                                 }
 
@@ -204,17 +213,17 @@ function can_use_variable(start_span, end_span) {
                                     $('#variable_input_texting').val('<' + this.textContent + '>');
                                 }
                                 else {
-                                    var find_input_select = document.getElementById('variable_input_texting');
+                                    var find_input_select = document.getElementById('print_input_texting');
                                     if (find_input_select.selectionStart == find_input_select.textContent.length - 1) {
-                                        var content_temp = $('#variable_input_texting').val() + '<' + this.textContent + '>';
-                                        $('#variable_input_texting').val(content_temp);
-                                        $('#variable_input_texting').focus();
-                                        texting_backup = $('#variable_input_texting').val();
+                                        var content_temp = $('#print_input_texting').val() + '<' + this.textContent + '>';
+                                        $('#print_input_texting').val(content_temp);
+                                        $('#print_input_texting').focus();
+                                        texting_backup = $('#print_input_texting').val();
                                     }
                                     else{
-                                        var temp_text = document.getElementById('variable_input_texting').value.slice(0, find_input_select.selectionStart) + '<' + this.textContent + '>' + document.getElementById('variable_input_texting').value.slice(find_input_select.selectionStart)
-                                        document.getElementById('variable_input_texting').value = temp_text;
-                                        texting_backup = document.getElementById('variable_input_texting').value;
+                                        var temp_text = document.getElementById('print_input_texting').value.slice(0, find_input_select.selectionStart) + '<' + this.textContent + '>' + document.getElementById('variable_input_texting').value.slice(find_input_select.selectionStart)
+                                        document.getElementById('print_input_texting').value = temp_text;
+                                        texting_backup = document.getElementById('print_input_texting').value;
                                     }
                                 }
 
