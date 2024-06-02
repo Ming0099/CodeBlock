@@ -146,7 +146,7 @@ public class CTranslator extends TranslatorFunction implements CodeTranslator{
         if(!sign.equals("%s")){
             code.append("&");
         }
-        code.append(name).append(")\n");
+        code.append(name).append(");\n");
     }
 
     @Override
