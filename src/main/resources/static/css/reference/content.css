@@ -1,0 +1,31 @@
+div.content_box{
+    height: 500px;
+    padding-right: 100px;
+}
+
+div.content{
+    padding-left: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+div.content hr{
+    width: 100%;
+    margin: 0;
+}
+
+div.content h2{
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+div.content h3{
+    font-size: 22px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+div.content p.step{
+    font-size: 18px;
+    font-weight: bold;
+}

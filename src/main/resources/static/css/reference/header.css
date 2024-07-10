@@ -1,0 +1,88 @@
+body{
+    min-width: 1000px;
+    min-height: 1000px;
+    overflow-x: hidden;
+}
+
+/* 상단바 */
+div.header{
+    min-height: 50px;
+    min-width: 1000px;
+    background-color: black;
+    display: flex;
+    height: 6%;
+    width: 100%;
+    align-items: center;
+    position: fixed;
+}
+
+/* title */
+div.header_title{
+    height: 100%;
+    font-weight: bold;
+    color: #fff;
+    text-align: left;
+    width: 15%;
+}
+div.header_title a{
+    display: flex;
+    color: white;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+/* menu */
+div.header_menu{
+    height: 100%;
+    display: flex;
+    width: 60%;
+}
+div.header_menu ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+div.header_menu ul li{
+    height: 100%;
+    border-right: 1px dashed #fff;
+    float: left;
+}
+div.header_menu ul li[id="first_menu"]{
+    border-left: 1px dashed #fff;
+}
+div.header div ul li a{
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 10vw;
+    text-decoration: none;
+}
+
+/* login sign_up */
+div.header_myinfo{
+    height: 100%;
+    width: 30%;
+}
+div.header_myinfo ul{
+    height: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    float: right;
+}
+div.header_myinfo ul li{
+    height: 100%;
+    border-left: 1px dashed #fff;
+    float: left;
+}
+
+
+div.header a:hover{
+    background-color: darkgray;
+}

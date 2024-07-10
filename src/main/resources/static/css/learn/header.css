@@ -1,0 +1,102 @@
+body{
+    min-width: 1000px;
+    min-height: 1000px;
+}
+
+/* 가로 스크롤이 필요한 경우에만 적용되는 스타일 */
+@media (max-width: 1000px) {
+    body {
+        overflow-x: auto;
+    }
+}
+
+/* 가로 스크롤이 필요하지 않은 경우에만 적용되는 스타일 */
+@media (min-width: 1001px) {
+    body {
+        overflow-x: hidden;
+    }
+}
+
+/* 상단바 */
+div.header{
+    background-color: #855CD6;
+    display: flex;
+    height: 6%;
+    width: 100%;
+    align-items: center;
+}
+
+/* title */
+div.header_title{
+    font-weight: bold;
+    color: #fff;
+    text-align: left;
+    height: 100%;
+    align-content: center;
+    width: 15%;
+}
+div.header_title a{
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    height: 100%;
+}
+
+/* menu */
+div.header_menu{
+    display: flex;
+    width: 60%;
+    height: 100%;
+}
+div.header_menu ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+div.header_menu ul li{
+    border-right: 1px dashed #fff;
+    height: 100%;
+    float: left;
+}
+div.header_menu ul li[id="first_menu"]{
+    border-left: 1px dashed #fff;
+}
+div.header div ul li a{
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-decoration: none;
+    height: 100%;
+}
+
+/* login sign_up */
+div.header_myinfo{
+    height: 100%;
+    width: 30%;
+    padding-right: 10px;
+}
+div.header_myinfo ul{
+    height: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    float: right;
+}
+div.header_myinfo ul li{
+    height: 100%;
+    border-left: 1px dashed #fff;
+    float: left;
+}
+
+
+div.header a:hover{
+    background-color: #652dd4;
+}

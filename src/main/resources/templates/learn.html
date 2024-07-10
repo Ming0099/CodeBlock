@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>Code Block 학습하기</title>
+    <link rel="stylesheet" type="text/css" href="css/learn/header.css">
+    <link rel="stylesheet" type="text/css" href="css/learn/body.css">
+    <link rel="stylesheet" type="text/css" href="css/learn/modal.css">
+</head>
+<body style="margin: 0; padding: 0; width: 100vw; height: 100vh;">
+    <div class="header">
+        <div class="header_title">
+            <a href="/">Code Block</a>
+        </div>
+        <div class="header_menu">
+            <ul>
+                <li id="first_menu"><a href="/">Home</a></li>
+                <li><a href="/learn">학습하기</a></li>
+                <li><a href="/reference">도움말</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="bodyBox">
+        <div class="vanner">
+            <div class="vanner_content">
+                <div class="vanner_title">
+                    CODE BLOCK 학습하기
+                </div>
+                <div class="vanner_text">
+                    <p>학습하기를 통해서 CODE BLOCK의 사용법을 익혀보세요.</p>
+                    <p>단계별 학습을 통해 조작법 및 사용법을 쉽게 배울 수 있습니다.</p>
+                    <p>아래 탭에서 학습해보세요.</p>
+                    <button onclick="location.href='/' ">새 코드 블럭 생성하기</button>
+                </div>
+            </div>
+        </div>
+        <div class="study_contents">
+            <div class="study_content_menu">
+                <div class="study_content" id="step1">
+                    <div class="study_content_title">
+                        STEP 1
+                    </div>
+                    <div class="study_content_image">
+                        <img src="image/learn/title/step1.png">
+                    </div>
+                    <div class="study_content_text">
+                        조작법 익히기
+                    </div>
+                </div>
+                <div class="study_content" id="step2">
+                    <div class="study_content_title">
+                        STEP 2
+                    </div>
+                    <div class="study_content_image">
+                        <img src="image/learn/title/step2.png">
+                    </div>
+                    <div class="study_content_text">
+                        변수 선언
+                    </div>
+                </div>
+                <div class="study_content" id="step3">
+                    <div class="study_content_title">
+                        STEP 3
+                    </div>
+                    <div class="study_content_image">
+                        <img src="image/learn/title/step3.png">
+                    </div>
+                    <div class="study_content_text">
+                        if문
+                    </div>
+                </div>
+            </div>
+            <div class="study_content_menu">
+                <div class="study_content" id="step4">
+                    <div class="study_content_title">
+                        STEP 4
+                    </div>
+                    <div class="study_content_image">
+                        <img src="image/learn/title/step4.png">
+                    </div>
+                    <div class="study_content_text">
+                        반복문
+                    </div>
+                </div>
+                <div class="study_content" id="step5">
+                    <div class="study_content_title">
+                        STEP 5
+                    </div>
+                    <div class="study_content_image">
+                        <img src="image/learn/title/step5.png">
+                    </div>
+                    <div class="study_content_text">
+                        스위치문
+                    </div>
+                </div>
+                <div class="study_content" id="step6">
+                    <div class="study_content_title">
+                        STEP 6
+                    </div>
+                    <div class="study_content_image">
+                        <img src="image/learn/title/step6.png">
+                    </div>
+                    <div class="study_content_text">
+                        내 변수
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="modalbackground">
+        <div class="window" onclick="cancel(event)">
+            <div class="popup">
+                <div class="popup_top">
+                    조작법 익히기
+                </div>
+                <div class="popup_body">
+                    <div class="slides">
+                    </div>
+                    <button class="prev-btn">&lt;</button>
+                    <button class="next-btn">&gt;</button>
+                    <button class="to_learn" onclick="to_learn()">학습하러 가기</button>
+                    <button class="to_exit">학습종료</button>
+                </div>
+                <div class="popup_foot">
+                    <div class="popup_foot_info"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/learn/modalController.js"></script>
+    <script>
+        function to_learn(){
+            location.href = "/step1";
+        }
+    </script>
+</body>
+    
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/reference/header.css">
+    <link rel="stylesheet" type="text/css" href="css/reference/nav.css">
+    <link rel="stylesheet" type="text/css" href="css/reference/content.css">
+</head>
+<body style="margin: 0; padding: 0; width: 100vw; height: 100vh;">
+    <div class="header">
+        <div class="header_title">
+            <a href="#">Code Block</a>
+        </div>
+        <div class="header_menu">
+            <ul>
+                <li id="first_menu"><a href="/">Home</a></li>
+                <li><a href="/learn">학습하기</a></li>
+                <li><a href="/reference">도움말</a></li>
+            </ul>
+        </div>
+    </div>
+    <nav class="sidebar">
+        <h1>도움말</h1>
+        <hr>
+        <ol>
+            <li>
+                <a href="#codeblock">코드 블록이란?</a>
+            </li>
+            <li>
+                <a href="#use">사용 방법</a>
+            </li>
+            <li>
+                <a href="#declaration">선언</a>
+                <a class="small" href="#variable">변수</a>
+                <a class="small" href="#operator">연산자</a>
+            </li>
+            <li>
+                <a href="#control">제어문</a>
+                <a class="small" href="#repeat">반복문</a>
+                <a class="small" href="#if">만약</a>
+                <a class="small" href="#switch">스위치</a>
+                <a class="small" href="#infinity_while">무한반복</a>
+                <a class="small" href="#break">제어문 종료</a>
+            </li>
+            <li>
+                <a href="#input_output">입출력문</a>
+                <a class="small" href="#scanf">입력</a>
+                <a class="small" href="#print">출력</a>
+            </li>
+            <li>
+                <a href="#my_variable">내 변수</a>
+            </li>
+        </ol>
+    </nav>
+    <div class="content_box">
+        <div class="content">
+            <section id="codeblock">
+                <h2>코드 블록이란?</h2>
+                <hr>
+                <p>
+                    코드 블록이란 Drag & Drop 방식으로 다양한 블록들을 사용하여 구성한 블록 코드를
+                    프로그래밍 언어인 C언어로 번역해주는 웹 사이트입니다.
+                </p>
+                <p>
+                    코드 블록은 쉬운 접근성과 조작으로 
+                    비전공자나 코딩 입문자들이 C언어나 JAVA언어와 같은 
+                    프로그래밍 언어에 대해 쉽게 적응할 수 있게 도와줍니다.
+                </p>
+            </section>
+
+            <br>
+
+            <section id="use">
+                <h2>사용 방법</h2>
+                <hr>
+                <p class="step">1단계</p>
+                <p>
+                    좌측 탭에서 사용하고자 하는 블록의 타입(선언,제어문,입출력문,내 변수)을 클릭하여 정하고
+                    사용하고자 하는 블록을 드래그하여 코드 스크린에 놓아 블록을 생성합니다.
+                </p>
+                <p>
+                    코드 스크린에 생성된 블록들의 위치는 블록들을 드래그하여 변경할 수 있습니다.
+                    단, 제어문의 닫는 블록 위치는 변경할 수 없고 블록들의 위치를 부적절한 위치로 변경할 시
+                    블록이 원래 있던 위치로 돌아가게 됩니다. 
+                </p>
+                <p class="step">2단계</p>
+                <p>코드 스크린에 생성된 코드블록에 값을 부여합니다.</p>
+                <p>
+                    생성된 블록의 텍스트박스 부분을 클릭하면 각각에 맞는 입력창이 뜨게 됩니다.
+                    입력창에서 내가 선언한 변수 블록을 사용하거나 직접 텍스트를 입력할 수 있습니다.
+                    완료 버튼을 눌러 입력한 값을 저장하거나 취소 버튼을 눌러 입력한 값을 초기화할 수 있습니다.
+                </p>
+                <p class="step">3단계</p>
+                <p>알맞게 코드 블록들을 구성한 후 번역 버튼을 눌러 C언어로 번역할 수 있습니다.</p>
+            </section>
+
+            <br>
+
+            <section id="declaration">
+                <h2>선언</h2>
+                <hr>
+                <p>
+                    다양한 변수들을 선언할 수 있습니다. 변수 선언시 자료형을 직접 지정하지 않고 입력한 값에 따라 자동으로 자료형이 지정됩니다.
+                    선언된 변수는 자동으로 내 변수 메뉴에 추가되게 되며 입력 모달창에서도 사용할 수 있게 추가됩니다.
+                    변수 이름의 경우, 중복된 이름을 사용할 수 없고 직접 입력된 값만 사용할 수 있습니다.
+                </p>
+
+                <section id="variable">
+                    <h3>변수</h3>
+                    <p>변수의 이름과 값을 입력하여 변수를 선언할 수 있습니다.</p>
+                    <P>값으로는 숫자, 문자, 문자열만 사용할 수 있으며, 다른값을 입력할 시 문자열로 번역될 수 있습니다.</P>
+                </section>
+
+                <section id="operator">
+                    <h3>연산자</h3>
+                    <p>변수의 이름과 값을 입력하고 연산자를 선택하여 연산자 변수를 선언할 수 있습니다.</p>
+                    <p>연산자는 +, -, *, / 중에 선택할 수 있고 값은 숫자만 사용할 수 있습니다.</p>
+                    <p>번역시 첫번째 인자값의 자료형에 따라 번역됩니다.</p>
+                </section>
+
+            </section>
+
+            <br>
+
+            <section id="control">
+                <h2>제어문</h2>
+                <hr>
+                <p>프로그램의 흐름을 제어하는데 사용하는 실행문으로, 반복문, 조건문, 스위치문이 포함되어 있습니다.</p>
+
+                <section id="repeat">
+                    <h3>반복문</h3>
+                    <p>반복문은 조건이 거짓이 될 때까지 반복적으로 수행하는 명령문으로, for문과 while문으로의 번역을 지원합니다.</p>
+                    <p>블록을 생성하고 몇번 반복할지 입력하여 사용할 수 있습니다.</p>
+                </section>
+
+                <section id="if">
+                    <h3>만약</h3>
+                    <p>if문은 조건식이 참인지 거짓인지에 따라 명령문이 실행되거나 실행되지 않는 조건문입니다.</p>
+                    <p>
+                        블록을 생성하고 두 인자값과 비교연산자를 선택하여 사용할 수 있습니다.
+                        인자값의 경우, 선언된 변수 또는 입력한 값을 사용할 수 있습니다. 선언된 변수와 입력한 값을 혼합하여 사용할 수 없습니다.
+                    </p>
+                </section>
+
+                <section id="switch">
+                    <h3>스위치</h3>
+                    <p>스위치문은 변수의 값에 따라 명령문이 실행되거나 실행되지 않는 조건문입니다.</p>
+                    <p>
+                        블록을 생성하고 + 버튼을 눌러 필요한만큼 case 블록을 추가한 후 swicth 블록과 각 case 블록에 인자값을 넣어 사용할 수 있습니다.
+                    </p>
+                    <p>
+                        switch 블록과 case 블록의 인자값에는 선언된 변수 또는 입력한 값을 사용할 수 있습니다. 선언된 변수와 입력한 값을 혼합하여 사용할 수 없습니다.
+                    </p>
+                </section>
+
+                <section id="infinity_while">
+                    <h3>무한반복</h3>
+                    <p>무한반복문은 제어문 종료 명령이 있을 때까지 계속 반복하는 명령문입니다.</p>
+                </section>
+
+                <section id="break">
+                    <h3>제어문 종료</h3>
+                    <p>제어문 종료문은 제어문을 강제 종료 할 수 있는 명령문입니다.</p>
+                    <p>
+                        제어문 안에만 배치할 수 있으며, switch 블록 안에는 예외적으로 배치할 수 없습니다.
+                    </p>
+                </section>
+
+            </section>
+
+            <br>
+
+            <section id="input_output">
+                <h2>입출력문</h2>
+                <hr>
+                <p>다양한 데이터들을 화면에 출력해 주는 출력문과 입력받기 위해 사용되는 입력문을 제공합니다.</p>
+
+                <section id="scanf">
+                    <h3>입력</h3>
+                    <p>
+                        입력문(scanf)은 사용자로 부터 문자를 입력받아 저장하는 명령문입니다.
+                    </p>
+                    <p>
+                        블록을 생성하고 입력받고자 하는 변수의 이름을 인자값으로 넣어 사용할 수 있습니다.<br>
+                        단, 인자값에는 선언된 변수 하나만 사용할 수 있습니다.
+                    </p>
+                </section>
+
+                <section id="print">
+                    <h3>출력</h3>
+                    <p>
+                        출력문은 입력된 문자열을 화면에 출력해 주는 명령문입니다.
+                    </p>
+                    <p>
+                        블록을 생성하고 출력하고자 하는 변수나 문자열을 인자값으로 넣어 사용할 수 있습니다.<br>
+                        인자값에는 선언된 변수와 문자열 모두 섞어 사용할 수 있습니다.
+                    </p>
+                    <p>
+                        홑화살괄호(< >)는 입력시 사용할 수 없습니다.
+                    </p>
+                </section>
+
+            </section>
+
+            <br>
+
+            <section id="my_variable">
+                <h2>내 변수</h2>
+                <hr>
+                <p>
+                    선언 메뉴에서 변수나 연산자 블록을 사용하여 변수를 선언할 경우 내 변수 메뉴에 내가 선언한 블록들이 표시됩니다.
+                </p>
+                <p>
+                    선언된 "내 변수"는 다른 블록들의 입력에 사용할 수 있습니다.
+                </p>
+            </section>
+
+            <br>
+
+        </div>
+    </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const navbarHeight = document.querySelector('.header').offsetHeight;
+            const container = document.querySelector('.sidebar');
+            const content = document.querySelector('.content_box');
+            
+            container.style.marginTop = navbarHeight + 'px';
+            content.style.paddingTop = navbarHeight + 'px';
+            content.style.paddingLeft = container.clientWidth + 'px';
+            content.style.clientWidth = window.innerWidth - container.clientWidth + 'px';
+        });
+        // 창의 크기가 변할때
+        window.addEventListener('resize', () => {
+            const navbarHeight = document.querySelector('.header').offsetHeight;
+            const container = document.querySelector('.sidebar');
+            const content = document.querySelector('.content_box');
+            
+            container.style.marginTop = navbarHeight + 'px';
+            content.style.paddingTop = navbarHeight + 'px';
+            content.style.clientWidth = window.innerWidth - container.clientWidth + 'px';
+        });
+
+        // a 태그를 클릭했을때
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const navbarHeight = document.querySelector('.header').offsetHeight;
+
+        let targetId = this.getAttribute('href').substring(1); // # 제거
+        let targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            let xPosition = 0; // x좌표를 0으로 고정
+            let yPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 10;
+
+            window.scrollTo({
+                    top: yPosition,
+                    behavior: 'smooth'
+                });
+        }
+    });
+});
+    </script>
+</body>
+</html>
