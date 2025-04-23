@@ -1,9 +1,3 @@
-<style>
-    th, td{
-        text-align: center;
-    }
-</style>
-
 <div align="center">
   <h1>코드 블록</h1>
   <br />
@@ -72,9 +66,9 @@
         <th colspan="3">블록 조작</th>
     </tr>
     <tr>
-        <td>생성</td>
-        <td>삭제</td>
-        <td>이동</td>
+        <td align="center">생성</td>
+        <td align="center">삭제</td>
+        <td align="center">이동</td>
     </tr>
     <tr>
         <td><img src="./readme_assets/create.png" alt="블록 생성" width="200px" height="130px"/></td>
@@ -88,8 +82,8 @@
         <th colspan="2">번역</th>
     </tr>
     <tr>
-        <td>코드 블록</td>
-        <td>번역된 후</td>
+        <td align="center">코드 블록</td>
+        <td align="center">번역된 후</td>
     </tr>
     <tr>
         <td><img src="./readme_assets/trans1.png" alt="코드 블록" width="250px"/></td>
