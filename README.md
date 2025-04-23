@@ -1,3 +1,9 @@
+<style>
+    th, td{
+        text-align: center;
+    }
+</style>
+
 <div align="center">
   <h1>코드 블록</h1>
   <br />
@@ -48,12 +54,6 @@
 <br>
 
 ## 데모
-
-<style>
-    th, td{
-        text-align: center;
-    }
-</style>
 
 <div align="center">
 
